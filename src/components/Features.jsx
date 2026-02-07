@@ -39,8 +39,10 @@ const Features = () => {
               <div className="feature-icon">
                 {featureIcons[index]}
               </div>
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
+              <div className="feature-text">
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
             </div>
           ))}
         </div>

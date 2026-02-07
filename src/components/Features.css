@@ -100,12 +100,17 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.4);
 }
 
+.feature-text {
+  min-width: 0;
+  width: 100%;
+}
+
 .feature-card h3 {
   font-size: 1.1rem;
   margin-bottom: 12px;
   color: var(--black);
   text-align: center;
-  width: 100%;
+  overflow-wrap: break-word;
 }
 
 .feature-card p {
@@ -113,8 +118,8 @@
   line-height: 1.6;
   color: var(--grey);
   text-align: center;
-  width: 100%;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 /* Shimmer animation */
@@ -139,8 +144,9 @@
   }
 
   .feature-card {
-    padding: 20px 16px;
+    padding: 20px 14px;
     border-radius: 16px;
+    overflow: hidden;
   }
 
   /* Disable hover effects on mobile */
@@ -167,22 +173,26 @@
   }
 
   .feature-icon {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   .feature-card h3 {
-    font-size: 0.95rem;
-    margin-bottom: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .feature-card p {
-    font-size: 0.8rem;
-    line-height: 1.5;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 
@@ -195,24 +205,40 @@
   .feature-card {
     flex-direction: row;
     text-align: left;
-    padding: 16px;
-    gap: 14px;
+    padding: 14px;
+    gap: 12px;
+    align-items: center;
   }
 
   .feature-icon {
     margin: 0;
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    min-height: 46px;
-    font-size: 1.2rem;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .feature-card h3,
+  .feature-card p {
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .feature-card h3 {
-    text-align: left;
+    font-size: 0.88rem;
+    margin-bottom: 3px;
   }
 
   .feature-card p {
-    text-align: left;
+    font-size: 0.78rem;
+    line-height: 1.4;
   }
 }
