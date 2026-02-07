@@ -400,13 +400,15 @@
     right: 14px;
   }
 
-  /* Floating button — cleaner on mobile */
+  /* Floating button — above everything when popup open */
   .whatsapp-button {
     width: 54px;
     height: 54px;
     font-size: 1.6rem;
     box-shadow: 0 4px 18px rgba(37, 211, 102, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 10001;
   }
 
   .whatsapp-button.active {
@@ -420,13 +422,19 @@
     display: none;
   }
 
-  /* Backdrop overlay */
+  /* Backdrop overlay — full screen */
   .whatsapp-backdrop {
     display: block;
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 9998;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
     animation: fadeIn 0.25s ease;
     -webkit-tap-highlight-color: transparent;
   }
@@ -443,11 +451,15 @@
     left: 0;
     right: 0;
     width: 100%;
-    max-height: 85vh;
+    max-height: 80vh;
+    max-height: 80dvh;
     border-radius: 20px 20px 0 0;
-    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
     animation: sheetSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9999;
+    z-index: 10002;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
   }
 
   @keyframes sheetSlideUp {
@@ -464,15 +476,16 @@
     transform: translateX(-50%);
     width: 36px;
     height: 4px;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 4px;
     z-index: 2;
   }
 
   .popup-header {
-    padding: 20px 16px 14px;
+    padding: 22px 16px 14px;
     gap: 10px;
     border-radius: 20px 20px 0 0;
+    flex-shrink: 0;
   }
 
   .popup-avatar {
@@ -496,11 +509,13 @@
     background: rgba(255, 255, 255, 0.2);
   }
 
-  /* Chat body — more space on mobile */
+  /* Chat body — flex-grow to fill space */
   .popup-body {
     padding: 14px 12px;
-    min-height: 160px;
-    max-height: 45vh;
+    min-height: 140px;
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
     gap: 10px;
   }
 
@@ -516,6 +531,7 @@
     font-size: 0.84rem;
     line-height: 1.45;
     word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .chat-meta {
@@ -532,9 +548,10 @@
     height: 6px;
   }
 
-  /* Footer — bigger button on mobile */
+  /* Footer — account for BottomNav height */
   .popup-footer {
-    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    flex-shrink: 0;
   }
 
   .start-chat-btn {
@@ -564,9 +581,5 @@
   .whatsapp-button.active {
     width: 50px;
     height: 50px;
-  }
-
-  .popup-body {
-    max-height: 40vh;
   }
 }
