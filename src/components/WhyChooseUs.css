@@ -177,7 +177,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    gap: 14px;
+    gap: 12px;
     padding: 16px 12px 12px;
     margin: 0 -12px 20px;
     scrollbar-width: none;
@@ -188,21 +188,50 @@
   }
 
   .how-step {
-    flex: 0 0 75vw;
-    max-width: 75vw;
+    flex: 0 0 70vw;
+    max-width: 70vw;
     scroll-snap-align: center;
-    padding: 28px 18px;
+    padding: 24px 16px;
+  }
+
+  .how-step h4 {
+    font-size: 0.95rem;
+  }
+
+  .how-step p {
+    font-size: 0.8rem;
   }
 
   .how-step:hover {
     transform: none;
   }
+
+  .step-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin: 12px auto 12px;
+  }
+
+  /* WhatsApp consult button — compact on mobile */
+  .btn-whatsapp-consult {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 576px) {
   .how-step {
-    flex: 0 0 80vw;
-    max-width: 80vw;
+    flex: 0 0 78vw;
+    max-width: 78vw;
+  }
+
+  .how-cta .btn-whatsapp-consult {
+    font-size: 0.82rem;
+    padding: 11px 18px;
   }
 }
 

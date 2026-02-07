@@ -499,22 +499,37 @@
   /* Chat body — more space on mobile */
   .popup-body {
     padding: 14px 12px;
-    min-height: 180px;
+    min-height: 160px;
     max-height: 45vh;
     gap: 10px;
   }
 
+  .chat-msg {
+    max-width: 85%;
+  }
+
   .chat-bubble {
-    padding: 10px 14px;
+    padding: 8px 12px;
   }
 
   .chat-bubble p {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    word-break: break-word;
   }
 
   .chat-meta {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    margin-top: 3px;
+  }
+
+  .typing-bubble {
+    padding: 8px 14px;
+  }
+
+  .typing-indicator span {
+    width: 6px;
+    height: 6px;
   }
 
   /* Footer — bigger button on mobile */

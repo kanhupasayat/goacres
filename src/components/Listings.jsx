@@ -173,7 +173,7 @@ const Listings = () => {
                     rel="noopener noreferrer"
                   >
                     <FaWhatsapp style={{ marginRight: '8px' }} />
-                    {t('listings.quickViewBtn')}
+                    <span>{t('listings.priceCta')}</span>
                   </a>
                 </div>
               </div>

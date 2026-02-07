@@ -231,7 +231,17 @@
 
 @media (max-width: 576px) {
   .sold-cta-btn {
-    font-size: 0.95rem;
-    padding: 14px 28px;
+    font-size: 0.85rem;
+    padding: 12px 22px;
+    white-space: nowrap;
+  }
+
+  .sold-cta-btn svg {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .sold-cta-text {
+    font-size: 1rem;
   }
 }

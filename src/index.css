@@ -451,6 +451,13 @@ html, body {
   .section-title {
     margin-bottom: 30px;
   }
+
+  /* Global: prevent buttons from text overflow on mobile */
+  .btn, .btn-primary, .btn-secondary, .btn-outline {
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    white-space: nowrap;
+  }
 }
 
 /* Desktop Polish */
