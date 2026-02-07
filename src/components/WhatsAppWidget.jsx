@@ -52,6 +52,11 @@ const WhatsAppWidget = () => {
 
   return (
     <div className="whatsapp-widget">
+      {/* Mobile backdrop */}
+      {isOpen && (
+        <div className="whatsapp-backdrop" onClick={() => setIsOpen(false)} />
+      )}
+
       {/* Chat Popup */}
       {isOpen && (
         <div className="whatsapp-popup">
