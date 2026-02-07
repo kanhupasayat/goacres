@@ -1,0 +1,239 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--white);
+  transition: var(--transition-normal);
+  padding: 12px 0;
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-brand {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, var(--primary-red), #dc3545);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+.logo:hover .logo-brand {
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navigation */
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  background: var(--off-white);
+  border-radius: 50px;
+  padding: 6px;
+}
+
+.nav-list li {
+  position: relative;
+}
+
+.nav-list a {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--grey);
+  padding: 10px 20px;
+  border-radius: 50px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: var(--primary-red);
+  background: var(--white);
+}
+
+.nav-list a.active {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+}
+
+/* Header CTA */
+.header-cta {
+  display: flex;
+  align-items: center;
+}
+
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn svg {
+  font-size: 1.1rem;
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Menu Toggle - Hidden on Desktop */
+.menu-toggle {
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--off-white);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  color: var(--black);
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+  background: var(--light-grey);
+}
+
+.menu-overlay {
+  display: none !important;
+}
+
+/* Tablet Styles */
+@media (max-width: 992px) {
+  .nav-list {
+    gap: 4px;
+    padding: 5px;
+  }
+
+  .nav-list a {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .whatsapp-btn span {
+    display: none;
+  }
+
+  .whatsapp-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .whatsapp-btn svg {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile Styles - Compact header, bottom nav replaces hamburger */
+@media (max-width: 768px) {
+  .header {
+    padding: 8px 0;
+  }
+
+  .header.scrolled {
+    padding: 6px 0;
+  }
+
+  .header-container {
+    gap: 10px;
+  }
+
+  /* Hide hamburger menu - bottom nav replaces it */
+  .menu-toggle {
+    display: none !important;
+  }
+
+  /* Hide desktop nav on mobile */
+  .nav {
+    display: none !important;
+  }
+
+  /* Hide overlay since no hamburger */
+  .menu-overlay {
+    display: none !important;
+  }
+
+  .header-cta {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  /* WhatsApp button: icon only on mobile */
+  .whatsapp-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .whatsapp-btn span {
+    display: none;
+  }
+
+  .whatsapp-btn svg {
+    font-size: 1.2rem;
+  }
+
+  .logo-brand {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-brand {
+    font-size: 1.2rem;
+  }
+}

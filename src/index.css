@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* M-Square Properties Brand Colors - Premium Glossy */
+  --primary-red: #8B0000;
+  --primary-red-light: #B22222;
+  --primary-red-dark: #5C0000;
+  --white: #FFFFFF;
+  --off-white: #F8F9FA;
+  --silver: #C0C0C0;
+  --grey: #6C757D;
+  --dark-grey: #1A1A1A;
+  --light-grey: #E9ECEF;
+
+  /* Premium Gold */
+  --gold: #D4AF37;
+  --gold-light: #FFD700;
+  --gold-dark: #B8972E;
+  --gold-shine: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7, #AA771C);
+
+  --black: #1A1A1A;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.2);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.4s ease;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-red);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Shimmer Text Effect for Headings */
+.shimmer-heading {
+  background: linear-gradient(
+    90deg,
+    var(--primary-red) 0%,
+    var(--primary-red) 40%,
+    #D4AF37 50%,
+    var(--primary-red) 60%,
+    var(--primary-red) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 4s linear infinite;
+}
+
+/* Golden Shimmer Text */
+.golden-text {
+  background: linear-gradient(
+    135deg,
+    #FFD700 0%,
+    #FFF5CC 25%,
+    #D4AF37 50%,
+    #FFF5CC 75%,
+    #B8972E 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease infinite;
+}
+
+/* Glowing Text */
+.glow-text {
+  animation: text-glow 2s ease-in-out infinite;
+}
+
+.glow-text-red {
+  animation: red-text-glow 2s ease-in-out infinite;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+h4 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); }
+
+p {
+  color: var(--grey);
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 50px 0;
+  }
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  color: var(--primary-red);
+}
+
+/* Golden underline with shimmer */
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--gold-shine);
+  background-size: 200% 200%;
+  border-radius: 2px;
+  animation: shimmer 3s ease infinite;
+  will-change: background-position;
+}
+
+.section-title p {
+  max-width: 600px;
+  margin: 20px auto 0;
+}
+
+/* Optimized Shimmer Animation */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Text Shimmer Animation */
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Text Glow Animation */
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.3),
+                 0 0 10px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6),
+                 0 0 30px rgba(212, 175, 55, 0.4),
+                 0 0 45px rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* Red Text Glow Animation */
+@keyframes red-text-glow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(139, 0, 0, 0.3),
+                 0 0 10px rgba(139, 0, 0, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(139, 0, 0, 0.5),
+                 0 0 30px rgba(139, 0, 0, 0.3),
+                 0 0 45px rgba(139, 0, 0, 0.2);
+  }
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.4),
+                0 0 10px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6),
+                0 0 40px rgba(212, 175, 55, 0.4),
+                0 0 60px rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* Premium Glossy Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Shine sweep on hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+  will-change: left;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Gold Button - Metallic */
+.btn-primary {
+  background: linear-gradient(145deg, #FFD700 0%, #D4AF37 50%, #B8972E 100%);
+  color: var(--black);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Red Button - Glossy Ruby */
+.btn-secondary {
+  background: linear-gradient(145deg, #B22222 0%, #8B0000 50%, #5C0000 100%);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent;
+  color: var(--primary-red);
+  border: 2px solid var(--primary-red);
+}
+
+.btn-outline:hover {
+  background: linear-gradient(145deg, #B22222 0%, #8B0000 100%);
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
+}
+
+/* Cards with Glossy Effect */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+/* Badges with Shine */
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: hidden;
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: badge-shine 2.5s ease-in-out infinite;
+  will-change: left;
+}
+
+@keyframes badge-shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.badge-red {
+  background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+  color: var(--white);
+  box-shadow: 0 2px 10px rgba(139, 0, 0, 0.3);
+}
+
+.badge-gold {
+  background: var(--gold-shine);
+  background-size: 200% 200%;
+  color: var(--black);
+  animation: shimmer 3s ease infinite;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+  will-change: background-position;
+}
+
+/* Form Elements */
+input, select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border: 1px solid var(--light-grey);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-grey);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Selection */
+::selection {
+  background: var(--gold);
+  color: var(--black);
+}
+
+/* ==================== */
+/* Mobile App Behaviors */
+/* ==================== */
+@media (max-width: 768px) {
+  /* Disable pull-to-refresh */
+  html {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Remove tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Minimum touch targets */
+  a, button {
+    min-height: 44px;
+  }
+
+  /* Tighter container padding */
+  .container {
+    padding: 0 12px;
+  }
+
+  /* Tighter section spacing */
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+}
+
+/* Desktop Polish */
+@media (min-width: 1201px) {
+  /* Focus-visible for keyboard navigation */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* Reduce animations for low-power devices */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

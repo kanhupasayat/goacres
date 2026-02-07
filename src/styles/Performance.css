@@ -1,0 +1,123 @@
+/* ==================== */
+/* Performance Optimizations */
+/* ==================== */
+
+/* Optimize rendering performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for animations */
+.hero-slide,
+.hero-slideshow-container,
+.feature-card,
+.premium-property-card,
+.area-card,
+.testimonial-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-slide {
+    transition: opacity 0.3s ease !important;
+  }
+
+  .hero-slideshow-container::after {
+    animation: none !important;
+  }
+}
+
+/* Optimize for older/slower devices */
+@media (max-width: 768px) {
+  /* Simplify animations on mobile */
+  .feature-card::after,
+  .premium-property-card .premium-card-glow,
+  .listings-glow {
+    display: none !important;
+  }
+
+  /* Reduce blur effects (heavy on GPU) */
+  .hero-slideshow-overlay {
+    backdrop-filter: none;
+  }
+
+  /* Simpler transitions */
+  .feature-card,
+  .premium-property-card,
+  .area-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  /* Disable parallax on mobile */
+  .hero-slideshow-container {
+    transform: none !important;
+  }
+}
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+}
+
+/* Optimize scroll performance */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Content visibility for off-screen elements */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* First section should always be visible */
+.hero {
+  content-visibility: visible;
+}
+
+/* Optimize font loading */
+body {
+  text-rendering: optimizeSpeed;
+}
+
+/* Reduce paint areas */
+.header {
+  contain: layout style;
+}
+
+.footer {
+  contain: layout style;
+}
+
+/* Optimize images */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Hardware acceleration for fixed elements */
+.header,
+.whatsapp-widget,
+.premium-detail-cta {
+  transform: translateZ(0);
+  will-change: transform;
+}

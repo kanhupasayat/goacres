@@ -1,0 +1,216 @@
+.features {
+  background: var(--off-white);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  align-items: stretch;
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 35px 25px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+/* Glossy top bar with shimmer */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7, #AA771C);
+  background-size: 200% 200%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+/* Shine sweep effect */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  will-change: left;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+  animation: shimmer 2s ease infinite;
+}
+
+.feature-card:hover::after {
+  left: 150%;
+}
+
+/* Glossy Icon with glow */
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  min-height: 70px;
+  background: linear-gradient(145deg, #B22222 0%, #8B0000 50%, #5C0000 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.8rem;
+  color: var(--white);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.feature-card:hover .feature-icon {
+  background: linear-gradient(145deg, #FFD700 0%, #D4AF37 50%, #B8972E 100%);
+  color: var(--black);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: var(--black);
+  text-align: center;
+  width: 100%;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--grey);
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .feature-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  /* Disable hover effects on mobile */
+  .feature-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .feature-card:hover::before {
+    transform: scaleX(0);
+    animation: none;
+  }
+
+  .feature-card:hover::after {
+    left: -100%;
+  }
+
+  .feature-card:hover .feature-icon {
+    transform: none;
+    background: linear-gradient(145deg, #B22222 0%, #8B0000 50%, #5C0000 100%);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  .feature-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+
+  .feature-card p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .feature-card {
+    flex-direction: row;
+    text-align: left;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .feature-icon {
+    margin: 0;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+    font-size: 1.2rem;
+  }
+
+  .feature-card h3 {
+    text-align: left;
+  }
+
+  .feature-card p {
+    text-align: left;
+  }
+}

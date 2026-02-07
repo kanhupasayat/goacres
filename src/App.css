@@ -1,0 +1,41 @@
+/* M² Properties - Main App Styles */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mobile App-like feel */
+@media (max-width: 768px) {
+  /* Hide scrollbar on mobile for app-like feel */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* App-like safe areas for notched devices */
+  body {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Space for bottom nav — on footer, not body (avoids white gap) */
+  .footer {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+}
+
+/* PWA Status bar style for mobile */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .header {
+    padding-top: env(safe-area-inset-top);
+  }
+}

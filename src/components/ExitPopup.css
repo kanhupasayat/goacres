@@ -1,0 +1,223 @@
+/* Exit Popup Overlay */
+.exit-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Popup Card */
+.exit-popup {
+  background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  animation: popupSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 175, 55, 0.1);
+}
+
+@keyframes popupSlide {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Close Button */
+.exit-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exit-popup-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.exit-popup-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Popup Content */
+.exit-popup-content {
+  text-align: center;
+}
+
+.exit-popup-emoji {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.exit-popup-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.exit-popup-content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.exit-popup-content p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* WhatsApp CTA */
+.exit-popup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(145deg, #2EE077 0%, #25D366 50%, #1DA851 100%);
+  color: white;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+  animation: pulse-exit 2s ease-in-out infinite;
+  width: 100%;
+  justify-content: center;
+}
+
+@keyframes pulse-exit {
+  0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 6px 35px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1); }
+}
+
+.exit-popup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
+}
+
+.exit-popup-btn svg {
+  font-size: 1.3rem;
+}
+
+/* Dismiss Button */
+.exit-popup-dismiss {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.2s ease;
+}
+
+.exit-popup-dismiss:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Mobile bottom sheet style */
+@media (max-width: 768px) {
+  .exit-popup-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .exit-popup {
+    border-radius: 24px 24px 0 0;
+    padding: 30px 24px;
+    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    max-width: 100%;
+    margin: 0;
+    animation: exitBottomSheet 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  @keyframes exitBottomSheet {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Drag handle */
+  .exit-popup::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  .exit-popup-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .exit-popup-content h3 {
+    font-size: 1rem;
+  }
+
+  .exit-popup-btn {
+    font-size: 0.95rem;
+    padding: 14px 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .exit-popup-emoji {
+    font-size: 2.5rem;
+  }
+}
