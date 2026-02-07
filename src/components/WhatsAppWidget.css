@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 25px;
   right: 25px;
-  z-index: 9999;
+  z-index: 10002;
 }
 
 /* ===== FLOATING BUTTON ===== */
@@ -85,22 +85,23 @@
   50% { transform: translateY(-5px); }
 }
 
-/* ===== BACKDROP (mobile) ===== */
+/* ===== BACKDROP ===== */
 .whatsapp-backdrop {
   display: none;
 }
 
 /* ===== POPUP — DESKTOP ===== */
 .whatsapp-popup {
-  position: absolute;
-  bottom: 80px;
-  right: 0;
+  position: fixed;
+  bottom: 105px;
+  right: 25px;
   width: 340px;
   background: var(--white);
   border-radius: 16px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), 0 0 30px rgba(37, 211, 102, 0.1);
   overflow: hidden;
   animation: popupSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10001;
 }
 
 @keyframes popupSlideUp {
@@ -400,15 +401,12 @@
     right: 14px;
   }
 
-  /* Floating button — above everything when popup open */
   .whatsapp-button {
     width: 54px;
     height: 54px;
     font-size: 1.6rem;
     box-shadow: 0 4px 18px rgba(37, 211, 102, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    position: relative;
-    z-index: 10001;
   }
 
   .whatsapp-button.active {
@@ -422,17 +420,14 @@
     display: none;
   }
 
-  /* Backdrop overlay — full screen */
+  /* Backdrop overlay — full screen, own stacking context */
   .whatsapp-backdrop {
     display: block;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 10000;
     animation: fadeIn 0.25s ease;
@@ -444,7 +439,7 @@
     to { opacity: 1; }
   }
 
-  /* Bottom sheet popup */
+  /* Bottom sheet popup — own stacking context */
   .whatsapp-popup {
     position: fixed;
     bottom: 0;
@@ -456,8 +451,7 @@
     border-radius: 20px 20px 0 0;
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
     animation: sheetSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 10002;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
@@ -509,7 +503,7 @@
     background: rgba(255, 255, 255, 0.2);
   }
 
-  /* Chat body — flex-grow to fill space */
+  /* Chat body — fills available space */
   .popup-body {
     padding: 14px 12px;
     min-height: 140px;
@@ -548,7 +542,7 @@
     height: 6px;
   }
 
-  /* Footer — account for BottomNav height */
+  /* Footer with safe area */
   .popup-footer {
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
     flex-shrink: 0;

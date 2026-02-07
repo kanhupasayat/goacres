@@ -51,13 +51,13 @@ const WhatsAppWidget = () => {
   };
 
   return (
-    <div className="whatsapp-widget">
-      {/* Mobile backdrop */}
+    <>
+      {/* Mobile backdrop — outside widget for clean z-index */}
       {isOpen && (
         <div className="whatsapp-backdrop" onClick={() => setIsOpen(false)} />
       )}
 
-      {/* Chat Popup */}
+      {/* Chat Popup — outside widget for clean z-index */}
       {isOpen && (
         <div className="whatsapp-popup">
           {/* Header */}
@@ -115,7 +115,7 @@ const WhatsAppWidget = () => {
               </div>
             )}
 
-            {/* Typing indicator for second message (only show if step 4) */}
+            {/* Typing indicator for second message */}
             {chatStep === 4 && (
               <div className="chat-msg chat-msg-left msg-animate">
                 <div className="chat-bubble chat-bubble-white typing-bubble">
@@ -149,23 +149,24 @@ const WhatsAppWidget = () => {
         </div>
       )}
 
-      {/* Floating Button */}
-      <button
-        className={`whatsapp-button ${isOpen ? 'active' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Open WhatsApp Chat"
-      >
-        {isOpen ? <FiX /> : <FaWhatsapp />}
-        <span className="button-pulse"></span>
-      </button>
+      {/* Floating Button + Tooltip */}
+      <div className="whatsapp-widget">
+        <button
+          className={`whatsapp-button ${isOpen ? 'active' : ''}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Open WhatsApp Chat"
+        >
+          {isOpen ? <FiX /> : <FaWhatsapp />}
+          <span className="button-pulse"></span>
+        </button>
 
-      {/* Tooltip */}
-      {!isOpen && (
-        <div className="whatsapp-tooltip">
-          {t('whatsappWidget.tooltip')}
-        </div>
-      )}
-    </div>
+        {!isOpen && (
+          <div className="whatsapp-tooltip">
+            {t('whatsappWidget.tooltip')}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

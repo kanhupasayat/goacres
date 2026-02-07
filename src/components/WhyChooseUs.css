@@ -178,7 +178,7 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 12px;
-    padding: 16px 12px 12px;
+    padding: 12px 12px 12px;
     margin: 0 -12px 20px;
     scrollbar-width: none;
   }
@@ -191,7 +191,14 @@
     flex: 0 0 70vw;
     max-width: 70vw;
     scroll-snap-align: center;
-    padding: 24px 16px;
+    padding: 24px 16px 20px;
+  }
+
+  /* On mobile: make step number inline (not absolute) to avoid overflow clipping */
+  .how-step .step-number {
+    position: static;
+    transform: none;
+    margin: 0 auto 10px;
   }
 
   .how-step h4 {
@@ -210,7 +217,7 @@
     width: 50px;
     height: 50px;
     font-size: 1.3rem;
-    margin: 12px auto 12px;
+    margin: 8px auto 12px;
   }
 
   /* WhatsApp consult button — compact on mobile */
