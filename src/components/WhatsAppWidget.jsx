@@ -72,9 +72,6 @@ const WhatsAppWidget = () => {
                 {t('whatsappWidget.popupStatus')}
               </span>
             </div>
-            <button className="popup-close" onClick={() => setIsOpen(false)}>
-              <FiX />
-            </button>
           </div>
 
           {/* Chat Body */}
