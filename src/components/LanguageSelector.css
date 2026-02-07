@@ -1,0 +1,140 @@
+.lang-selector-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lang-selector-modal {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: langModalIn 0.4s ease;
+}
+
+@keyframes langModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.lang-selector-brand {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, var(--primary-red), #dc3545);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+}
+
+.lang-selector-title {
+  font-size: 1.4rem;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+
+.lang-selector-subtitle {
+  font-size: 0.95rem;
+  color: var(--grey);
+  margin-bottom: 32px;
+}
+
+.lang-selector-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lang-selector-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 18px 24px;
+  border: 2px solid var(--light-grey);
+  border-radius: 16px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.lang-selector-btn:hover {
+  border-color: var(--primary-red);
+  background: rgba(139, 0, 0, 0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.12);
+}
+
+.lang-btn-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.lang-btn-desc {
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+/* Mobile bottom sheet style */
+@media (max-width: 768px) {
+  .lang-selector-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .lang-selector-modal {
+    border-radius: 24px 24px 0 0;
+    padding: 36px 24px calc(36px + env(safe-area-inset-bottom, 0px));
+    max-width: 100%;
+    animation: langSheetUp 0.4s ease;
+  }
+
+  @keyframes langSheetUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .lang-selector-brand {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .lang-selector-title {
+    font-size: 1.25rem;
+  }
+
+  .lang-selector-subtitle {
+    margin-bottom: 24px;
+  }
+
+  .lang-selector-buttons {
+    gap: 12px;
+  }
+
+  .lang-selector-btn {
+    padding: 16px 20px;
+  }
+}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiPhone, FiMail, FiMapPin } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import LegalModal from './LegalModal';
+import { useTranslation } from '../hooks/useTranslation';
 import './Footer.css';
 
 const WHATSAPP_NUMBER = '916370997812';
@@ -203,19 +204,11 @@ const PrivacyContent = () => (
 const Footer = () => {
   const [legalOpen, setLegalOpen] = useState(null);
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
+  const { t, tArray } = useTranslation();
 
-  const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Our Properties', href: '#listings' },
-    { name: 'Why GOACRES', href: '#about' },
-    { name: 'Contact Us', href: '#contact' }
-  ];
-
-  const propertyTypes = [
-    { name: 'Residential Plots', href: '#listings' },
-    { name: 'Commercial Plots', href: '#listings' },
-    { name: 'Farm House Land', href: '#listings' }
-  ];
+  const quickLinksHrefs = ['#home', '#listings', '#about', '#contact'];
+  const quickLinkNames = tArray('footer.quickLinks.items');
+  const propertyTypeNames = tArray('footer.propertyTypes.items');
 
   const socialLinks = [
     { icon: <FaWhatsapp />, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
@@ -229,20 +222,20 @@ const Footer = () => {
         {/* Contact CTA Section */}
         <div className="footer-cta">
           <div className="cta-content">
-            <h2>Plot Dhundh Rahe Ho?</h2>
-            <p>Abhi WhatsApp karo — hum 30 minute me respond karte hain</p>
+            <h2>{t('footer.cta.title')}</h2>
+            <p>{t('footer.cta.subtitle')}</p>
           </div>
           <div className="cta-buttons">
             <a href="tel:+916370997812" className="btn btn-primary">
-              <FiPhone /> Call Now
+              <FiPhone /> {t('footer.cta.callButton')}
             </a>
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! Mujhe Rourkela me plot chahiye. Please help.')}`}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('footer.whatsappMessage'))}`}
               className="btn btn-whatsapp-cta"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaWhatsapp /> WhatsApp
+              <FaWhatsapp /> {t('footer.cta.whatsappButton')}
             </a>
           </div>
         </div>
@@ -253,10 +246,9 @@ const Footer = () => {
             <a href="#" className="footer-logo">
               <span className="logo-brand">GOACRES</span>
             </a>
-            <p className="footer-tagline">Rourkela's Property Listing Platform</p>
+            <p className="footer-tagline">{t('footer.tagline')}</p>
             <p className="footer-description">
-              Rourkela me plot chahiye? Multiple brokers ke plots ek jagah browse karo
-              aur seedha property owner se connect ho jao.
+              {t('footer.description')}
             </p>
             <div className="social-links">
               {socialLinks.map((social, index) => (
@@ -275,29 +267,29 @@ const Footer = () => {
           </div>
 
           <div className="footer-links">
-            <h4>Quick Links</h4>
+            <h4>{t('footer.quickLinks.title')}</h4>
             <ul>
-              {quickLinks.map((link, index) => (
+              {quickLinkNames.map((name, index) => (
                 <li key={index}>
-                  <a href={link.href}>{link.name}</a>
+                  <a href={quickLinksHrefs[index]}>{name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="footer-links">
-            <h4>Property Types</h4>
+            <h4>{t('footer.propertyTypes.title')}</h4>
             <ul>
-              {propertyTypes.map((link, index) => (
+              {propertyTypeNames.map((name, index) => (
                 <li key={index}>
-                  <a href={link.href}>{link.name}</a>
+                  <a href="#listings">{name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="footer-contact">
-            <h4>Contact Us</h4>
+            <h4>{t('footer.contactUs.title')}</h4>
             <ul>
               <li>
                 <FiMapPin className="contact-icon" />
@@ -319,23 +311,23 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} GOACRES. All rights reserved.</p>
           <div className="footer-bottom-links">
-            <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('terms'); }}>Terms</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('terms'); }}>{t('footer.termsLink')}</a>
             <span className="footer-dot"></span>
-            <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('privacy'); }}>Privacy</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('privacy'); }}>{t('footer.privacyLink')}</a>
           </div>
         </div>
 
         {/* Legal Disclaimer — collapsible */}
         <div className={`footer-disclaimer ${disclaimerOpen ? 'disclaimer-open' : ''}`}>
           <p className="disclaimer-text">
-            <strong>Disclaimer:</strong> GOACRES is a property listing and referral platform only — we connect buyers with property owners and brokers. We are NOT the owner, seller, or developer of any listed property.
+            <strong>{t('footer.disclaimer').split(':')[0]}:</strong>{t('footer.disclaimer').split(':').slice(1).join(':')}
             <span className="disclaimer-more"> All property information (including prices, sizes, images, and availability) is provided by third-party property owners and brokers — GOACRES does not independently verify this information. All property-related services including site visits, documentation, and registration are provided by the respective property owners/brokers, not by GOACRES. Images shown are for illustration purposes only. Buyers are advised to independently verify all property details through their own legal counsel before making any purchase decision. GOACRES is not a party to any transaction. Prices and availability are subject to change without notice. By using this website, you agree to our <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('terms'); }} style={{ color: 'inherit', textDecoration: 'underline' }}>Terms & Conditions</a> and <a href="#" onClick={(e) => { e.preventDefault(); setLegalOpen('privacy'); }} style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy Policy</a>.</span>
           </p>
           <button
             className="disclaimer-toggle"
             onClick={() => setDisclaimerOpen(!disclaimerOpen)}
           >
-            {disclaimerOpen ? 'Show less' : 'Read more'}
+            {disclaimerOpen ? t('footer.showLess') : t('footer.readMore')}
           </button>
         </div>
       </div>

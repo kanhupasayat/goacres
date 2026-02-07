@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiMapPin, FiMaximize2, FiHome, FiAward, FiLock, FiEye, FiClock } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from '../hooks/useTranslation';
 import './Listings.css';
 
 const WHATSAPP_NUMBER = '916370997812';
@@ -75,24 +76,25 @@ const properties = [
   }
 ];
 
-const filters = [
-  { id: 'all', label: 'All Properties' },
-  { id: 'residential', label: 'Residential' },
-  { id: 'commercial', label: 'Commercial' },
-  { id: 'farmhouse', label: 'Farm House' }
-];
-
 const Listings = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { t } = useTranslation();
+
+  const filters = [
+    { id: 'all', label: t('listings.filterTabs.all') },
+    { id: 'residential', label: t('listings.filterTabs.residential') },
+    { id: 'commercial', label: t('listings.filterTabs.commercial') },
+    { id: 'farmhouse', label: t('listings.filterTabs.farmHouse') }
+  ];
 
   const filteredProperties = activeFilter === 'all'
     ? properties
     : properties.filter(p => p.type.toLowerCase().replace(' ', '') === activeFilter.toLowerCase().replace(' ', ''));
 
   const getWhatsAppUrl = (property) => {
-    const message = `Hi! Mujhe "${property.title}" ke baare me details chahiye — ${property.location}. Price aur full details share karo please.`;
+    const message = t('listings.whatsappMessage').replace('{title}', property.title).replace('{location}', property.location);
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
@@ -109,19 +111,19 @@ const Listings = () => {
         >
           <div className="premium-label">
             <FiAward />
-            <span>Available Plots</span>
+            <span>{t('listings.premiumLabel')}</span>
           </div>
           <h2 className="premium-title">
-            <span className="title-line">Rourkela Me</span>
-            <span className="title-highlight">Plots Available</span>
+            <span className="title-line">{t('listings.titleLine1')}</span>
+            <span className="title-highlight">{t('listings.titleHighlight')}</span>
           </h2>
           <p className="premium-subtitle">
-            Plot pasand aaya? Price aur full details ke liye WhatsApp karo — hum aapko seedha broker se connect kara denge.
+            {t('listings.subtitle')}
           </p>
 
           <div className="urgency-banner">
             <FiClock />
-            <span>Sirf <strong>{properties.length} Plots</strong> Available — Jaldi Karo!</span>
+            <span>{t('listings.urgencyPrefix')} <strong>{properties.length} {t('listings.urgencyPlotsText')}</strong> {t('listings.urgencySuffix')}</span>
           </div>
 
           <div className="filter-tabs">
@@ -145,13 +147,13 @@ const Listings = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="premium-card-image">
-                <img src={property.image} alt={property.title} loading="lazy" />
+                <img src={property.image} alt={property.title} loading="lazy" decoding="async" />
                 <div className="image-overlay"></div>
 
                 <div className="premium-badges">
                   {property.plotsLeft <= 2 && (
                     <span className="badge-urgent">
-                      Sirf {property.plotsLeft} Bache!
+                      {t('listings.badgeUrgent').replace('{count}', property.plotsLeft)}
                     </span>
                   )}
                   <span className="badge-new">{property.type}</span>
@@ -160,7 +162,7 @@ const Listings = () => {
                 {/* Viewer count */}
                 <div className="viewer-count">
                   <FiEye />
-                  <span>{property.viewers} log abhi dekh rahe hain</span>
+                  <span>{property.viewers} {t('listings.viewerText')}</span>
                 </div>
 
                 <div className="quick-view-overlay">
@@ -171,7 +173,7 @@ const Listings = () => {
                     rel="noopener noreferrer"
                   >
                     <FaWhatsapp style={{ marginRight: '8px' }} />
-                    Full Details WhatsApp Pe
+                    {t('listings.quickViewBtn')}
                   </a>
                 </div>
               </div>
@@ -200,7 +202,7 @@ const Listings = () => {
                 <div className="price-hidden-section">
                   <div className="price-blurred">
                     <FiLock className="lock-icon" />
-                    <span className="blurred-amount">₹ XX,XX,XXX</span>
+                    <span className="blurred-amount">&#8377; XX,XX,XXX</span>
                   </div>
                   <a
                     href={getWhatsAppUrl(property)}
@@ -209,29 +211,29 @@ const Listings = () => {
                     rel="noopener noreferrer"
                   >
                     <FaWhatsapp />
-                    <span>Price Pucho</span>
+                    <span>{t('listings.priceCta')}</span>
                   </a>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="swipe-hint">Swipe to see more →</div>
+        <div className="swipe-hint">{t('listings.swipeHint')}</div>
 
         {/* Secret Deals Banner */}
         <div className="secret-deals-banner">
           <div className="secret-deals-content">
-            <div className="secret-icon">🔒</div>
-            <h3>5 Exclusive Plots — Sirf WhatsApp Pe Available</h3>
-            <p>Ye plots website pe nahi hain. Sirf serious buyers ke liye reserved hain.</p>
+            <div className="secret-icon">&#128274;</div>
+            <h3>{t('listings.secretDeals.title')}</h3>
+            <p>{t('listings.secretDeals.description')}</p>
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! Mujhe exclusive plots ki details chahiye jo website pe nahi hain.')}`}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('listings.secretDeals.whatsappMessage'))}`}
               className="secret-deals-btn"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaWhatsapp />
-              <span>Exclusive Plots Dekho</span>
+              <span>{t('listings.secretDeals.button')}</span>
             </a>
           </div>
         </div>

@@ -1,46 +1,144 @@
-import { useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import { FaWhatsapp, FaCheckDouble } from 'react-icons/fa';
 import { FiX } from 'react-icons/fi';
+import { useTranslation } from '../hooks/useTranslation';
 import './WhatsAppWidget.css';
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [chatStep, setChatStep] = useState(0);
+  const { t } = useTranslation();
+  const chatBodyRef = useRef(null);
 
   const phoneNumber = '916370997812';
-  const defaultMessage = 'Hello! I am interested in buying a plot. Please share more details.';
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Chat animation sequence
+  useEffect(() => {
+    if (!isOpen) {
+      setChatStep(0);
+      return;
+    }
+
+    const timers = [];
+
+    // Step 1: Customer message appears
+    timers.push(setTimeout(() => setChatStep(1), 400));
+    // Step 2: Typing indicator
+    timers.push(setTimeout(() => setChatStep(2), 1300));
+    // Step 3: First reply
+    timers.push(setTimeout(() => setChatStep(3), 2500));
+    // Step 4: Typing again
+    timers.push(setTimeout(() => setChatStep(4), 3200));
+    // Step 5: Second reply
+    timers.push(setTimeout(() => setChatStep(5), 4500));
+
+    return () => timers.forEach(clearTimeout);
+  }, [isOpen]);
+
+  // Auto-scroll chat body
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [chatStep]);
 
   const handleWhatsAppClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(t('whatsappWidget.defaultMessage'))}`;
     window.open(url, '_blank');
   };
 
   return (
     <div className="whatsapp-widget">
-      {/* Popup Message */}
+      {/* Chat Popup */}
       {isOpen && (
         <div className="whatsapp-popup">
+          {/* Header */}
           <div className="popup-header">
             <div className="popup-avatar">
               <FaWhatsapp />
             </div>
             <div className="popup-info">
-              <span className="popup-name">GOACRES</span>
-              <span className="popup-status">Typically replies instantly</span>
+              <span className="popup-name">{t('whatsappWidget.popupName')}</span>
+              <span className="popup-status">
+                <span className="status-dot" />
+                {t('whatsappWidget.popupStatus')}
+              </span>
             </div>
             <button className="popup-close" onClick={() => setIsOpen(false)}>
               <FiX />
             </button>
           </div>
-          <div className="popup-body">
-            <div className="popup-message">
-              <p>Hi there! 👋</p>
-              <p>How can we help you today? Click below to chat with us on WhatsApp.</p>
-            </div>
+
+          {/* Chat Body */}
+          <div className="popup-body" ref={chatBodyRef}>
+            {/* Customer message - right side green */}
+            {chatStep >= 1 && (
+              <div className="chat-msg chat-msg-right msg-animate">
+                <div className="chat-bubble chat-bubble-green">
+                  <p>{t('whatsappWidget.customerMsg')}</p>
+                  <span className="chat-meta">
+                    {timeStr}
+                    <FaCheckDouble className="chat-tick tick-blue" />
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Typing indicator (before reply 1) */}
+            {chatStep === 2 && (
+              <div className="chat-msg chat-msg-left msg-animate">
+                <div className="chat-bubble chat-bubble-white typing-bubble">
+                  <div className="typing-indicator">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* GOACRES reply 1 */}
+            {chatStep >= 3 && (
+              <div className="chat-msg chat-msg-left msg-animate">
+                <div className="chat-bubble chat-bubble-white">
+                  <p>{t('whatsappWidget.replyMsg1')}</p>
+                  <span className="chat-meta">{timeStr}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Typing indicator for second message (only show if step 4) */}
+            {chatStep === 4 && (
+              <div className="chat-msg chat-msg-left msg-animate">
+                <div className="chat-bubble chat-bubble-white typing-bubble">
+                  <div className="typing-indicator">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* GOACRES reply 2 */}
+            {chatStep >= 5 && (
+              <div className="chat-msg chat-msg-left msg-animate">
+                <div className="chat-bubble chat-bubble-white">
+                  <p>{t('whatsappWidget.replyMsg2')}</p>
+                  <span className="chat-meta">{timeStr}</span>
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* Footer */}
           <div className="popup-footer">
             <button className="start-chat-btn" onClick={handleWhatsAppClick}>
               <FaWhatsapp />
-              Start Chat
+              {t('whatsappWidget.startChat')}
             </button>
           </div>
         </div>
@@ -59,7 +157,7 @@ const WhatsAppWidget = () => {
       {/* Tooltip */}
       {!isOpen && (
         <div className="whatsapp-tooltip">
-          Chat with us!
+          {t('whatsappWidget.tooltip')}
         </div>
       )}
     </div>

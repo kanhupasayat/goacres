@@ -1,5 +1,7 @@
 .why-choose {
   background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
 }
 
 /* Stats with Glossy Effect */

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
+import LanguageToggle from './LanguageToggle';
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,19 +36,16 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
           <ul className="nav-list">
-            <li><a href="#home" onClick={closeMenu}>Home</a></li>
-            <li><a href="#listings" onClick={closeMenu}>Buy Plots</a></li>
-            <li><a href="#about" onClick={closeMenu}>About Us</a></li>
-            <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
+            <li><a href="#home" onClick={closeMenu}>{t('header.nav.home')}</a></li>
+            <li><a href="#listings" onClick={closeMenu}>{t('header.nav.buyPlots')}</a></li>
+            <li><a href="#about" onClick={closeMenu}>{t('header.nav.aboutUs')}</a></li>
+            <li><a href="#contact" onClick={closeMenu}>{t('header.nav.contact')}</a></li>
           </ul>
         </nav>
 
-        {/* WhatsApp Button */}
+        {/* Language Toggle (replaces WhatsApp button) */}
         <div className="header-cta">
-          <a href="https://wa.me/916370997812" className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
-            <FaWhatsapp />
-            <span>WhatsApp</span>
-          </a>
+          <LanguageToggle />
         </div>
 
         {/* Mobile Menu Toggle */}

@@ -1,0 +1,203 @@
+.lang-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== DESKTOP PILL ===== */
+.lang-toggle-pill {
+  display: flex;
+  position: relative;
+  background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+  border-radius: 50px;
+  padding: 4px;
+  gap: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Sliding background indicator */
+.lang-toggle-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: linear-gradient(145deg, var(--primary-red-light), var(--primary-red));
+  border-radius: 50px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 0;
+}
+
+.lang-toggle-slider.slider-right {
+  transform: translateX(100%);
+}
+
+/* Each option */
+.lang-toggle-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 50px;
+  color: var(--grey);
+  transition: color 0.3s ease;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+.lang-toggle-option.active {
+  color: var(--white);
+}
+
+.lang-flag {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.lang-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+
+.lang-toggle-option.active .lang-label {
+  opacity: 1;
+}
+
+/* Hover glow */
+.lang-toggle:hover .lang-toggle-pill {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06),
+    0 2px 12px rgba(139, 0, 0, 0.15);
+}
+
+.lang-toggle:hover .lang-toggle-slider {
+  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile button - hidden on desktop */
+.lang-toggle-mobile {
+  display: none;
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 992px) {
+  .lang-toggle-option {
+    padding: 6px 12px;
+    gap: 4px;
+  }
+
+  .lang-flag {
+    font-size: 0.8rem;
+  }
+
+  .lang-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  /* Hide desktop pill */
+  .lang-toggle-pill {
+    display: none;
+  }
+
+  /* Show mobile button */
+  .lang-toggle-mobile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px 6px 14px;
+    border-radius: 50px;
+    background: linear-gradient(145deg, var(--primary-red-light), var(--primary-red));
+    box-shadow: 0 3px 12px rgba(139, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    min-height: 40px;
+  }
+
+  .lang-toggle:active .lang-toggle-mobile {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+  }
+
+  .lang-mobile-text {
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+
+  /* Mini toggle switch indicator */
+  .lang-mobile-switch {
+    width: 28px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .lang-mobile-dot {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .lang-toggle-mobile.is-en .lang-mobile-dot {
+    transform: translateX(12px);
+  }
+
+  .lang-toggle-mobile.is-en .lang-mobile-switch {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+@media (max-width: 480px) {
+  .lang-toggle-mobile {
+    padding: 5px 10px 5px 12px;
+    gap: 5px;
+    min-height: 36px;
+  }
+
+  .lang-mobile-text {
+    font-size: 0.75rem;
+  }
+
+  .lang-mobile-switch {
+    width: 24px;
+    height: 14px;
+  }
+
+  .lang-mobile-dot {
+    width: 10px;
+    height: 10px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .lang-toggle-mobile.is-en .lang-mobile-dot {
+    transform: translateX(10px);
+  }
+}

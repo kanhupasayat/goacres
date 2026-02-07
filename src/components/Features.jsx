@@ -1,43 +1,23 @@
 import { FiSearch, FiMapPin, FiMessageCircle, FiUsers, FiZap, FiThumbsUp } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from '../hooks/useTranslation';
 import './Features.css';
 
-const features = [
-  {
-    icon: <FiSearch />,
-    title: 'Sab Plots Ek Jagah',
-    description: 'Rourkela ke alag alag areas ke plots ek platform pe — ghar baithe browse karo, compare karo, best choose karo.'
-  },
-  {
-    icon: <FiMapPin />,
-    title: 'Prime Rourkela Locations',
-    description: 'Civil Township, Koel Nagar, Sector 19, Chhend Colony — sabse high-demand areas me plots available.'
-  },
-  {
-    icon: <FiUsers />,
-    title: 'Trusted Brokers Se Connect',
-    description: 'Hum aapko Rourkela ke trusted property owners aur brokers se seedha connect karte hain — beech me koi confusion nahi.'
-  },
-  {
-    icon: <FiMessageCircle />,
-    title: 'WhatsApp Pe Instant Response',
-    description: 'Plot pasand aaya? WhatsApp karo — 30 minute me details, price aur broker se baat ho jayegi.'
-  },
-  {
-    icon: <FiThumbsUp />,
-    title: 'Buyers Ke Liye FREE',
-    description: 'Hamare platform pe plot dhundhna aur enquiry karna bilkul free hai — buyers se koi charge nahi.'
-  },
-  {
-    icon: <FiZap />,
-    title: 'Koi Pressure Nahi',
-    description: 'Browse karo, dekho, compare karo — jab tak satisfy na ho tab tak koi pressure nahi. Apna time lo, apna decision lo.'
-  }
+const featureIcons = [
+  <FiSearch />,
+  <FiMapPin />,
+  <FiUsers />,
+  <FiMessageCircle />,
+  <FiThumbsUp />,
+  <FiZap />
 ];
 
 const Features = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { t, tArray } = useTranslation();
+
+  const cards = tArray('features.cards');
 
   return (
     <section className="features section" id="features">
@@ -46,21 +26,21 @@ const Features = () => {
           ref={titleRef}
           className={`section-title section-title-animated ${titleVisible ? 'is-visible' : ''}`}
         >
-          <h2>GOACRES Kyun?</h2>
-          <p>Rourkela me plot dhundhna ab easy hai — sab kuch ek platform pe</p>
+          <h2>{t('features.sectionTitle')}</h2>
+          <p>{t('features.sectionSubtitle')}</p>
         </div>
 
         <div ref={gridRef} className="features-grid">
-          {features.map((feature, index) => (
+          {cards.map((card, index) => (
             <div
               className={`feature-card animate-fade-up stagger-${index + 1} ${gridVisible ? 'is-visible' : ''}`}
               key={index}
             >
               <div className="feature-icon">
-                {feature.icon}
+                {featureIcons[index]}
               </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
             </div>
           ))}
         </div>

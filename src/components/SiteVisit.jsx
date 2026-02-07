@@ -1,14 +1,18 @@
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiMapPin, FiCalendar, FiCheckCircle } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from '../hooks/useTranslation';
 import './SiteVisit.css';
 
 const WHATSAPP_NUMBER = '916370997812';
 
 const SiteVisit = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { t, tArray } = useTranslation();
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! Mujhe Rourkela me plot dekhna hai. Site visit ke baare me batao.')}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('siteVisit.whatsappMessage'))}`;
+  const benefits = tArray('siteVisit.benefits');
+  const stats = tArray('siteVisit.stats');
 
   return (
     <section className="site-visit-section" ref={sectionRef}>
@@ -18,22 +22,20 @@ const SiteVisit = () => {
           <div className="site-visit-content">
             <div className="site-visit-badge">
               <FiCalendar />
-              <span>100% FREE</span>
+              <span>{t('siteVisit.badge')}</span>
             </div>
-            <h2>Plot Dekhna Hai? Baat Karo!</h2>
+            <h2>{t('siteVisit.heading')}</h2>
             <p className="site-visit-subtitle">
-              Photo me aur asli me bahut fark hota hai. WhatsApp karo — hum broker se site visit arrange karwa denge, bilkul free.
+              {t('siteVisit.subtitle')}
             </p>
 
             <ul className="site-visit-benefits">
-              <li>
-                <FiCheckCircle />
-                <span>Broker se direct milke plot dekh sakte ho</span>
-              </li>
-              <li>
-                <FiCheckCircle />
-                <span>Dekhne ke baad koi pressure nahi — apna time lo</span>
-              </li>
+              {benefits.map((benefit, index) => (
+                <li key={index}>
+                  <FiCheckCircle />
+                  <span>{benefit}</span>
+                </li>
+              ))}
             </ul>
 
             <a
@@ -43,27 +45,21 @@ const SiteVisit = () => {
               rel="noopener noreferrer"
             >
               <FaWhatsapp />
-              <span>Plot Dekhna Hai — WhatsApp Karo</span>
+              <span>{t('siteVisit.button')}</span>
             </a>
 
             <p className="site-visit-note">
-              <FiMapPin /> Rourkela ke sabhi areas me plots available
+              <FiMapPin /> {t('siteVisit.note')}
             </p>
           </div>
 
           <div className="site-visit-visual">
-            <div className="visit-stat-card">
-              <span className="visit-stat-number">50+</span>
-              <span className="visit-stat-label">Plots Listed</span>
-            </div>
-            <div className="visit-stat-card">
-              <span className="visit-stat-number">30 min</span>
-              <span className="visit-stat-label">Me Response</span>
-            </div>
-            <div className="visit-stat-card accent">
-              <span className="visit-stat-number">FREE</span>
-              <span className="visit-stat-label">Buyers Ke Liye</span>
-            </div>
+            {stats.map((stat, index) => (
+              <div className={`visit-stat-card ${index === stats.length - 1 ? 'accent' : ''}`} key={index}>
+                <span className="visit-stat-number">{stat.value}</span>
+                <span className="visit-stat-label">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

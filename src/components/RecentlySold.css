@@ -2,6 +2,8 @@
   background: var(--off-white);
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
 
 .sold-header {

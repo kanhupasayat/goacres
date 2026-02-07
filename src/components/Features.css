@@ -1,5 +1,7 @@
 .features {
   background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
 
 .features-grid {

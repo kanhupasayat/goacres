@@ -1,19 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiHome, FiGrid, FiInfo, FiPhone } from 'react-icons/fi';
+import { useTranslation } from '../hooks/useTranslation';
 import './BottomNav.css';
-
-const tabs = [
-  { id: 'home', label: 'Home', icon: <FiHome />, href: '#home' },
-  { id: 'listings', label: 'Plots', icon: <FiGrid />, href: '#listings' },
-  { id: 'about', label: 'About', icon: <FiInfo />, href: '#about' },
-  { id: 'contact', label: 'Contact', icon: <FiPhone />, href: '#contact' },
-];
 
 const BottomNav = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const { t } = useTranslation();
+
+  const tabs = [
+    { id: 'home', label: t('bottomNav.tabs.home'), icon: <FiHome />, href: '#home' },
+    { id: 'listings', label: t('bottomNav.tabs.plots'), icon: <FiGrid />, href: '#listings' },
+    { id: 'about', label: t('bottomNav.tabs.about'), icon: <FiInfo />, href: '#about' },
+    { id: 'contact', label: t('bottomNav.tabs.contact'), icon: <FiPhone />, href: '#contact' },
+  ];
 
   // Hide on scroll down, show on scroll up
   useEffect(() => {

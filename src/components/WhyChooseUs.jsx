@@ -1,76 +1,12 @@
 import { FiCheckCircle, FiStar, FiMessageCircle, FiMapPin, FiFileText, FiKey } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from '../hooks/useTranslation';
 import './WhyChooseUs.css';
 
 const WHATSAPP_NUMBER = '916370997812';
-const WHATSAPP_MESSAGE = 'Hi! Mujhe Rourkela me plot chahiye. Available options batao please.';
 
-const stats = [
-  { number: '50+', label: 'Plots Listed' },
-  { number: '6+', label: 'Rourkela Areas' },
-  { number: 'FREE', label: 'Buyers Ke Liye' },
-  { number: '30 min', label: 'WhatsApp Response' }
-];
-
-const howItWorks = [
-  {
-    step: '01',
-    icon: <FiMessageCircle />,
-    title: 'Browse Karo',
-    description: 'Website pe available plots dekho — location, size, type sab dekho aur pasand ka plot choose karo.'
-  },
-  {
-    step: '02',
-    icon: <FiMapPin />,
-    title: 'WhatsApp Karo',
-    description: 'Plot pasand aaya? WhatsApp karo — hum turant price, details aur broker ki info share karenge.'
-  },
-  {
-    step: '03',
-    icon: <FiFileText />,
-    title: 'Broker Se Milo',
-    description: 'Hum aapko property owner/broker se seedha connect karte hain — baat karo, site visit karo, sab jaano.'
-  },
-  {
-    step: '04',
-    icon: <FiKey />,
-    title: 'Deal Karo!',
-    description: 'Sab kuch pasand aaya? Broker ke saath directly deal finalize karo — apna sapno ka plot book karo.'
-  }
-];
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sunil Mahato',
-    location: 'Civil Township, Rourkela',
-    text: 'GOACRES ne mujhe Civil Township me ek bahut accha plot dikhaya. Saare documents clear the aur registry bhi jaldi ho gayi. Bahut transparent dealing.',
-    rating: 5
-  },
-  {
-    id: 2,
-    name: 'Neha Mishra',
-    location: 'Koel Nagar, Rourkela',
-    text: 'Pehle bahut darr lagta tha plot khareedne me — fraud ka risk. Par GOACRES ne saare legal papers verify karwaye aur poora process samjhaya. Recommend karungi.',
-    rating: 5
-  },
-  {
-    id: 3,
-    name: 'Rakesh Agarwal',
-    location: 'Sector 19, Rourkela',
-    text: 'Commercial plot chahiye tha Sector 19 me. GOACRES ki team ne 3 options dikhaye, site visit karwaya, aur budget me best deal dilwaya. Professional service.',
-    rating: 5
-  }
-];
-
-const benefits = [
-  'Rourkela ke multiple brokers ke plots ek jagah — easy comparison',
-  'Trusted property owners aur brokers se direct connection',
-  'WhatsApp pe instant response — 30 minute me jawab',
-  'Platform bilkul FREE hai — buyers se koi charge nahi',
-  'Koi pressure nahi — browse karo, pasand aaye toh baat karo'
-];
+const stepIcons = [<FiMessageCircle />, <FiMapPin />, <FiFileText />, <FiKey />];
 
 const WhyChooseUs = () => {
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -78,8 +14,14 @@ const WhyChooseUs = () => {
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1 });
   const { ref: testimonialsRef, isVisible: testimonialsVisible } = useScrollAnimation({ threshold: 0.1 });
   const { ref: howRef, isVisible: howVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { t, tArray } = useTranslation();
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('whyChooseUs.whatsappMessage'))}`;
+
+  const stats = tArray('whyChooseUs.stats');
+  const steps = tArray('whyChooseUs.howItWorks.steps');
+  const benefits = tArray('whyChooseUs.whyChoose.benefits');
+  const testimonials = tArray('whyChooseUs.testimonials.items');
 
   return (
     <section className="why-choose section" id="about">
@@ -91,7 +33,7 @@ const WhyChooseUs = () => {
               className={`stat-item animate-scale-up stagger-${index + 1} ${statsVisible ? 'is-visible' : ''}`}
               key={index}
             >
-              <span className="stat-number">{stat.number}</span>
+              <span className="stat-number">{stat.value}</span>
               <span className="stat-label">{stat.label}</span>
             </div>
           ))}
@@ -100,14 +42,14 @@ const WhyChooseUs = () => {
         {/* How It Works */}
         <div ref={howRef} className={`how-it-works ${howVisible ? 'is-visible' : ''}`}>
           <div className="section-title" style={{ marginBottom: '40px' }}>
-            <h2>Kaise Kaam Karta Hai?</h2>
-            <p>4 simple steps me apna dream plot book karo</p>
+            <h2>{t('whyChooseUs.howItWorks.title')}</h2>
+            <p>{t('whyChooseUs.howItWorks.subtitle')}</p>
           </div>
           <div className="how-steps">
-            {howItWorks.map((item, index) => (
+            {steps.map((item, index) => (
               <div className={`how-step animate-fade-up stagger-${index + 1} ${howVisible ? 'is-visible' : ''}`} key={index}>
-                <div className="step-number">{item.step}</div>
-                <div className="step-icon">{item.icon}</div>
+                <div className="step-number">{String(index + 1).padStart(2, '0')}</div>
+                <div className="step-icon">{stepIcons[index]}</div>
                 <h4>{item.title}</h4>
                 <p>{item.description}</p>
               </div>
@@ -121,7 +63,7 @@ const WhyChooseUs = () => {
               rel="noopener noreferrer"
             >
               <FaWhatsapp />
-              Step 1 Se Shuru Karo — WhatsApp Karo
+              {t('whyChooseUs.howItWorks.cta')}
             </a>
           </div>
         </div>
@@ -136,15 +78,13 @@ const WhyChooseUs = () => {
               className={`section-title section-title-animated ${titleVisible ? 'is-visible' : ''}`}
               style={{ textAlign: 'left', marginBottom: '30px' }}
             >
-              <h2>GOACRES Kyun?</h2>
-              <p>Sab plots ek jagah — sahi broker se seedha connection</p>
+              <h2>{t('whyChooseUs.whyChoose.title')}</h2>
+              <p>{t('whyChooseUs.whyChoose.subtitle')}</p>
             </div>
 
             <div className="mission-statement">
               <p>
-                <strong>GOACRES</strong> Rourkela ka property listing platform hai.
-                Hum multiple brokers ke plots ek jagah dikhate hain taaki aap easily compare kar sako —
-                aur jo plot pasand aaye, hum aapko seedha broker se connect kara dete hain.
+                <strong>GOACRES</strong> {t('whyChooseUs.whyChoose.missionStatement').replace('GOACRES ', '')}
               </p>
             </div>
 
@@ -167,7 +107,7 @@ const WhyChooseUs = () => {
               rel="noopener noreferrer"
             >
               <FaWhatsapp />
-              Available Plots Dekho — WhatsApp Karo
+              {t('whyChooseUs.whyChoose.cta')}
             </a>
           </div>
 
@@ -175,15 +115,15 @@ const WhyChooseUs = () => {
             ref={testimonialsRef}
             className={`testimonials-container animate-fade-left ${testimonialsVisible ? 'is-visible' : ''}`}
           >
-            <h3>Hamare Clients Kya Kehte Hain</h3>
+            <h3>{t('whyChooseUs.testimonials.title')}</h3>
             <div className="testimonials-grid">
               {testimonials.map((testimonial, index) => (
                 <div
                   className={`testimonial-card animate-fade-up stagger-${index + 1} ${testimonialsVisible ? 'is-visible' : ''}`}
-                  key={testimonial.id}
+                  key={index}
                 >
                   <div className="testimonial-rating">
-                    {[...Array(testimonial.rating)].map((_, i) => (
+                    {[...Array(5)].map((_, i) => (
                       <FiStar key={i} className="star-filled" />
                     ))}
                   </div>

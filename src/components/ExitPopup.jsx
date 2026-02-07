@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiX } from 'react-icons/fi';
+import { useTranslation } from '../hooks/useTranslation';
 import './ExitPopup.css';
 
 const WHATSAPP_NUMBER = '916370997812';
 
 const ExitPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const alreadyShown = sessionStorage.getItem('exitPopupShown');
@@ -41,7 +43,7 @@ const ExitPopup = () => {
     setShowPopup(false);
   };
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! Mujhe exclusive plots ki details chahiye jo website pe nahi hain. Please share karo.')}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('exitPopup.whatsappMessage'))}`;
 
   if (!showPopup) return null;
 
@@ -53,11 +55,11 @@ const ExitPopup = () => {
         </button>
 
         <div className="exit-popup-content">
-          <div className="exit-popup-emoji">🔥</div>
-          <h2>Ruko!</h2>
-          <h3>3 Naye Plots Aaye Hain Jo<br />Abhi Website Pe Nahi Hain</h3>
+          <div className="exit-popup-emoji">{t('exitPopup.emoji')}</div>
+          <h2>{t('exitPopup.heading')}</h2>
+          <h3>{t('exitPopup.subheading')}</h3>
           <p>
-            Ye exclusive plots sirf WhatsApp pe available hain — limited time ke liye. Abhi pucho, kal shayad bik jaayein.
+            {t('exitPopup.description')}
           </p>
 
           <a
@@ -67,11 +69,11 @@ const ExitPopup = () => {
             rel="noopener noreferrer"
           >
             <FaWhatsapp />
-            <span>Exclusive Plots Dekho — WhatsApp</span>
+            <span>{t('exitPopup.button')}</span>
           </a>
 
           <button className="exit-popup-dismiss" onClick={closePopup}>
-            Nahi chahiye, main baad me dekhunga
+            {t('exitPopup.dismiss')}
           </button>
         </div>
       </div>

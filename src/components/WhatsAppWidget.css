@@ -90,42 +90,42 @@
   50% { transform: translateY(-5px); }
 }
 
-/* Popup */
+/* ===== POPUP ===== */
 .whatsapp-popup {
   position: absolute;
   bottom: 80px;
   right: 0;
-  width: 320px;
+  width: 340px;
   background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 211, 102, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), 0 0 30px rgba(37, 211, 102, 0.1);
   overflow: hidden;
-  animation: slideUp 0.3s ease;
+  animation: popupSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes slideUp {
+@keyframes popupSlideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+/* Header */
 .popup-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 15px;
+  padding: 14px 16px;
   background: linear-gradient(145deg, #0B8057 0%, #075E54 100%);
   color: white;
   position: relative;
   overflow: hidden;
 }
 
-/* Header shine */
 .popup-header::before {
   content: '';
   position: absolute;
@@ -137,16 +137,17 @@
 }
 
 .popup-avatar {
-  width: 45px;
-  height: 45px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(145deg, #2EE077 0%, #25D366 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
 .popup-info {
@@ -158,13 +159,31 @@
 }
 
 .popup-name {
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
 }
 
 .popup-status {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #2EE077;
+  border-radius: 50%;
+  display: inline-block;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .popup-close {
@@ -187,25 +206,101 @@
   opacity: 1;
 }
 
+/* ===== CHAT BODY ===== */
 .popup-body {
-  padding: 15px;
+  padding: 16px 14px;
   background: #E5DDD5;
-  min-height: 100px;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8c3b8' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  min-height: 160px;
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
-.popup-message {
-  background: var(--white);
-  padding: 12px 15px;
-  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.popup-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== CHAT MESSAGES ===== */
+.chat-msg {
+  display: flex;
+  max-width: 88%;
+}
+
+.chat-msg-right {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.chat-msg-left {
+  align-self: flex-start;
+  justify-content: flex-start;
+}
+
+/* Message appear animation */
+.msg-animate {
+  animation: msgPop 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes msgPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Chat bubbles */
+.chat-bubble {
+  padding: 8px 12px;
+  border-radius: 8px;
   position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.popup-message::before {
+.chat-bubble p {
+  color: var(--black);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Green bubble - customer (right side) */
+.chat-bubble-green {
+  background: #DCF8C6;
+  border-radius: 8px 0 8px 8px;
+}
+
+.chat-bubble-green::after {
   content: '';
   position: absolute;
   top: 0;
-  left: -8px;
+  right: -7px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 8px;
+  border-color: transparent transparent transparent #DCF8C6;
+}
+
+/* White bubble - GOACRES reply (left side) */
+.chat-bubble-white {
+  background: var(--white);
+  border-radius: 0 8px 8px 8px;
+}
+
+.chat-bubble-white::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -7px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -213,19 +308,67 @@
   border-color: transparent var(--white) transparent transparent;
 }
 
-.popup-message p {
-  color: var(--black);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 5px;
+/* Message meta (time + ticks) */
+.chat-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 0.65rem;
+  color: #8696a0;
 }
 
-.popup-message p:last-child {
-  margin-bottom: 0;
+.chat-tick {
+  font-size: 0.7rem;
 }
 
+.tick-blue {
+  color: #53bdeb;
+}
+
+/* ===== TYPING INDICATOR ===== */
+.typing-bubble {
+  padding: 10px 16px;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 16px;
+}
+
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+  background: #90959a;
+  border-radius: 50%;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* ===== FOOTER ===== */
 .popup-footer {
-  padding: 15px;
+  padding: 12px 14px;
   background: var(--white);
 }
 
@@ -270,7 +413,7 @@
   left: 100%;
 }
 
-/* Mobile Responsive - above bottom nav */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .whatsapp-widget {
     bottom: calc(70px + env(safe-area-inset-bottom));
@@ -291,6 +434,10 @@
     width: calc(100vw - 32px);
     right: -6px;
     bottom: 70px;
+  }
+
+  .popup-body {
+    max-height: 220px;
   }
 }
 
