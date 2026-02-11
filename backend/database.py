@@ -1,5 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from config import settings
+import certifi
 
 client: AsyncIOMotorClient = None
 db = None
@@ -7,7 +8,10 @@ db = None
 
 async def connect_db():
     global client, db
-    client = AsyncIOMotorClient(settings.MONGODB_URI)
+    client = AsyncIOMotorClient(
+        settings.MONGODB_URI,
+        tlsCAFile=certifi.where(),
+    )
     db = client[settings.MONGODB_DB_NAME]
     # Create indexes
     await db.plots.create_index("slug", unique=True)
