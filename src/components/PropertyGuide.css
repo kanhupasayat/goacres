@@ -1,0 +1,496 @@
+.property-guide {
+  background: var(--off-white);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
+/* Section label */
+.pg-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+}
+
+/* Mobile Tabs — hidden on desktop */
+.pg-tabs {
+  display: none;
+}
+
+/* Comparison Grid */
+.pg-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 40px;
+}
+
+/* Cards */
+.pg-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Glossy top bar */
+.pg-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.pg-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.pg-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pg-card:hover::after {
+  left: 150%;
+}
+
+/* Risk Card — muted, informational tone */
+.pg-card-risk {
+  border-left: 4px solid #95a5a6;
+}
+
+.pg-card-risk::before {
+  background: linear-gradient(90deg, #bdc3c7, #95a5a6, #7f8c8d);
+}
+
+/* Benefit Card */
+.pg-card-benefit {
+  border-left: 4px solid var(--gold);
+}
+
+.pg-card-benefit::before {
+  background: var(--gold-shine);
+  background-size: 200% 200%;
+  animation: shimmer 3s ease infinite;
+}
+
+/* Recommended Badge */
+.pg-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: var(--black);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Card Titles */
+.pg-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.pg-card-title-risk {
+  color: #5a6c7d;
+}
+
+.pg-card-title-benefit {
+  color: var(--primary-red);
+}
+
+/* List Items */
+.pg-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pg-list-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.pg-list-item strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.pg-list-item p {
+  font-size: 0.85rem;
+  color: var(--grey);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Icons */
+.pg-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
+.pg-icon-risk {
+  background: #f0f3f5;
+  color: #7f8c8d;
+}
+
+.pg-icon-benefit {
+  background: #FEF9E7;
+  color: #B8972E;
+}
+
+/* Mission Box */
+.pg-mission {
+  margin-top: 32px;
+  background: linear-gradient(135deg, #5C0000 0%, #8B0000 50%, #5C0000 100%);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: var(--shadow-md), 0 0 20px rgba(139, 0, 0, 0.2);
+  position: relative;
+}
+
+.pg-mission::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold-shine);
+  background-size: 200% 200%;
+  animation: shimmer 3s ease infinite;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.pg-mission-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  color: var(--gold-light);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.pg-mission p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* CTA Button */
+.pg-cta-wrap {
+  text-align: center;
+  margin-top: 28px;
+}
+
+.pg-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: linear-gradient(145deg, #25D366 0%, #128C7E 100%);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pg-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.pg-cta-btn svg {
+  font-size: 1.3rem;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .pg-comparison {
+    gap: 20px;
+  }
+
+  .pg-card {
+    padding: 24px 20px;
+  }
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .property-guide .section-title {
+    margin-bottom: 0;
+  }
+
+  .pg-label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* Tab Buttons */
+  .pg-tabs {
+    display: flex;
+    gap: 0;
+    margin-top: 18px;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pg-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 8px;
+    border: none;
+    border-radius: 11px;
+    background: transparent;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--grey);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+  }
+
+  .pg-tab svg {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .pg-tab-benefit.pg-tab-active {
+    background: linear-gradient(135deg, #8B0000, #5C0000);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+  }
+
+  .pg-tab-risk.pg-tab-active {
+    background: #5a6c7d;
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(90, 108, 125, 0.3);
+  }
+
+  /* Cards — hide/show via tabs */
+  .pg-comparison {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 14px;
+  }
+
+  .pg-card {
+    display: none;
+    padding: 18px 16px;
+    border-radius: 16px;
+    border-left-width: 3px;
+  }
+
+  .pg-card.pg-card-mob-active {
+    display: block;
+  }
+
+  /* Disable hover on mobile */
+  .pg-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pg-card:hover::after {
+    left: -100%;
+  }
+
+  /* Hide card title on mobile — tab already shows it */
+  .pg-card-title {
+    display: none;
+  }
+
+  .pg-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 0.58rem;
+    padding: 3px 10px;
+  }
+
+  .pg-list {
+    gap: 14px;
+  }
+
+  .pg-list-item {
+    gap: 10px;
+  }
+
+  .pg-list-item strong {
+    font-size: 0.88rem;
+  }
+
+  .pg-list-item p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .pg-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.88rem;
+  }
+
+  /* Mission */
+  .pg-mission {
+    margin-top: 18px;
+    padding: 18px 16px;
+    gap: 12px;
+    border-radius: 16px;
+  }
+
+  .pg-mission-icon {
+    font-size: 1.6rem;
+  }
+
+  .pg-mission p {
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .pg-cta-wrap {
+    margin-top: 18px;
+  }
+
+  .pg-cta-btn {
+    padding: 13px 24px;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .pg-cta-btn:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .pg-cta-btn svg {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .pg-tab {
+    padding: 9px 6px;
+    font-size: 0.72rem;
+    gap: 4px;
+  }
+
+  .pg-tab svg {
+    font-size: 0.8rem;
+  }
+
+  .pg-card {
+    padding: 14px 12px;
+  }
+
+  .pg-list {
+    gap: 12px;
+  }
+
+  .pg-list-item strong {
+    font-size: 0.82rem;
+  }
+
+  .pg-list-item p {
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .pg-icon {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    font-size: 0.8rem;
+  }
+
+  .pg-mission {
+    margin-top: 14px;
+    padding: 16px 12px;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .pg-mission-icon {
+    font-size: 1.4rem;
+  }
+
+  .pg-mission p {
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .pg-cta-wrap {
+    margin-top: 14px;
+  }
+
+  .pg-cta-btn {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+  }
+}

@@ -529,7 +529,7 @@ const PropertyDetail = () => {
         </div>
         <div className="cta-buttons">
           <a
-            href={`https://wa.me/916370997812?text=Hi! I'm interested in ${property.title} at ${property.location} (₹${property.price}). Please share more details.`}
+            href={`https://wa.me/919187428518?text=Hi! I'm interested in ${property.title} at ${property.location} (₹${property.price}). Please share more details.`}
             className="cta-btn whatsapp"
             target="_blank"
             rel="noopener noreferrer"
@@ -537,7 +537,7 @@ const PropertyDetail = () => {
             <FaWhatsapp />
             <span>WhatsApp</span>
           </a>
-          <a href="tel:+916370997812" className="cta-btn call">
+          <a href="tel:+919187428518" className="cta-btn call">
             <FiPhone />
             <span>Call Now</span>
           </a>

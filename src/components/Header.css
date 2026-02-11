@@ -4,23 +4,45 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--white);
-  transition: var(--transition-normal);
-  padding: 12px 0;
-  border-bottom: 1px solid transparent;
-}
-
-.header.scrolled {
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 10px 16px;
+  background: transparent;
+  pointer-events: none;
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
+  margin: 0 auto;
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 8px 20px;
+  gap: 24px;
+  border-radius: 14px;
+
+  /* Glass — always on */
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
+  /* Smooth transition — unified timing for all properties */
+  transition: max-width 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-radius 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+              padding 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Scrolled: shrink to floating island */
+.header.scrolled .header-container {
+  max-width: 940px;
+  padding: 6px 24px;
+  border-color: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(212, 175, 55, 0.12);
+  border-radius: 50px;
 }
 
 /* Logo Styles */
@@ -28,24 +50,88 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .logo-brand {
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 3px;
-  background: linear-gradient(135deg, var(--primary-red), #dc3545);
+  display: inline-flex;
+  border: 2px solid rgba(139, 0, 0, 0.3);
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 2px 12px rgba(139, 0, 0, 0.1),
+    inset 0 1px 0 rgba(139, 0, 0, 0.05);
+}
+
+/* Shine sweep across logo */
+.logo-brand::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 0, 0, 0.08),
+    rgba(255, 255, 255, 0.25),
+    rgba(139, 0, 0, 0.08),
+    transparent
+  );
+  animation: logoShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes logoShine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.logo-go {
+  background: linear-gradient(135deg, #8B0000, #dc3545, #8B0000, #ff4d4d, #8B0000);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transition: all 0.3s ease;
+  animation: goldShimmer 4s ease infinite;
+  filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.3));
+}
+
+.logo-acres {
+  background: linear-gradient(135deg, #8B0000, #ff4d4d, #8B0000, #dc3545, #8B0000);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 4s ease 0.5s infinite;
+  filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.3));
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .logo:hover .logo-brand {
-  background: linear-gradient(135deg, #d4af37, #f4d03f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  border-color: rgba(139, 0, 0, 0.5);
+  box-shadow:
+    0 4px 20px rgba(139, 0, 0, 0.15),
+    inset 0 1px 0 rgba(139, 0, 0, 0.1);
+}
+
+.logo:hover .logo-go,
+.logo:hover .logo-acres {
+  filter: drop-shadow(0 0 8px rgba(139, 0, 0, 0.4));
 }
 
 /* Navigation */
@@ -58,12 +144,11 @@
 .nav-list {
   display: flex;
   list-style: none;
-  gap: 8px;
+  gap: 4px;
   margin: 0;
-  padding: 0;
-  background: var(--off-white);
+  padding: 5px;
+  background: rgba(245, 245, 247, 0.6);
   border-radius: 50px;
-  padding: 6px;
 }
 
 .nav-list li {
@@ -73,17 +158,18 @@
 .nav-list a {
   display: block;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--grey);
-  padding: 10px 20px;
+  padding: 9px 18px;
   border-radius: 50px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: color 0.25s ease, background 0.25s ease;
+  white-space: nowrap;
 }
 
 .nav-list a:hover {
   color: var(--primary-red);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .nav-list a.active {
@@ -96,27 +182,12 @@
 .header-cta {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
-/* Menu Toggle - Hidden on Desktop */
+/* Menu Toggle */
 .menu-toggle {
   display: none !important;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: var(--off-white);
-  border: none;
-  border-radius: 12px;
-  font-size: 1.4rem;
-  color: var(--black);
-  cursor: pointer;
-  z-index: 1001;
-  transition: all 0.3s ease;
-}
-
-.menu-toggle:hover {
-  background: var(--light-grey);
 }
 
 .menu-overlay {
@@ -126,41 +197,46 @@
 /* Tablet Styles */
 @media (max-width: 992px) {
   .nav-list {
-    gap: 4px;
-    padding: 5px;
+    gap: 3px;
+    padding: 4px;
   }
 
   .nav-list a {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+    padding: 8px 14px;
+    font-size: 0.84rem;
   }
 }
 
-/* Mobile Styles - Compact header, bottom nav replaces hamburger */
+/* Mobile Styles */
 @media (max-width: 768px) {
   .header {
-    padding: 8px 0;
-  }
-
-  .header.scrolled {
-    padding: 6px 0;
+    padding: 8px 10px;
   }
 
   .header-container {
-    gap: 10px;
+    padding: 8px 16px;
+    gap: 12px;
+    border-radius: 20px;
+    max-width: 100%;
   }
 
-  /* Hide hamburger menu - bottom nav replaces it */
+  /* Mobile floating island — compact pill with logo + toggle */
+  .header.scrolled .header-container {
+    max-width: 290px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(212, 175, 55, 0.15);
+  }
+
   .menu-toggle {
     display: none !important;
   }
 
-  /* Hide desktop nav on mobile */
   .nav {
     display: none !important;
   }
 
-  /* Hide overlay since no hamburger */
   .menu-overlay {
     display: none !important;
   }
@@ -173,11 +249,23 @@
   .logo-brand {
     font-size: 1.3rem;
     letter-spacing: 2px;
+    transition: font-size 0.4s ease, padding 0.4s ease;
+  }
+
+  /* Slightly smaller logo in scrolled pill */
+  .header.scrolled .logo-brand {
+    font-size: 1.1rem;
+    padding: 4px 10px;
+    letter-spacing: 1.5px;
   }
 }
 
 @media (max-width: 480px) {
   .logo-brand {
     font-size: 1.2rem;
+  }
+
+  .header.scrolled .logo-brand {
+    font-size: 1rem;
   }
 }

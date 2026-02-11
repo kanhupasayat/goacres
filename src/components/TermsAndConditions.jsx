@@ -228,7 +228,7 @@ const TermsAndConditions = () => {
             </h2>
             <p>
               If you find any listing that is fraudulent or infringing on your rights, you must report it to{' '}
-              <a href="mailto:goacres@gmail.com" className="email-link">goacres@gmail.com</a>
+              <a href="mailto:goacres.in@gmail.com" className="email-link">goacres.in@gmail.com</a>
             </p>
             <div className="info-box">
               <p>
@@ -308,8 +308,8 @@ const TermsAndConditions = () => {
               If you have any questions about these Terms and Conditions, please contact us at:
             </p>
             <div className="contact-info">
-              <p><strong>Email:</strong> goacres@gmail.com</p>
-              <p><strong>Phone:</strong> +91 63709 97812</p>
+              <p><strong>Email:</strong> goacres.in@gmail.com</p>
+              <p><strong>Phone:</strong> +91 91874 28518</p>
               <p><strong>Location:</strong> Rourkela, Odisha</p>
             </div>
           </div>

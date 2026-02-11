@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GOACRES Admin{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="admin-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">G</span>
+            <span class="brand-text">GOACRES Admin</span>
+        </div>
+        {% if admin %}
+        <div class="nav-links">
+            <a href="/admin/">Dashboard</a>
+            <a href="/admin/plots/add">+ Add Plot</a>
+            <a href="/admin/logout" class="nav-logout">Logout</a>
+        </div>
+        {% endif %}
+    </nav>
+
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

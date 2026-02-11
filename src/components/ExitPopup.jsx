@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { FiX } from 'react-icons/fi';
 import { useTranslation } from '../hooks/useTranslation';
 import './ExitPopup.css';
 
-const WHATSAPP_NUMBER = '916370997812';
+const WHATSAPP_NUMBER = '919187428518';
 
 const ExitPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -50,10 +49,6 @@ const ExitPopup = () => {
   return (
     <div className="exit-popup-overlay" onClick={closePopup}>
       <div className="exit-popup" onClick={(e) => e.stopPropagation()}>
-        <button className="exit-popup-close" onClick={closePopup}>
-          <FiX />
-        </button>
-
         <div className="exit-popup-content">
           <div className="exit-popup-emoji">{t('exitPopup.emoji')}</div>
           <h2>{t('exitPopup.heading')}</h2>

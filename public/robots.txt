@@ -1,0 +1,10 @@
+# GOACRES - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://goacres.in/sitemap.xml
+
+# Disallow admin routes
+Disallow: /admin
+Disallow: /admin/

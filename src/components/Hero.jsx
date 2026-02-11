@@ -5,6 +5,8 @@ import { useTranslation } from '../hooks/useTranslation';
 import './Hero.css';
 
 const heroImages = [
+  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/29/89/f6/img-20160930-094803-largejpg.jpg?w=2000&h=-1&s=1',
+  'https://avathioutdoors.gumlet.io/travelGuide/dev/rourkela_P3166.jpg',
   'https://images.unsplash.com/photo-1518196744992-78329b7b6614?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
   'https://images.unsplash.com/photo-1600761650077-46a4f5a4c3ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
   'https://images.unsplash.com/photo-1606707761551-e36dc1a23f57?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
@@ -12,7 +14,7 @@ const heroImages = [
   'https://images.unsplash.com/photo-1738714064251-dd573bfe4075?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'
 ];
 
-const WHATSAPP_NUMBER = '916370997812';
+const WHATSAPP_NUMBER = '919187428518';
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -94,7 +96,7 @@ const Hero = () => {
             <FaWhatsapp />
             <span>{t('hero.cta')}</span>
           </a>
-          <a href="tel:+916370997812" className="btn btn-call-hero">
+          <a href="tel:+919187428518" className="btn btn-call-hero">
             <FiPhone />
             <span>{t('hero.callButton')}</span>
           </a>

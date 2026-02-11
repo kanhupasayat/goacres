@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Login - GOACRES Admin{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <span class="login-icon">G</span>
+            <h1>GOACRES</h1>
+            <p>Admin Panel</p>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/admin/login" class="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="admin@goacres.in" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

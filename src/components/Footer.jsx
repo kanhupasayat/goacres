@@ -5,7 +5,7 @@ import LegalModal from './LegalModal';
 import { useTranslation } from '../hooks/useTranslation';
 import './Footer.css';
 
-const WHATSAPP_NUMBER = '916370997812';
+const WHATSAPP_NUMBER = '919187428518';
 
 const TermsContent = () => (
   <>
@@ -112,8 +112,8 @@ const TermsContent = () => (
     <h3>13. Contact</h3>
     <p>
       For any questions regarding these Terms & Conditions, contact us at:<br />
-      Email: goacres@gmail.com<br />
-      Phone: +91 63709 97812<br />
+      Email: goacres.in@gmail.com<br />
+      Phone: +91 91874 28518<br />
       Location: Rourkela, Odisha, India
     </p>
   </>
@@ -179,7 +179,7 @@ const PrivacyContent = () => (
       <li>Request deletion of your data</li>
       <li>Withdraw consent for data processing</li>
     </ul>
-    <p>To exercise these rights, contact us at goacres@gmail.com.</p>
+    <p>To exercise these rights, contact us at goacres.in@gmail.com.</p>
 
     <h3>9. Children's Privacy</h3>
     <p>
@@ -194,8 +194,8 @@ const PrivacyContent = () => (
     <h3>11. Contact</h3>
     <p>
       For privacy-related concerns, contact us at:<br />
-      Email: goacres@gmail.com<br />
-      Phone: +91 63709 97812<br />
+      Email: goacres.in@gmail.com<br />
+      Phone: +91 91874 28518<br />
       Location: Rourkela, Odisha, India
     </p>
   </>
@@ -219,27 +219,6 @@ const Footer = () => {
   return (
     <footer className="footer" id="contact">
       <div className="container">
-        {/* Contact CTA Section */}
-        <div className="footer-cta">
-          <div className="cta-content">
-            <h2>{t('footer.cta.title')}</h2>
-            <p>{t('footer.cta.subtitle')}</p>
-          </div>
-          <div className="cta-buttons">
-            <a href="tel:+916370997812" className="btn btn-primary">
-              <FiPhone /> {t('footer.cta.callButton')}
-            </a>
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('footer.whatsappMessage'))}`}
-              className="btn btn-whatsapp-cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaWhatsapp /> {t('footer.cta.whatsappButton')}
-            </a>
-          </div>
-        </div>
-
         {/* Main Footer */}
         <div className="footer-main">
           <div className="footer-brand">
@@ -297,11 +276,11 @@ const Footer = () => {
               </li>
               <li>
                 <FiPhone className="contact-icon" />
-                <a href="tel:+916370997812">+91 63709 97812</a>
+                <a href="tel:+919187428518">+91 91874 28518</a>
               </li>
               <li>
                 <FiMail className="contact-icon" />
-                <a href="mailto:goacres@gmail.com">goacres@gmail.com</a>
+                <a href="mailto:goacres.in@gmail.com">goacres.in@gmail.com</a>
               </li>
             </ul>
           </div>

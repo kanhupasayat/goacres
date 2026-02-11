@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit" if edit_mode else "Add" }} Plot - GOACRES Admin{% endblock %}
+
+{% block content %}
+<div class="plot-form-page">
+    <div class="form-header">
+        <h1>{{ "Edit" if edit_mode else "Add New" }} Plot</h1>
+        <a href="/admin/" class="btn btn-secondary">&larr; Back</a>
+    </div>
+
+    <form method="POST" action="{{ '/admin/plots/' ~ plot._id ~ '/edit' if edit_mode else '/admin/plots/add' }}" class="plot-form" id="plotForm">
+
+        <!-- Basic Info -->
+        <fieldset>
+            <legend>Basic Information</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" required value="{{ plot.title if plot else '' }}" placeholder="Premium Corner Plot">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" name="location" required value="{{ plot.location if plot else '' }}" placeholder="Civil Township, Rourkela">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="type">Type *</label>
+                    <select id="type" name="type" required>
+                        <option value="Residential" {{ 'selected' if plot and plot.type == 'Residential' }}>Residential</option>
+                        <option value="Commercial" {{ 'selected' if plot and plot.type == 'Commercial' }}>Commercial</option>
+                        <option value="Farm House" {{ 'selected' if plot and plot.type == 'Farm House' }}>Farm House</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="highlight">Highlight</label>
+                    <input type="text" id="highlight" name="highlight" value="{{ plot.highlight if plot else '' }}" placeholder="Corner Plot">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="Ready for Construction" {{ 'selected' if plot and plot.status == 'Ready for Construction' }}>Ready for Construction</option>
+                        <option value="Under Development" {{ 'selected' if plot and plot.status == 'Under Development' }}>Under Development</option>
+                        <option value="Sold" {{ 'selected' if plot and plot.status == 'Sold' }}>Sold</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Pricing -->
+        <fieldset>
+            <legend>Pricing</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price_min">Min Price/Decimal (&#8377;)</label>
+                    <input type="number" id="price_min" name="price_min" value="{{ plot.price_per_decimal.min if plot and plot.price_per_decimal else 0 }}">
+                </div>
+                <div class="form-group">
+                    <label for="price_max">Max Price/Decimal (&#8377;)</label>
+                    <input type="number" id="price_max" name="price_max" value="{{ plot.price_per_decimal.max if plot and plot.price_per_decimal else 0 }}">
+                </div>
+                <div class="form-group">
+                    <label for="size_range">Size Range (display)</label>
+                    <input type="text" id="size_range" name="size_range" value="{{ plot.size_range if plot else '' }}" placeholder="2,000 - 2,500">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Specifications -->
+        <fieldset>
+            <legend>Specifications</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sqft">Sq.Ft</label>
+                    <input type="number" id="sqft" name="sqft" value="{{ plot.sqft if plot else 0 }}">
+                </div>
+                <div class="form-group">
+                    <label for="decimal">Decimal</label>
+                    <input type="number" id="decimal" name="decimal" step="0.1" value="{{ plot.decimal if plot else 0 }}">
+                </div>
+                <div class="form-group">
+                    <label for="dimensions">Dimensions</label>
+                    <input type="text" id="dimensions" name="dimensions" value="{{ plot.dimensions if plot else '' }}" placeholder="33ft x 66ft">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="road_width">Road Width</label>
+                    <input type="text" id="road_width" name="road_width" value="{{ plot.road_width if plot else '' }}" placeholder="30ft">
+                </div>
+                <div class="form-group">
+                    <label for="road_type">Road Type</label>
+                    <input type="text" id="road_type" name="road_type" value="{{ plot.road_type if plot else '' }}" placeholder="Concrete">
+                </div>
+                <div class="form-group">
+                    <label for="facing">Facing</label>
+                    <select id="facing" name="facing">
+                        {% for f in ['East', 'West', 'North', 'South', 'North-East', 'North-West', 'South-East', 'South-West'] %}
+                        <option value="{{ f }}" {{ 'selected' if plot and plot.facing == f }}>{{ f }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" name="corner_plot" {{ 'checked' if plot and plot.corner_plot }}> Corner Plot</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" name="boundary_wall" {{ 'checked' if plot and plot.boundary_wall }}> Boundary Wall</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" name="electricity" {{ 'checked' if (not plot) or (plot and plot.electricity) }}> Electricity</label>
+                </div>
+                <div class="form-group">
+                    <label for="water">Water</label>
+                    <select id="water" name="water">
+                        <option value="true" {{ 'selected' if (not plot) or (plot and plot.water == true) }}>Available</option>
+                        <option value="false" {{ 'selected' if plot and plot.water == false }}>Not Available</option>
+                        <option value="Borewell" {{ 'selected' if plot and plot.water == 'Borewell' }}>Borewell</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Location Details -->
+        <fieldset>
+            <legend>Location Details</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="landmark">Landmark</label>
+                    <input type="text" id="landmark" name="landmark" value="{{ plot.landmark if plot else '' }}" placeholder="Near Ispat General Hospital">
+                </div>
+                <div class="form-group">
+                    <label for="distance_main_road">Distance to Main Road</label>
+                    <input type="text" id="distance_main_road" name="distance_main_road" value="{{ plot.distance_main_road if plot else '' }}" placeholder="100m from Main Road">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Photos -->
+        <fieldset>
+            <legend>Photos</legend>
+            <div class="photos-section">
+                <div class="photo-upload-area" id="photoUploadArea">
+                    <p>Click to upload or drag photos here</p>
+                    <input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+                </div>
+                <div class="photo-preview-list" id="photoPreviewList">
+                    {% if plot and plot.photos %}
+                    {% for url in plot.photos %}
+                    <div class="photo-preview-item" data-url="{{ url }}">
+                        <img src="{{ url }}" alt="Plot photo">
+                        <button type="button" class="photo-remove-btn" onclick="removePhoto(this)">&times;</button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <input type="hidden" name="photos_json" id="photosJson" value='{{ plot.photos | tojson if plot and plot.photos else "[]" }}'>
+            </div>
+        </fieldset>
+
+        <!-- Nearby Places -->
+        <fieldset>
+            <legend>Nearby Places</legend>
+            <div class="nearby-section">
+                <div class="nearby-list" id="nearbyList">
+                    {% if plot and plot.nearby %}
+                    {% for place in plot.nearby %}
+                    <div class="nearby-row">
+                        <select class="nearby-type">
+                            {% for t in ['hospital', 'school', 'market', 'bank', 'temple', 'railway', 'bus', 'petrol', 'highway', 'river', 'park'] %}
+                            <option value="{{ t }}" {{ 'selected' if place.type == t }}>{{ t|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="nearby-name" value="{{ place.name }}" placeholder="Name">
+                        <input type="text" class="nearby-distance" value="{{ place.distance }}" placeholder="Distance">
+                        <button type="button" class="btn btn-sm btn-delete" onclick="this.parentElement.remove(); updateNearbyJson()">X</button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addNearbyRow()">+ Add Nearby Place</button>
+                <input type="hidden" name="nearby_json" id="nearbyJson" value='{{ plot.nearby | tojson if plot and plot.nearby else "[]" }}'>
+            </div>
+        </fieldset>
+
+        <!-- Video -->
+        <fieldset>
+            <legend>Video</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="video">YouTube Embed URL</label>
+                    <input type="url" id="video" name="video" value="{{ plot.video if plot and plot.video else '' }}" placeholder="https://www.youtube.com/embed/...">
+                </div>
+                <div class="form-group">
+                    <label for="video_type">Video Type</label>
+                    <select id="video_type" name="video_type">
+                        <option value="" {{ 'selected' if not plot or not plot.video_type }}>None / Landscape</option>
+                        <option value="shorts" {{ 'selected' if plot and plot.video_type == 'shorts' }}>Shorts (Vertical)</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Display Settings -->
+        <fieldset>
+            <legend>Display Settings</legend>
+            <div class="form-row">
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" name="is_active" {{ 'checked' if (not plot) or (plot and plot.is_active) }}> Active (visible on website)</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" name="is_featured" {{ 'checked' if plot and plot.is_featured }}> Featured (show on landing page)</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">{{ "Update Plot" if edit_mode else "Add Plot" }}</button>
+            <a href="/admin/" class="btn btn-secondary btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Photo upload
+const photoUploadArea = document.getElementById('photoUploadArea');
+const photoInput = document.getElementById('photoInput');
+const photoPreviewList = document.getElementById('photoPreviewList');
+const photosJsonInput = document.getElementById('photosJson');
+
+photoUploadArea.addEventListener('click', () => photoInput.click());
+photoUploadArea.addEventListener('dragover', (e) => { e.preventDefault(); photoUploadArea.classList.add('dragover'); });
+photoUploadArea.addEventListener('dragleave', () => photoUploadArea.classList.remove('dragover'));
+photoUploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    photoUploadArea.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+});
+photoInput.addEventListener('change', () => handleFiles(photoInput.files));
+
+function handleFiles(files) {
+    for (const file of files) {
+        uploadFile(file);
+    }
+}
+
+async function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const placeholder = document.createElement('div');
+    placeholder.className = 'photo-preview-item uploading';
+    placeholder.innerHTML = '<div class="upload-spinner"></div>';
+    photoPreviewList.appendChild(placeholder);
+
+    try {
+        const res = await fetch('/admin/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.url) {
+            placeholder.classList.remove('uploading');
+            placeholder.dataset.url = data.url;
+            placeholder.innerHTML = `<img src="${data.url}" alt="Plot photo"><button type="button" class="photo-remove-btn" onclick="removePhoto(this)">&times;</button>`;
+            updatePhotosJson();
+        } else {
+            placeholder.remove();
+            alert('Upload failed');
+        }
+    } catch (err) {
+        placeholder.remove();
+        alert('Upload error: ' + err.message);
+    }
+}
+
+function removePhoto(btn) {
+    btn.parentElement.remove();
+    updatePhotosJson();
+}
+
+function updatePhotosJson() {
+    const urls = [];
+    document.querySelectorAll('.photo-preview-item[data-url]').forEach(el => {
+        urls.push(el.dataset.url);
+    });
+    photosJsonInput.value = JSON.stringify(urls);
+}
+
+// Nearby places
+function addNearbyRow() {
+    const list = document.getElementById('nearbyList');
+    const row = document.createElement('div');
+    row.className = 'nearby-row';
+    row.innerHTML = `
+        <select class="nearby-type">
+            <option value="hospital">Hospital</option>
+            <option value="school">School</option>
+            <option value="market">Market</option>
+            <option value="bank">Bank</option>
+            <option value="temple">Temple</option>
+            <option value="railway">Railway</option>
+            <option value="bus">Bus</option>
+            <option value="petrol">Petrol</option>
+            <option value="highway">Highway</option>
+            <option value="river">River</option>
+            <option value="park">Park</option>
+        </select>
+        <input type="text" class="nearby-name" placeholder="Name">
+        <input type="text" class="nearby-distance" placeholder="Distance">
+        <button type="button" class="btn btn-sm btn-delete" onclick="this.parentElement.remove(); updateNearbyJson()">X</button>
+    `;
+    list.appendChild(row);
+}
+
+function updateNearbyJson() {
+    const items = [];
+    document.querySelectorAll('.nearby-row').forEach(row => {
+        const type = row.querySelector('.nearby-type').value;
+        const name = row.querySelector('.nearby-name').value.trim();
+        const distance = row.querySelector('.nearby-distance').value.trim();
+        if (name) items.push({ type, name, distance });
+    });
+    document.getElementById('nearbyJson').value = JSON.stringify(items);
+}
+
+// Update JSON before submit
+document.getElementById('plotForm').addEventListener('submit', () => {
+    updatePhotosJson();
+    updateNearbyJson();
+});
+</script>
+{% endblock %}

@@ -2,8 +2,9 @@
 .exit-popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 99999;
   display: flex;
   align-items: center;
@@ -17,25 +18,40 @@
   to { opacity: 1; }
 }
 
-/* Popup Card */
+/* Popup Card — Desktop */
 .exit-popup {
-  background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 24px;
-  padding: 40px;
-  max-width: 480px;
+  background: linear-gradient(160deg, #1a1a2e 0%, #12121f 60%, #0a0a14 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 28px;
+  padding: 48px 40px 36px;
+  max-width: 440px;
   width: 100%;
   position: relative;
   animation: popupSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(212, 175, 55, 0.1);
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Subtle gold glow at top */
+.exit-popup::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 120px;
+  background: radial-gradient(ellipse, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 @keyframes popupSlide {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: scale(0.92) translateY(20px);
   }
   to {
     opacity: 1;
@@ -43,68 +59,44 @@
   }
 }
 
-/* Close Button */
-.exit-popup-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.exit-popup-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.exit-popup-close svg {
-  width: 18px;
-  height: 18px;
-}
-
 /* Popup Content */
 .exit-popup-content {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .exit-popup-emoji {
-  font-size: 3rem;
-  margin-bottom: 12px;
-  animation: bounce 1s ease infinite;
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+  animation: bounce 1.5s ease-in-out infinite;
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
 
 .exit-popup-content h2 {
-  font-size: 2rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
 }
 
 .exit-popup-content h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 16px;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 14px;
+  line-height: 1.6;
+  white-space: pre-line;
 }
 
 .exit-popup-content p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.4);
   line-height: 1.6;
   margin-bottom: 28px;
 }
@@ -118,19 +110,34 @@
   background: linear-gradient(145deg, #2EE077 0%, #25D366 50%, #1DA851 100%);
   color: white;
   border-radius: 50px;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
-  animation: pulse-exit 2s ease-in-out infinite;
+  animation: pulse-exit 2.5s ease-in-out infinite;
   width: 100%;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glossy shine on button */
+.exit-popup-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, transparent 100%);
+  border-radius: 50px 50px 0 0;
+  pointer-events: none;
 }
 
 @keyframes pulse-exit {
   0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
-  50% { box-shadow: 0 6px 35px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1); }
+  50% { box-shadow: 0 6px 35px rgba(37, 211, 102, 0.6), 0 0 0 8px rgba(37, 211, 102, 0.08); }
 }
 
 .exit-popup-btn:hover {
@@ -140,18 +147,25 @@
 
 .exit-popup-btn svg {
   font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.exit-popup-btn span {
+  position: relative;
+  z-index: 1;
 }
 
 /* Dismiss Button */
 .exit-popup-dismiss {
   display: block;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 18px;
   padding: 10px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.8rem;
   cursor: pointer;
   font-family: inherit;
   transition: color 0.2s ease;
@@ -161,7 +175,7 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Mobile bottom sheet style */
+/* Mobile — Bottom Sheet */
 @media (max-width: 768px) {
   .exit-popup-overlay {
     align-items: flex-end;
@@ -170,12 +184,11 @@
 
   .exit-popup {
     border-radius: 24px 24px 0 0;
-    padding: 30px 24px;
-    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    padding: 40px 20px 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
     max-width: 100%;
     margin: 0;
     animation: exitBottomSheet 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
   }
 
   @keyframes exitBottomSheet {
@@ -202,22 +215,33 @@
     border-radius: 2px;
   }
 
+  .exit-popup-emoji {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
   .exit-popup-content h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
   }
 
   .exit-popup-content h3 {
-    font-size: 1rem;
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+  }
+
+  .exit-popup-content p {
+    font-size: 0.82rem;
+    margin-bottom: 22px;
   }
 
   .exit-popup-btn {
-    font-size: 0.95rem;
-    padding: 14px 28px;
+    font-size: 0.92rem;
+    padding: 14px 24px;
   }
-}
 
-@media (max-width: 576px) {
-  .exit-popup-emoji {
-    font-size: 2.5rem;
+  .exit-popup-dismiss {
+    font-size: 0.75rem;
+    margin-top: 14px;
   }
 }

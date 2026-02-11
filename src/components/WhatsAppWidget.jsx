@@ -10,7 +10,7 @@ const WhatsAppWidget = () => {
   const { t } = useTranslation();
   const chatBodyRef = useRef(null);
 
-  const phoneNumber = '916370997812';
+  const phoneNumber = '919187428518';
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

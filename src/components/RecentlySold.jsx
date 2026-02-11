@@ -4,7 +4,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from '../hooks/useTranslation';
 import './RecentlySold.css';
 
-const WHATSAPP_NUMBER = '916370997812';
+const WHATSAPP_NUMBER = '919187428518';
 
 const soldProperties = [
   {

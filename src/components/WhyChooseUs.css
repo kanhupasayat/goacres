@@ -4,30 +4,37 @@
   contain-intrinsic-size: auto 1200px;
 }
 
-/* Stats with Glossy Effect */
+/* Stats with Glass Effect */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   margin-bottom: 60px;
   padding: 40px;
-  background: linear-gradient(145deg, #B22222 0%, #8B0000 50%, #5C0000 100%);
+  background: linear-gradient(145deg, rgba(139, 0, 0, 0.85) 0%, rgba(100, 0, 0, 0.9) 50%, rgba(70, 0, 0, 0.95) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 83, 73, 0.25);
+  border-top: 1px solid rgba(255, 83, 73, 0.35);
   border-radius: var(--radius-xl);
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4);
+  box-shadow:
+    0 10px 40px rgba(139, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 83, 73, 0.15);
 }
 
-/* Glossy shine overlay */
+/* Glossy shine overlay — strong top reflection */
 .stats-container::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 100%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   pointer-events: none;
 }
 
@@ -220,13 +227,91 @@
     margin: 8px auto 12px;
   }
 
+  /* Why Choose content — mobile stack */
+  .why-choose-content {
+    gap: 36px;
+  }
+
+  .why-choose-text .section-title {
+    margin-bottom: 20px !important;
+  }
+
+  .why-choose-text .section-title h2 {
+    font-size: 1.4rem;
+  }
+
+  .why-choose-text .section-title p {
+    font-size: 0.9rem;
+    margin-top: 14px;
+  }
+
+  .mission-statement {
+    margin-bottom: 18px;
+  }
+
+  .mission-statement p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .benefits-list {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .benefits-list li {
+    font-size: 0.88rem;
+    padding: 11px 0;
+    gap: 10px;
+  }
+
+  .benefits-list li:hover {
+    padding-left: 0;
+  }
+
+  .check-icon {
+    font-size: 1.05rem;
+  }
+
+  /* Testimonials — compact on mobile */
+  .testimonials-container h3 {
+    font-size: 1.15rem;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .testimonial-card {
+    padding: 18px;
+  }
+
+  .testimonial-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .author-name {
+    font-size: 0.88rem;
+  }
+
+  .author-location {
+    font-size: 0.78rem;
+  }
+
   /* WhatsApp consult button — compact on mobile */
   .btn-whatsapp-consult {
     padding: 12px 24px;
     font-size: 0.9rem;
     width: 100%;
     justify-content: center;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
   }
 }
 
@@ -503,15 +588,37 @@
     font-size: 0.85rem;
   }
 
+  .why-choose-text .section-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .mission-statement p {
+    font-size: 0.85rem;
+  }
+
+  .benefits-list li {
+    font-size: 0.82rem;
+    padding: 10px 0;
+  }
+
   .testimonials-grid {
     gap: 15px;
   }
 
   .testimonial-card {
-    padding: 20px;
+    padding: 16px;
   }
 
   .testimonial-card:hover {
     transform: none;
+  }
+
+  .testimonial-text {
+    font-size: 0.82rem;
+  }
+
+  .btn-whatsapp-consult {
+    font-size: 0.85rem;
+    padding: 11px 20px;
   }
 }

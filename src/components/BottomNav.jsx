@@ -1,7 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
-import { FiHome, FiGrid, FiInfo, FiPhone } from 'react-icons/fi';
+import { RiHomeLine, RiHomeFill, RiMapPin2Line, RiMapPin2Fill, RiShieldCheckLine, RiShieldCheckFill, RiChat1Line, RiChat1Fill } from 'react-icons/ri';
 import { useTranslation } from '../hooks/useTranslation';
 import './BottomNav.css';
+
+const smoothScrollTo = (el, duration = 900) => {
+  const start = window.scrollY;
+  const target = el.getBoundingClientRect().top + start;
+  const distance = target - start;
+  let startTime = null;
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const step = (timestamp) => {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, start + distance * easeOutCubic(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
 
 const BottomNav = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -11,10 +29,10 @@ const BottomNav = () => {
   const { t } = useTranslation();
 
   const tabs = [
-    { id: 'home', label: t('bottomNav.tabs.home'), icon: <FiHome />, href: '#home' },
-    { id: 'listings', label: t('bottomNav.tabs.plots'), icon: <FiGrid />, href: '#listings' },
-    { id: 'about', label: t('bottomNav.tabs.about'), icon: <FiInfo />, href: '#about' },
-    { id: 'contact', label: t('bottomNav.tabs.contact'), icon: <FiPhone />, href: '#contact' },
+    { id: 'home', label: t('bottomNav.tabs.home'), iconOutline: <RiHomeLine />, iconFill: <RiHomeFill />, href: '/#home' },
+    { id: 'listings', label: t('bottomNav.tabs.plots'), iconOutline: <RiMapPin2Line />, iconFill: <RiMapPin2Fill />, href: '/#listings' },
+    { id: 'about', label: t('bottomNav.tabs.about'), iconOutline: <RiShieldCheckLine />, iconFill: <RiShieldCheckFill />, href: '/#about' },
+    { id: 'contact', label: t('bottomNav.tabs.contact'), iconOutline: <RiChat1Line />, iconFill: <RiChat1Fill />, href: '/#contact' },
   ];
 
   // Hide on scroll down, show on scroll up
@@ -71,28 +89,35 @@ const BottomNav = () => {
   }, []);
 
   const handleTabClick = (e, tab) => {
-    e.preventDefault();
-    setActiveTab(tab.id);
     const el = document.getElementById(tab.id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      // On home page — scroll to section
+      e.preventDefault();
+      setActiveTab(tab.id);
+      smoothScrollTo(el);
     }
+    // On other pages — let the href (/#section) navigate to home
   };
 
   return (
     <nav className={`bottom-nav ${isVisible ? '' : 'bottom-nav--hidden'}`}>
       <div className="bottom-nav-inner">
-        {tabs.map((tab) => (
-          <a
-            key={tab.id}
-            href={tab.href}
-            className={`bottom-nav-tab ${activeTab === tab.id ? 'bottom-nav-tab--active' : ''}`}
-            onClick={(e) => handleTabClick(e, tab)}
-          >
-            <span className="bottom-nav-icon">{tab.icon}</span>
-            <span className="bottom-nav-label">{tab.label}</span>
-          </a>
-        ))}
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <a
+              key={tab.id}
+              href={tab.href}
+              className={`bottom-nav-tab ${isActive ? 'bottom-nav-tab--active' : ''}`}
+              onClick={(e) => handleTabClick(e, tab)}
+            >
+              <span className="bottom-nav-icon">
+                {isActive ? tab.iconFill : tab.iconOutline}
+              </span>
+              <span className="bottom-nav-label">{tab.label}</span>
+            </a>
+          );
+        })}
       </div>
     </nav>
   );

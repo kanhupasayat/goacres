@@ -16,6 +16,10 @@ dist-ssr
 .env
 backend/.env
 backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+__pycache__/
+*.pyc
 
 # Windows reserved file
 nul
@@ -32,3 +36,6 @@ nul
 *.sw?
 
 .vercel
+
+# Local Netlify folder
+.netlify

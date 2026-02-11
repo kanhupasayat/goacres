@@ -1,12 +1,12 @@
-import { FiCheckCircle, FiStar, FiMessageCircle, FiMapPin, FiFileText, FiKey } from 'react-icons/fi';
+import { FiCheckCircle, FiStar, FiSearch, FiMessageCircle, FiMapPin, FiShield } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from '../hooks/useTranslation';
 import './WhyChooseUs.css';
 
-const WHATSAPP_NUMBER = '916370997812';
+const WHATSAPP_NUMBER = '919187428518';
 
-const stepIcons = [<FiMessageCircle />, <FiMapPin />, <FiFileText />, <FiKey />];
+const stepIcons = [<FiSearch />, <FiMessageCircle />, <FiMapPin />, <FiShield />];
 
 const WhyChooseUs = () => {
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation({ threshold: 0.2 });
