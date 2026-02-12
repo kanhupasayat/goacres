@@ -213,7 +213,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <FaWhatsapp />, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
     { icon: <FaInstagram />, href: 'https://www.instagram.com/goacres.in/', label: 'Instagram' },
-    { icon: <FaFacebookF />, href: 'https://facebook.com/goacres', label: 'Facebook' }
+    { icon: <FaFacebookF />, href: 'https://www.facebook.com/profile.php?id=61587903158067', label: 'Facebook' }
   ];
 
   return (

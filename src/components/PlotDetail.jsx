@@ -9,19 +9,18 @@ import {
 import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from '../hooks/useTranslation';
 import SEO from './SEO';
-import staticPlots from '../data/plots';
+import { awaitPlots, getCachedPlots, getCachedPlot, prefetchPlots } from '../utils/plotsCache';
 import './PlotDetail.css';
 
 const WHATSAPP_NUMBER = '919187428518';
-const API_URL = import.meta.env.VITE_API_URL || '';
 
 const PlotDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [activePhoto, setActivePhoto] = useState(0);
-  const [plot, setPlot] = useState(() => staticPlots.find(p => p.slug === slug));
-  const [allPlots, setAllPlots] = useState(staticPlots);
+  const [plot, setPlot] = useState(() => getCachedPlot(slug));
+  const [allPlots, setAllPlots] = useState(() => getCachedPlots() || []);
   const touchStartX = useRef(0);
   const galleryRef = useRef(null);
 
@@ -30,29 +29,38 @@ const PlotDetail = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // Static data loads instantly, API updates silently in background
+  const [apiDone, setApiDone] = useState(false);
+
+  // Use prefetch cache or trigger API call
   useEffect(() => {
-    if (!API_URL) return;
-
-    fetch(`${API_URL}/api/plots/${slug}`)
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(data => { if (data && data.slug) setPlot(data); })
-      .catch(() => {});
-
-    fetch(`${API_URL}/api/plots?limit=100`)
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(data => {
-        const list = data.plots || data;
-        if (list && list.length > 0) setAllPlots(list);
-      })
-      .catch(() => {});
+    const cached = getCachedPlots();
+    if (cached && cached.length > 0) {
+      setAllPlots(cached);
+      const found = cached.find(p => p.slug === slug);
+      if (found) setPlot(found);
+      setApiDone(true);
+    } else {
+      prefetchPlots();
+      awaitPlots().then(apiPlots => {
+        if (apiPlots && apiPlots.length > 0) {
+          setAllPlots(apiPlots);
+          const found = apiPlots.find(p => p.slug === slug);
+          if (found) setPlot(found);
+        }
+        setApiDone(true);
+      });
+    }
   }, [slug]);
+
+  if (!plot && !apiDone) {
+    return null; // Suspense skeleton will show while loading
+  }
 
   if (!plot) {
     return (
       <div className="pd-not-found">
         <h2>Plot Not Found</h2>
-        <Link to="/#listings">← Back to Plots</Link>
+        <Link to="/plots">← Back to Plots</Link>
       </div>
     );
   }
