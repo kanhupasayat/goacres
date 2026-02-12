@@ -1,0 +1,224 @@
+.cs-section {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2e 100%);
+  overflow: hidden;
+  text-align: center;
+}
+
+.cs-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cs-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cs-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #D4AF37;
+  margin-bottom: 24px;
+}
+
+.cs-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cs-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 48px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Timer */
+.cs-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.cs-timer-box {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px 16px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cs-timer-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #D4AF37;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-timer-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cs-timer-sep {
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: -16px;
+}
+
+.cs-notify {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Buttons */
+.cs-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cs-btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+}
+
+.cs-btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+}
+
+.cs-btn-instagram {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(131, 58, 180, 0.3);
+}
+
+.cs-btn-instagram:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(131, 58, 180, 0.4);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cs-section {
+    padding: 50px 0;
+    min-height: 400px;
+  }
+
+  .cs-title {
+    font-size: 1.6rem;
+  }
+
+  .cs-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  .cs-timer {
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .cs-timer-box {
+    min-width: 62px;
+    padding: 14px 10px;
+    border-radius: 12px;
+  }
+
+  .cs-timer-value {
+    font-size: 1.6rem;
+  }
+
+  .cs-timer-label {
+    font-size: 0.6rem;
+  }
+
+  .cs-timer-sep {
+    font-size: 1.4rem;
+  }
+
+  .cs-btn {
+    padding: 12px 22px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-title {
+    font-size: 1.35rem;
+  }
+
+  .cs-timer-box {
+    min-width: 54px;
+    padding: 12px 8px;
+  }
+
+  .cs-timer-value {
+    font-size: 1.3rem;
+  }
+
+  .cs-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cs-btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}

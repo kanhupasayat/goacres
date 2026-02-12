@@ -54,84 +54,12 @@
   position: relative;
 }
 
-.logo-brand {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  display: inline-flex;
-  border: 2px solid rgba(139, 0, 0, 0.3);
-  padding: 6px 14px;
-  border-radius: 8px;
-  background: #ffffff;
-  position: relative;
-  overflow: hidden;
-  box-shadow:
-    0 2px 12px rgba(139, 0, 0, 0.1),
-    inset 0 1px 0 rgba(139, 0, 0, 0.05);
-}
-
-/* Shine sweep across logo */
-.logo-brand::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(139, 0, 0, 0.08),
-    rgba(255, 255, 255, 0.25),
-    rgba(139, 0, 0, 0.08),
-    transparent
-  );
-  animation: logoShine 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes logoShine {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
-.logo-go {
-  background: linear-gradient(135deg, #8B0000, #dc3545, #8B0000, #ff4d4d, #8B0000);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: goldShimmer 4s ease infinite;
-  filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.3));
-}
-
-.logo-acres {
-  background: linear-gradient(135deg, #8B0000, #ff4d4d, #8B0000, #dc3545, #8B0000);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: goldShimmer 4s ease 0.5s infinite;
-  filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.3));
-}
-
-@keyframes goldShimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.logo:hover .logo-brand {
-  border-color: rgba(139, 0, 0, 0.5);
-  box-shadow:
-    0 4px 20px rgba(139, 0, 0, 0.15),
-    inset 0 1px 0 rgba(139, 0, 0, 0.1);
-}
-
-.logo:hover .logo-go,
-.logo:hover .logo-acres {
-  filter: drop-shadow(0 0 8px rgba(139, 0, 0, 0.4));
+.logo-img {
+  height: 140px;
+  width: auto;
+  display: block;
+  margin: -28px 0 -40px -20px;
+  transition: height 0.4s ease;
 }
 
 /* Navigation */
@@ -222,7 +150,7 @@
 
   /* Mobile floating island — compact pill with logo + toggle */
   .header.scrolled .header-container {
-    max-width: 290px;
+    max-width: 320px;
     padding: 6px 16px;
     border-radius: 50px;
     border-color: rgba(212, 175, 55, 0.3);
@@ -246,26 +174,25 @@
     margin-left: auto;
   }
 
-  .logo-brand {
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-    transition: font-size 0.4s ease, padding 0.4s ease;
+  .logo-img {
+    height: 100px;
+    margin: -20px 0 -28px -12px;
   }
 
-  /* Slightly smaller logo in scrolled pill */
-  .header.scrolled .logo-brand {
-    font-size: 1.1rem;
-    padding: 4px 10px;
-    letter-spacing: 1.5px;
+  .header.scrolled .logo-img {
+    height: 76px;
+    margin: -14px 0 -22px -8px;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-brand {
-    font-size: 1.2rem;
+  .logo-img {
+    height: 90px;
+    margin: -18px 0 -26px -10px;
   }
 
-  .header.scrolled .logo-brand {
-    font-size: 1rem;
+  .header.scrolled .logo-img {
+    height: 70px;
+    margin: -12px 0 -20px -6px;
   }
 }

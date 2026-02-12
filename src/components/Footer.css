@@ -21,45 +21,29 @@
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 0;
 }
 
-.footer-logo .logo-brand {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #D4AF37, #f4d03f, #D4AF37, #FCF6BA, #D4AF37);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: footerGoldShimmer 4s ease infinite;
-  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
-  transition: all 0.3s ease;
-}
-
-@keyframes footerGoldShimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.footer-logo:hover .logo-brand {
-  filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.5));
+.footer-logo-img {
+  height: 160px;
+  width: auto;
+  display: block;
+  margin: -60px 0 0px -16px;
 }
 
 .footer-tagline {
   color: var(--gold);
   font-size: 1.1rem;
   font-weight: 500;
-  margin-bottom: 15px;
+  margin-top: -40px;
+  margin-bottom: 4px;
 }
 
 .footer-description {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
   line-height: 1.7;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 /* Social Links */
@@ -254,9 +238,9 @@
     padding-right: 0;
   }
 
-  .footer-logo .logo-brand {
-    font-size: 1.6rem;
-    letter-spacing: 2px;
+  .footer-logo-img {
+    height: 140px;
+    margin: -40px 0 -10px -10px;
   }
 
   .footer-tagline {

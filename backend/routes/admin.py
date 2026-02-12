@@ -8,6 +8,7 @@ from fastapi.templating import Jinja2Templates
 from database import get_db
 from routes.auth import get_current_admin
 from models.plot import PlotModel, PricePerDecimal
+from routes.settings import get_site_settings
 
 router = APIRouter(tags=["Admin"])
 templates = Jinja2Templates(directory="templates")
@@ -93,6 +94,7 @@ async def dashboard(request: Request):
     plots = await db.plots.find().sort("created_at", -1).to_list(length=200)
     total = len(plots)
     active = sum(1 for p in plots if p.get("is_active"))
+    site_settings = await get_site_settings()
 
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
@@ -100,6 +102,7 @@ async def dashboard(request: Request):
         "total": total,
         "active": active,
         "admin": admin,
+        "site_settings": site_settings,
     })
 
 

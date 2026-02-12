@@ -8,6 +8,37 @@
         <a href="/admin/plots/add" class="btn btn-primary">+ Add New Plot</a>
     </div>
 
+    <!-- Coming Soon Toggle -->
+    <div class="coming-soon-card">
+        <form method="POST" action="/admin/settings" class="cs-form">
+            <div class="cs-header">
+                <h3>🚀 Coming Soon Mode</h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" name="coming_soon" {% if site_settings.coming_soon %}checked{% endif %} onchange="this.form.submit()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="cs-fields">
+                <div class="cs-field">
+                    <label>Launch Date</label>
+                    <input type="date" name="launch_date" value="{{ site_settings.launch_date }}" class="cs-input">
+                </div>
+                <div class="cs-field">
+                    <label>Launch Message</label>
+                    <input type="text" name="launch_message" value="{{ site_settings.launch_message }}" class="cs-input" placeholder="200+ Premium Plots Launching Soon!">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Save Settings</button>
+            </div>
+            <p class="cs-status">
+                {% if site_settings.coming_soon %}
+                <span class="badge badge-active">ON — Users see countdown page</span>
+                {% else %}
+                <span class="badge badge-inactive">OFF — Users see all plots</span>
+                {% endif %}
+            </p>
+        </form>
+    </div>
+
     <div class="stats-row">
         <div class="stat-card">
             <span class="stat-number">{{ total }}</span>

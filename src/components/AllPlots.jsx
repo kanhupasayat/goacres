@@ -4,11 +4,13 @@ import { FiSearch, FiMapPin, FiMaximize2, FiHome, FiChevronLeft, FiChevronRight,
 import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from '../hooks/useTranslation';
 import SEO from './SEO';
-import staticPlots from '../data/plots';
+import ComingSoon from './ComingSoon';
+import { awaitPlots, getCachedPlots, prefetchPlots } from '../utils/plotsCache';
 import './AllPlots.css';
 
-const WHATSAPP_NUMBER = '919187428518';
 const API_URL = import.meta.env.VITE_API_URL || '';
+
+const WHATSAPP_NUMBER = '919187428518';
 const PLOTS_PER_PAGE = 12;
 
 const PRICE_RANGES = [
@@ -22,6 +24,16 @@ const PRICE_RANGES = [
 const AllPlots = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [comingSoon, setComingSoon] = useState(null);
+
+  useEffect(() => {
+    if (API_URL) {
+      fetch(`${API_URL}/api/settings`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) setComingSoon(data); })
+        .catch(() => setComingSoon(null));
+    }
+  }, []);
 
   // Read state from URL
   const currentType = searchParams.get('type') || '';
@@ -33,9 +45,9 @@ const AllPlots = () => {
   const [plots, setPlots] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState(currentSearch);
-  const [useApi, setUseApi] = useState(!!API_URL);
+  const [masterPlots, setMasterPlots] = useState([]);
 
   // Update URL params
   const updateParams = useCallback((updates) => {
@@ -56,15 +68,29 @@ const AllPlots = () => {
     });
   }, [setSearchParams]);
 
-  // Fetch from API
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  // Always show static data instantly, then try API in background
+  // On mount, get data from prefetch cache or trigger API call
   useEffect(() => {
-    // 1. Instantly show static data (no loading state)
-    let filtered = [...staticPlots];
+    const cached = getCachedPlots();
+    if (cached && cached.length > 0) {
+      setMasterPlots(cached);
+      setLoading(false);
+    } else {
+      setLoading(true);
+      prefetchPlots();
+      awaitPlots().then(apiPlots => {
+        if (apiPlots && apiPlots.length > 0) setMasterPlots(apiPlots);
+        setLoading(false);
+      });
+    }
+  }, []);
+
+  // Filter, sort, paginate from masterPlots (client-side)
+  useEffect(() => {
+    let filtered = [...masterPlots];
 
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
@@ -95,28 +121,7 @@ const AllPlots = () => {
     setTotalPages(Math.ceil(filtered.length / PLOTS_PER_PAGE) || 1);
     const start = (currentPage - 1) * PLOTS_PER_PAGE;
     setPlots(filtered.slice(start, start + PLOTS_PER_PAGE));
-
-    // 2. Try API in background (silently update if successful)
-    if (!useApi) return;
-
-    const params = new URLSearchParams();
-    params.set('page', currentPage);
-    params.set('limit', PLOTS_PER_PAGE);
-    if (currentType) params.set('type', currentType);
-    if (currentSearch) params.set('search', currentSearch);
-    if (currentSort) params.set('sort', currentSort);
-    if (priceRange?.min) params.set('min_price', priceRange.min);
-    if (priceRange?.max) params.set('max_price', priceRange.max);
-
-    fetch(`${API_URL}/api/plots?${params}`)
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(data => {
-        setPlots(data.plots || []);
-        setTotal(data.total || 0);
-        setTotalPages(data.totalPages || 1);
-      })
-      .catch(() => setUseApi(false));
-  }, [currentType, currentSearch, currentSort, currentPage, currentPrice, useApi]);
+  }, [masterPlots, currentType, currentSearch, currentSort, currentPage, currentPrice]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -166,6 +171,15 @@ const AllPlots = () => {
 
   const startItem = (currentPage - 1) * PLOTS_PER_PAGE + 1;
   const endItem = Math.min(currentPage * PLOTS_PER_PAGE, total);
+
+  if (comingSoon?.comingSoon) {
+    return (
+      <div className="all-plots-page">
+        <SEO title="Coming Soon — GOACRES" description="200+ plots launching soon on GOACRES!" path="/plots" />
+        <ComingSoon launchDate={comingSoon.launchDate} message={comingSoon.launchMessage} />
+      </div>
+    );
+  }
 
   return (
     <div className="all-plots-page">
@@ -325,6 +339,13 @@ const AllPlots = () => {
                 </Link>
 
                 <div className="ap-card-footer">
+                  <Link
+                    to={`/plot/${property.slug}`}
+                    className="ap-details-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span>{t('allPlots.viewDetails')}</span>
+                  </Link>
                   <a
                     href={getWhatsAppUrl(property)}
                     className="ap-whatsapp-btn"
@@ -333,7 +354,6 @@ const AllPlots = () => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <FaWhatsapp />
-                    <span>{t('allPlots.viewDetails')}</span>
                   </a>
                 </div>
               </div>

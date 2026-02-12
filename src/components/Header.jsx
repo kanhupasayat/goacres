@@ -81,10 +81,7 @@ const Header = () => {
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
         <a href="/" className="logo">
-          <span className="logo-brand">
-            <span className="logo-go">GO</span>
-            <span className="logo-acres">ACRES</span>
-          </span>
+          <img src="/logo.png" alt="GOACRES" className="logo-img" />
         </a>
 
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>

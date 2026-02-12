@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
 import Header from './components/Header'
@@ -6,6 +6,9 @@ import Hero from './components/Hero'
 import BottomNav from './components/BottomNav'
 import LanguageSelector from './components/LanguageSelector'
 import SEO from './components/SEO'
+import { prefetchPlots } from './utils/plotsCache'
+
+const API_URL = import.meta.env.VITE_API_URL || ''
 
 const Features = lazy(() => import('./components/Features'))
 const Listings = lazy(() => import('./components/Listings'))
@@ -18,6 +21,7 @@ const Footer = lazy(() => import('./components/Footer'))
 const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
 const PlotDetail = lazy(() => import('./components/PlotDetail'))
 const AllPlots = lazy(() => import('./components/AllPlots'))
+const ComingSoon = lazy(() => import('./components/ComingSoon'))
 
 /* ─── Skeleton Fallbacks (available before lazy chunks load) ─── */
 
@@ -125,7 +129,20 @@ const SectionSkeleton = () => (
   </div>
 )
 
-const HomePage = () => (
+const HomePage = () => {
+  const [comingSoon, setComingSoon] = useState(null);
+
+  useEffect(() => {
+    prefetchPlots();
+    if (API_URL) {
+      fetch(`${API_URL}/api/settings`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) setComingSoon(data); })
+        .catch(() => setComingSoon(null));
+    }
+  }, []);
+
+  return (
   <>
     <SEO
       path="/"
@@ -136,9 +153,17 @@ const HomePage = () => (
       <Suspense fallback={<SectionSkeleton />}>
         <Features />
       </Suspense>
-      <Suspense fallback={<ListingsSkeleton />}>
-        <Listings />
-      </Suspense>
+
+      {comingSoon?.comingSoon ? (
+        <Suspense fallback={<SectionSkeleton />}>
+          <ComingSoon launchDate={comingSoon.launchDate} message={comingSoon.launchMessage} />
+        </Suspense>
+      ) : (
+        <Suspense fallback={<ListingsSkeleton />}>
+          <Listings />
+        </Suspense>
+      )}
+
       <Suspense fallback={<SectionSkeleton />}>
         <SiteVisit />
       </Suspense>
@@ -159,7 +184,8 @@ const HomePage = () => (
       <Footer />
     </Suspense>
   </>
-)
+  );
+}
 
 function App() {
   return (

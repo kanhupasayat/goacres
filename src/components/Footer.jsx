@@ -212,7 +212,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: <FaWhatsapp />, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
-    { icon: <FaInstagram />, href: 'https://instagram.com/goacres', label: 'Instagram' },
+    { icon: <FaInstagram />, href: 'https://www.instagram.com/goacres.in/', label: 'Instagram' },
     { icon: <FaFacebookF />, href: 'https://facebook.com/goacres', label: 'Facebook' }
   ];
 
@@ -223,7 +223,7 @@ const Footer = () => {
         <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="footer-logo">
-              <span className="logo-brand">GOACRES</span>
+              <img src="/logo.png" alt="GOACRES" className="footer-logo-img" />
             </a>
             <p className="footer-tagline">{t('footer.tagline')}</p>
             <p className="footer-description">
