@@ -16,11 +16,16 @@
   pointer-events: none;
 }
 
+/* Tilt Wrapper */
+.founder-tilt-wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+  perspective: 800px;
+}
+
 /* Card */
 .founder-card {
   position: relative;
-  max-width: 650px;
-  margin: 0 auto;
   text-align: center;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
   backdrop-filter: blur(20px);
@@ -31,14 +36,23 @@
   border-radius: 28px;
   padding: 48px 40px;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
+  transition: opacity 0.8s ease;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Glare overlay */
+.founder-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .founder-card.is-visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Avatar */
@@ -185,6 +199,10 @@
 @media (max-width: 768px) {
   .founder-section {
     padding: 40px 0;
+  }
+
+  .founder-tilt-wrapper {
+    perspective: none;
   }
 
   .founder-card {

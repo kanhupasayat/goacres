@@ -12,6 +12,7 @@ const en = {
     tag: "Rourkela's #1 Property Platform",
     h1Part1: "Don't Dream It,",
     h1Part2: "Buy It.",
+    h1RotatingWords: ["Buy It.", "Own It.", "Live It.", "Build It."],
     subtitle: "Rourkela's best residential, commercial & farm house plots in one place — connect directly with trusted Real Estate Advisors.",
     cta: 'Chat on WhatsApp',
     callButton: 'Call Now',
@@ -89,7 +90,7 @@ const en = {
     button: 'Want to See a Plot — WhatsApp Us',
     note: 'Plots available in all areas of Rourkela',
     stats: [
-      { value: '50+', label: 'Plots Listed' },
+      { value: '99+', label: 'Plots Listed' },
       { value: '30 min', label: 'Response Time' },
       { value: 'FREE', label: 'For Buyers' },
     ],
@@ -109,7 +110,7 @@ const en = {
 
   whyChooseUs: {
     stats: [
-      { value: '50+', label: 'Plots Listed' },
+      { value: '99+', label: 'Plots Listed' },
       { value: '6+', label: 'Rourkela Areas' },
       { value: 'FREE', label: 'For Buyers' },
       { value: '30 min', label: 'WhatsApp Response' },
@@ -283,7 +284,7 @@ const en = {
     title: 'Founder & CEO, GOACRES',
     quote: 'My vision is to help every family in Rourkela find the right land through trusted Real Estate Advisors — without fear, without confusion. GOACRES is here to make that connection.',
     stats: [
-      { value: '50+', label: 'Plots Listed' },
+      { value: '99+', label: 'Plots Listed' },
       { value: '6+', label: 'Areas Covered' },
       { value: '100%', label: 'FREE for Buyers' },
     ],

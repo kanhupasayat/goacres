@@ -165,6 +165,9 @@ const HomePage = () => {
       )}
 
       <Suspense fallback={<SectionSkeleton />}>
+        <WhyChooseUs />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
         <SiteVisit />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
@@ -172,9 +175,6 @@ const HomePage = () => {
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <RecentlySold />
-      </Suspense>
-      <Suspense fallback={<SectionSkeleton />}>
-        <WhyChooseUs />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <FounderSection />

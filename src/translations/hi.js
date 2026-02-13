@@ -12,6 +12,7 @@ const hi = {
     tag: "Rourkela's #1 Property Platform",
     h1Part1: "Sapne Dekho Nahi,",
     h1Part2: "Kharido.",
+    h1RotatingWords: ["Kharido.", "Apna Banao.", "Jiyo.", "Banao."],
     subtitle:
       "Rourkela ke best residential, commercial & farm house plots ek jagah — trusted Real Estate Advisors se seedha connect karo.",
     cta: "WhatsApp Pe Baat Karo",
@@ -103,7 +104,7 @@ const hi = {
     button: "Plot Dekhna Hai — WhatsApp Karo",
     note: "Rourkela ke sabhi areas me plots available",
     stats: [
-      { value: "50+", label: "Plots Listed" },
+      { value: "99+", label: "Plots Listed" },
       { value: "30 min", label: "Me Response" },
       { value: "FREE", label: "Buyers Ke Liye" },
     ],
@@ -126,7 +127,7 @@ const hi = {
 
   whyChooseUs: {
     stats: [
-      { value: "50+", label: "Plots Listed" },
+      { value: "99+", label: "Plots Listed" },
       { value: "6+", label: "Rourkela Areas" },
       { value: "FREE", label: "Buyers Ke Liye" },
       { value: "30 min", label: "WhatsApp Response" },
@@ -311,7 +312,7 @@ const hi = {
     title: "Founder & CEO, GOACRES",
     quote: "Mera sapna hai ki Rourkela ka har parivaar sahi aur vishwasniya Real Estate Advisor ke through apni zameen le sake — bina kisi darr ke. GOACRES isi kaam me aapki madad karta hai.",
     stats: [
-      { value: "50+", label: "Plots Listed" },
+      { value: "99+", label: "Plots Listed" },
       { value: "6+", label: "Areas Covered" },
       { value: "100%", label: "FREE for Buyers" },
     ],

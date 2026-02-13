@@ -72,14 +72,23 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 3s ease infinite;
-  will-change: background-position;
+  animation: shimmer 3s ease infinite, stat-glow-pulse 2.5s ease-in-out infinite;
+  will-change: background-position, filter;
 }
 
 @keyframes shimmer {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes stat-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.3));
+  }
 }
 
 .stat-label {

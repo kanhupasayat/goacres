@@ -8,12 +8,28 @@ const WHATSAPP_NUMBER = '919187428518';
 
 const Hero = () => {
   const [heroLoaded, setHeroLoaded] = useState(false);
-  const { t } = useTranslation();
+  const [wordIndex, setWordIndex] = useState(0);
+  const [animState, setAnimState] = useState('in'); // 'in' | 'out'
+  const { t, tArray } = useTranslation();
+
+  const rotatingWords = tArray('hero.h1RotatingWords');
 
   useEffect(() => {
     const timer = setTimeout(() => setHeroLoaded(true), 200);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!rotatingWords || rotatingWords.length <= 1) return;
+    const interval = setInterval(() => {
+      setAnimState('out');
+      setTimeout(() => {
+        setWordIndex(prev => (prev + 1) % rotatingWords.length);
+        setAnimState('in');
+      }, 400);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [rotatingWords?.length]);
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('hero.whatsappMessage'))}`;
 
@@ -36,7 +52,9 @@ const Hero = () => {
           <p className="hero-tag">{t('hero.tag')}</p>
           <h1>
             <span className="hero-h1-part1">{t('hero.h1Part1')}</span>{' '}
-            <span className="hero-h1-part2">{t('hero.h1Part2')}</span>
+            <span className={`hero-h1-part2 rotate-word rotate-${animState}`}>
+              {rotatingWords?.[wordIndex] || t('hero.h1Part2')}
+            </span>
           </h1>
           <p className="hero-subtitle">{t('hero.subtitle')}</p>
         </div>
