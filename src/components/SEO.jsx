@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_URL = 'https://goacres.in';
-const DEFAULT_IMAGE = 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/29/89/f6/img-20160930-094803-largejpg.jpg?w=1200&h=-1&s=1';
+const DEFAULT_IMAGE = 'https://goacres.in/logo.png';
 
 const SEO = ({ title, description, path = '/', image, type = 'website', jsonLd }) => {
   const fullTitle = title
