@@ -10,7 +10,8 @@ const en = {
 
   hero: {
     tag: "Rourkela's #1 Property Platform",
-    h1: "Don't Dream It, Buy It.",
+    h1Part1: "Don't Dream It,",
+    h1Part2: "Buy It.",
     subtitle: "Rourkela's best residential, commercial & farm house plots in one place — connect directly with trusted Real Estate Advisors.",
     cta: 'Chat on WhatsApp',
     callButton: 'Call Now',

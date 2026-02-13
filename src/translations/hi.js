@@ -10,7 +10,8 @@ const hi = {
 
   hero: {
     tag: "Rourkela's #1 Property Platform",
-    h1: "Sapne Dekho Nahi, Kharido.",
+    h1Part1: "Sapne Dekho Nahi,",
+    h1Part2: "Kharido.",
     subtitle:
       "Rourkela ke best residential, commercial & farm house plots ek jagah — trusted Real Estate Advisors se seedha connect karo.",
     cta: "WhatsApp Pe Baat Karo",

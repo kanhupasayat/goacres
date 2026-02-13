@@ -295,6 +295,7 @@ const PlotDetail = () => {
             <div className="pd-info-top">
               <span className="pd-type-badge">{plot.type}</span>
               {plot.cornerPlot && <span className="pd-corner-badge">Corner Plot</span>}
+              {plot.status === 'Sold' && <span className="pd-sold-badge">SOLD</span>}
             </div>
 
             <h1 className="pd-title">{plot.title}</h1>

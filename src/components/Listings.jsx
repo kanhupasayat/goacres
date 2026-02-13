@@ -18,15 +18,14 @@ const Listings = () => {
   // Build 3 category cards from plots data
   const categories = useMemo(() => {
     const types = [
-      { id: 'Residential', icon: <FiHome />, titleKey: 'listings.residential.title', descKey: 'listings.residential.desc' },
-      { id: 'Commercial', icon: <FiShoppingBag />, titleKey: 'listings.commercial.title', descKey: 'listings.commercial.desc' },
-      { id: 'Farm House', icon: <FiSun />, titleKey: 'listings.farmHouse.title', descKey: 'listings.farmHouse.desc' },
+      { id: 'Residential', icon: <FiHome />, titleKey: 'listings.residential.title', descKey: 'listings.residential.desc', image: 'https://i.pinimg.com/1200x/e5/58/ae/e558aebbc5c0f6496bee2e9737706d37.jpg' },
+      { id: 'Commercial', icon: <FiShoppingBag />, titleKey: 'listings.commercial.title', descKey: 'listings.commercial.desc', image: 'https://i.pinimg.com/1200x/86/31/6a/86316a07e7eccd7ee48776fefdcb16e5.jpg' },
+      { id: 'Farm House', icon: <FiSun />, titleKey: 'listings.farmHouse.title', descKey: 'listings.farmHouse.desc', image: 'https://i.pinimg.com/1200x/fe/37/76/fe377674e7a2049242d830b0c68f6858.jpg' },
     ];
 
     return types.map(type => {
-      const matching = plots.filter(p => p.type === type.id);
-      const photo = matching.length > 0 ? matching[0].photos[0] : null;
-      return { ...type, count: matching.length, photo };
+      const matching = plots.filter(p => p.type === type.id && p.status !== 'Sold');
+      return { ...type, count: matching.length };
     });
   }, [plots]);
 
@@ -64,7 +63,7 @@ const Listings = () => {
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <div className="category-card-image">
-                {cat.photo && <img src={cat.photo} alt={t(cat.titleKey)} loading="lazy" />}
+                <img src={cat.image} alt={t(cat.titleKey)} loading="lazy" />
                 <div className="category-card-overlay"></div>
                 <span className="category-card-icon">{cat.icon}</span>
               </div>

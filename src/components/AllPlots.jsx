@@ -301,7 +301,10 @@ const AllPlots = () => {
                   <div className="ap-card-image">
                     <img src={property.photos[0]} alt={property.title} loading="lazy" />
                     <span className="ap-card-type">{property.type}</span>
-                    {property.status && (
+                    {property.status === 'Sold' && (
+                      <span className="ap-card-status ap-status-sold">SOLD</span>
+                    )}
+                    {property.status && property.status !== 'Sold' && (
                       <span className={`ap-card-status ${property.status === 'Ready for Construction' ? 'ap-status-ready' : 'ap-status-dev'}`}>
                         {property.status}
                       </span>

@@ -1,38 +1,57 @@
+import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiMapPin } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from '../hooks/useTranslation';
+import { getCachedPlots, awaitPlots, prefetchPlots } from '../utils/plotsCache';
 import './RecentlySold.css';
 
 const WHATSAPP_NUMBER = '919187428518';
 
-const soldProperties = [
+const fallbackSold = [
   {
     id: 1,
     title: 'Residential Plot',
     location: 'Koel Nagar, Rourkela',
-    size: '1,600 Sq.Ft',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    sqft: 1600,
+    photos: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
   },
   {
     id: 2,
     title: 'Commercial Plot',
     location: 'Sector 19, Rourkela',
-    size: '3,200 Sq.Ft',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    sqft: 3200,
+    photos: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
   },
   {
     id: 3,
     title: 'Corner Plot - Premium',
     location: 'Civil Township, Rourkela',
-    size: '2,400 Sq.Ft',
-    image: 'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    sqft: 2400,
+    photos: ['https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
   }
 ];
 
 const RecentlySold = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const { t, tArray } = useTranslation();
+  const [soldProperties, setSoldProperties] = useState(fallbackSold);
+
+  useEffect(() => {
+    const cached = getCachedPlots();
+    if (cached && cached.length > 0) {
+      const sold = cached.filter(p => p.status === 'Sold').slice(0, 3);
+      if (sold.length > 0) setSoldProperties(sold);
+    } else {
+      prefetchPlots();
+      awaitPlots().then(apiPlots => {
+        if (apiPlots && apiPlots.length > 0) {
+          const sold = apiPlots.filter(p => p.status === 'Sold').slice(0, 3);
+          if (sold.length > 0) setSoldProperties(sold);
+        }
+      });
+    }
+  }, []);
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('recentlySold.whatsappMessage'))}`;
   const soldTimes = tArray('recentlySold.soldTimes');
@@ -49,11 +68,11 @@ const RecentlySold = () => {
           {soldProperties.map((property, index) => (
             <div
               className={`sold-card ${isVisible ? 'is-visible' : ''}`}
-              key={property.id}
+              key={property.id || property.slug || index}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <div className="sold-card-image">
-                <img src={property.image} alt={property.title} loading="lazy" decoding="async" />
+                <img src={property.photos?.[0] || property.image} alt={property.title} loading="lazy" decoding="async" />
                 <div className="sold-overlay"></div>
                 <div className="sold-stamp">{t('recentlySold.soldStamp')}</div>
                 <div className="sold-time">{soldTimes[index]}</div>
@@ -64,7 +83,7 @@ const RecentlySold = () => {
                   <FiMapPin />
                   <span>{property.location}</span>
                 </div>
-                <span className="sold-size">{property.size}</span>
+                <span className="sold-size">{property.sqft ? `${property.sqft.toLocaleString()} Sq.Ft` : property.size}</span>
               </div>
             </div>
           ))}

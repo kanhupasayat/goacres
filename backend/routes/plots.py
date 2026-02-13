@@ -17,6 +17,7 @@ async def get_plots(
     featured: Optional[bool] = Query(None, description="Filter featured plots only"),
     min_price: Optional[int] = Query(None, description="Min price per decimal"),
     max_price: Optional[int] = Query(None, description="Max price per decimal"),
+    status: Optional[str] = Query(None, description="Filter by status: Sold, Ready for Construction, etc."),
 ):
     """Get plots with filtering, sorting, search, and pagination."""
     db = get_db()
@@ -29,6 +30,9 @@ async def get_plots(
 
     if type:
         query["type"] = type
+
+    if status:
+        query["status"] = status
 
     if search:
         query["$or"] = [
