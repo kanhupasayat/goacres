@@ -34,8 +34,8 @@ const ComingSoon = ({ launchDate, message }) => {
       <div className="cs-bg" />
       <div className="container cs-content">
         <div className="cs-badge">LAUNCHING 22 MARCH 2026</div>
-        <h2 className="cs-title">{message || '200+ Premium Plots Are Coming to Rourkela!'}</h2>
-        <p className="cs-subtitle">Residential, Commercial & Farm House — Rourkela ke best plots ek jagah. Verified listings, trusted Real Estate Advisors.</p>
+        <h2 className="cs-title">{message || '100+ Premium Plots Are Coming to Rourkela!'}</h2>
+        <p className="cs-subtitle">Residential, Commercial & Farm House — Rourkela's best plots in one place. Verified listings, trusted Real Estate Advisors.</p>
 
         <div className="cs-timer">
           <div className="cs-timer-box">
@@ -59,7 +59,7 @@ const ComingSoon = ({ launchDate, message }) => {
           </div>
         </div>
 
-        <p className="cs-notify">Sabse pehle jaanne ke liye follow karo!</p>
+        <p className="cs-notify">Be the first to know — Follow us now!</p>
 
         <div className="cs-buttons">
           <a href={whatsappUrl} className="cs-btn cs-btn-whatsapp" target="_blank" rel="noopener noreferrer">

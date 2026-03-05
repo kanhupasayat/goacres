@@ -16,6 +16,7 @@ const SiteVisit = lazy(() => import('./components/SiteVisit'))
 const PropertyGuide = lazy(() => import('./components/PropertyGuide'))
 const RecentlySold = lazy(() => import('./components/RecentlySold'))
 const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'))
+const ListProperty = lazy(() => import('./components/ListProperty'))
 const FounderSection = lazy(() => import('./components/FounderSection'))
 const Footer = lazy(() => import('./components/Footer'))
 const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
@@ -175,6 +176,9 @@ const HomePage = () => {
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <RecentlySold />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <ListProperty />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <FounderSection />

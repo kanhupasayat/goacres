@@ -223,7 +223,7 @@ const Footer = () => {
         <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="footer-logo">
-              <img src="/logo.png" alt="GOACRES" className="footer-logo-img" />
+              <img src="/logo.png?v=2" alt="GOACRES" className="footer-logo-img" />
             </a>
             <p className="footer-tagline">{t('footer.tagline')}</p>
             <p className="footer-description">

@@ -174,6 +174,29 @@ const en = {
     whatsappMessage: 'Hi! I need a plot in Rourkela. Please share available options.',
   },
 
+  listProperty: {
+    badge: 'FOR PROPERTY OWNERS & BROKERS',
+    heading: 'Want to List Your Property on GOACRES?',
+    subtitle: 'List your plot on Rourkela\'s fastest growing property platform — get genuine buyer leads directly on WhatsApp. Completely FREE.',
+    benefits: [
+      {
+        title: 'Genuine Buyer Leads',
+        desc: 'Get direct enquiries from serious buyers looking for plots in Rourkela.',
+      },
+      {
+        title: 'Wider Reach',
+        desc: 'Your property will be visible to thousands of monthly visitors on our platform.',
+      },
+      {
+        title: 'FREE Listing',
+        desc: 'No charges for listing your property. Zero cost, maximum exposure.',
+      },
+    ],
+    button: 'List Your Property — WhatsApp Us',
+    note: 'We will contact you within 30 minutes to collect property details.',
+    whatsappMessage: 'Hi! I am a property owner/broker in Rourkela. I want to list my property on GOACRES. Please share the process.',
+  },
+
   footer: {
     cta: {
       title: 'Looking for a Plot?',

@@ -197,6 +197,29 @@ const hi = {
       "Hi! Mujhe Rourkela me plot chahiye. Available options batao please.",
   },
 
+  listProperty: {
+    badge: 'PROPERTY OWNERS & BROKERS KE LIYE',
+    heading: 'Apni Property GOACRES Pe List Karna Hai?',
+    subtitle: 'Rourkela ke sabse tezi se badhte property platform pe apna plot list karo — genuine buyer leads seedha WhatsApp pe milenge. Bilkul FREE.',
+    benefits: [
+      {
+        title: 'Genuine Buyer Leads',
+        desc: 'Rourkela me plot dhundhne wale serious buyers se direct enquiry milegi.',
+      },
+      {
+        title: 'Zyada Logo Tak Pahunch',
+        desc: 'Aapki property hamare platform pe hazaron monthly visitors ko dikhegi.',
+      },
+      {
+        title: 'FREE Listing',
+        desc: 'Property list karne ka koi charge nahi. Zero cost, maximum exposure.',
+      },
+    ],
+    button: 'Apni Property List Karo — WhatsApp Karo',
+    note: 'Hum 30 minute me aapko contact karenge property details lene ke liye.',
+    whatsappMessage: 'Hi! Main Rourkela me property owner/broker hoon. Mujhe apni property GOACRES pe list karni hai. Process batao please.',
+  },
+
   footer: {
     cta: {
       title: "Plot Dhundh Rahe Ho?",

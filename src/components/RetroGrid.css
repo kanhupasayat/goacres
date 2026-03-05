@@ -1,0 +1,37 @@
+.retro-grid {
+  perspective: 300px;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.retro-grid-inner {
+  position: absolute;
+  inset: -50%;
+  background-image:
+    linear-gradient(var(--light-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--light-line) 1px, transparent 1px),
+    linear-gradient(var(--dark-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dark-line) 1px, transparent 1px);
+  background-size:
+    var(--cell-size) var(--cell-size),
+    var(--cell-size) var(--cell-size),
+    calc(var(--cell-size) / 5) calc(var(--cell-size) / 5),
+    calc(var(--cell-size) / 5) calc(var(--cell-size) / 5);
+  transform: rotateX(var(--grid-angle));
+  opacity: var(--grid-opacity);
+  animation: retroGridMove 20s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+@keyframes retroGridMove {
+  0% {
+    transform: rotateX(var(--grid-angle)) translateY(0);
+  }
+  100% {
+    transform: rotateX(var(--grid-angle)) translateY(var(--cell-size));
+  }
+}
