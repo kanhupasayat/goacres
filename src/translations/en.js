@@ -192,7 +192,7 @@ const en = {
         desc: 'No charges for listing your property. Zero cost, maximum exposure.',
       },
     ],
-    button: 'List Your Property — WhatsApp Us',
+    button: 'List Property — WhatsApp',
     note: 'We will contact you within 30 minutes to collect property details.',
     whatsappMessage: 'Hi! I am a property owner/broker in Rourkela. I want to list my property on GOACRES. Please share the process.',
   },

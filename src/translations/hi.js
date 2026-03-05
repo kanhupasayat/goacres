@@ -215,7 +215,7 @@ const hi = {
         desc: 'Property list karne ka koi charge nahi. Zero cost, maximum exposure.',
       },
     ],
-    button: 'Apni Property List Karo — WhatsApp Karo',
+    button: 'Property List Karo — WhatsApp',
     note: 'Hum 30 minute me aapko contact karenge property details lene ke liye.',
     whatsappMessage: 'Hi! Main Rourkela me property owner/broker hoon. Mujhe apni property GOACRES pe list karni hai. Process batao please.',
   },
