@@ -4,6 +4,13 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  VITE_API_URL = "https://goacres.onrender.com"
+
+# Service Worker — must NOT be redirected
+[[redirects]]
+  from = "/sw.js"
+  to = "/sw.js"
+  status = 200
 
 # SPA fallback
 [[redirects]]
