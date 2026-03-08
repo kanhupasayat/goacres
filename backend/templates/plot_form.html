@@ -111,14 +111,6 @@
                 <div class="form-group checkbox-group">
                     <label><input type="checkbox" name="electricity" {{ 'checked' if (not plot) or (plot and plot.electricity) }}> Electricity</label>
                 </div>
-                <div class="form-group">
-                    <label for="water">Water</label>
-                    <select id="water" name="water">
-                        <option value="true" {{ 'selected' if (not plot) or (plot and plot.water == true) }}>Available</option>
-                        <option value="false" {{ 'selected' if plot and plot.water == false }}>Not Available</option>
-                        <option value="Borewell" {{ 'selected' if plot and plot.water == 'Borewell' }}>Borewell</option>
-                    </select>
-                </div>
             </div>
         </fieldset>
 
