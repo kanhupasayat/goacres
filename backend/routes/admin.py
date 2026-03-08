@@ -99,6 +99,25 @@ async def dashboard(request: Request):
     active = sum(1 for p in plots if p.get("is_active"))
     site_settings = await get_site_settings()
 
+    # Analytics stats
+    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    wa_today = await db.analytics.count_documents({"type": "whatsapp_click", "timestamp": {"$gte": today_start}})
+    call_today = await db.analytics.count_documents({"type": "call_click", "timestamp": {"$gte": today_start}})
+    views_today = await db.analytics.count_documents({"type": "plot_view", "timestamp": {"$gte": today_start}})
+    wa_total = await db.analytics.count_documents({"type": "whatsapp_click"})
+    call_total = await db.analytics.count_documents({"type": "call_click"})
+    views_total = await db.analytics.count_documents({"type": "plot_view"})
+    recent_activity = await db.analytics.find().sort("timestamp", -1).to_list(length=20)
+
+    # Most viewed plots
+    pipeline = [
+        {"$match": {"type": "plot_view", "plot_title": {"$ne": ""}}},
+        {"$group": {"_id": "$plot_title", "views": {"$sum": 1}}},
+        {"$sort": {"views": -1}},
+        {"$limit": 5},
+    ]
+    popular_plots = await db.analytics.aggregate(pipeline).to_list(length=5)
+
     # Push notification stats
     push_count = await db.push_subscribers.count_documents({"is_active": True})
     recent_subs = await db.push_subscribers.find({"is_active": True}).sort("subscribed_at", -1).to_list(length=10)
@@ -114,6 +133,14 @@ async def dashboard(request: Request):
         "push_count": push_count,
         "recent_subs": recent_subs,
         "recent_notifications": recent_notifications,
+        "wa_today": wa_today,
+        "call_today": call_today,
+        "views_today": views_today,
+        "wa_total": wa_total,
+        "call_total": call_total,
+        "views_total": views_total,
+        "recent_activity": recent_activity,
+        "popular_plots": popular_plots,
     })
 
 

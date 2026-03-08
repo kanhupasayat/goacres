@@ -58,6 +58,74 @@
         </div>
     </div>
 
+    <!-- Analytics Section -->
+    <div class="analytics-section">
+        <h2 class="section-heading">Analytics</h2>
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-number stat-green">{{ wa_today }}</span>
+                <span class="stat-label">WhatsApp Today</span>
+                <span class="stat-total">Total: {{ wa_total }}</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number stat-blue">{{ call_today }}</span>
+                <span class="stat-label">Calls Today</span>
+                <span class="stat-total">Total: {{ call_total }}</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number stat-purple">{{ views_today }}</span>
+                <span class="stat-label">Plot Views Today</span>
+                <span class="stat-total">Total: {{ views_total }}</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ push_count }}</span>
+                <span class="stat-label">Push Subscribers</span>
+            </div>
+        </div>
+
+        <div class="analytics-grid">
+            <!-- Popular Plots -->
+            <div class="analytics-card">
+                <h3>Most Viewed Plots</h3>
+                {% if popular_plots %}
+                <div class="popular-list">
+                    {% for p in popular_plots %}
+                    <div class="popular-item">
+                        <span class="popular-rank">#{{ loop.index }}</span>
+                        <span class="popular-name">{{ p._id }}</span>
+                        <span class="popular-views">{{ p.views }} views</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="push-empty">No data yet</p>
+                {% endif %}
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="analytics-card">
+                <h3>Recent Activity</h3>
+                {% if recent_activity %}
+                <div class="activity-list">
+                    {% for a in recent_activity %}
+                    <div class="activity-item">
+                        <span class="activity-icon {% if a.type == 'whatsapp_click' %}icon-wa{% elif a.type == 'call_click' %}icon-call{% else %}icon-view{% endif %}">
+                            {% if a.type == 'whatsapp_click' %}WA{% elif a.type == 'call_click' %}Call{% else %}View{% endif %}
+                        </span>
+                        <div class="activity-info">
+                            <span class="activity-plot">{{ a.plot_title or 'General' }}</span>
+                            <span class="activity-meta">{{ a.device }} &bull; {{ a.page }} &bull; {{ a.timestamp.strftime('%d %b, %I:%M %p') }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="push-empty">No activity yet</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     <!-- Push Notification Section -->
     <div class="push-section">
         <div class="push-send-card">

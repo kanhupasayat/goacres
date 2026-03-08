@@ -32,6 +32,8 @@ async def connect_db():
     await db.users.create_index("email", unique=True)
     await db.push_subscribers.create_index("endpoint", unique=True)
     await db.push_subscribers.create_index("is_active")
+    await db.analytics.create_index("type")
+    await db.analytics.create_index("timestamp")
 
 
 async def close_db():

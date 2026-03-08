@@ -6,6 +6,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import SEO from './SEO';
 import ComingSoon from './ComingSoon';
 import { awaitPlots, getCachedPlots, prefetchPlots } from '../utils/plotsCache';
+import { trackEvent } from '../utils/analytics';
 import './AllPlots.css';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
@@ -366,7 +367,7 @@ const AllPlots = () => {
                     className="ap-whatsapp-btn"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => { e.stopPropagation(); trackEvent('whatsapp_click', { plotTitle: property.title, plotSlug: property.slug, page: 'AllPlots' }); }}
                   >
                     <FaWhatsapp />
                   </a>

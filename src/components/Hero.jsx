@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import { useTranslation } from '../hooks/useTranslation';
+import { trackEvent } from '../utils/analytics';
 import './Hero.css';
 
 const WHATSAPP_NUMBER = '919187428518';
@@ -65,11 +66,16 @@ const Hero = () => {
             className="btn btn-whatsapp-hero"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent('whatsapp_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
           >
             <FaWhatsapp />
             <span>{t('hero.cta')}</span>
           </a>
-          <a href="tel:+919187428518" className="btn btn-call-hero">
+          <a
+            href="tel:+919187428518"
+            className="btn btn-call-hero"
+            onClick={() => trackEvent('call_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
+          >
             <FiPhone />
             <span>{t('hero.callButton')}</span>
           </a>

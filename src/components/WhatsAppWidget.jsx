@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FaWhatsapp, FaCheckDouble } from 'react-icons/fa';
 import { FiX } from 'react-icons/fi';
 import { useTranslation } from '../hooks/useTranslation';
+import { trackEvent } from '../utils/analytics';
 import './WhatsAppWidget.css';
 
 const WhatsAppWidget = () => {
@@ -46,6 +47,7 @@ const WhatsAppWidget = () => {
   }, [chatStep]);
 
   const handleWhatsAppClick = () => {
+    trackEvent('whatsapp_click', { plotTitle: 'General Enquiry', page: 'WhatsAppWidget' });
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(t('whatsappWidget.defaultMessage'))}`;
     window.open(url, '_blank');
   };

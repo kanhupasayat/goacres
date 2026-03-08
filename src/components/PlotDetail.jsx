@@ -10,6 +10,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from '../hooks/useTranslation';
 import SEO from './SEO';
 import { awaitPlots, getCachedPlots, getCachedPlot, prefetchPlots } from '../utils/plotsCache';
+import { trackEvent } from '../utils/analytics';
 import './PlotDetail.css';
 
 const DEFAULT_WHATSAPP = '919187428518';
@@ -64,6 +65,10 @@ const PlotDetail = () => {
       </div>
     );
   }
+
+  useEffect(() => {
+    if (plot) trackEvent('plot_view', { plotTitle: plot.title, plotSlug: plot.slug });
+  }, [plot?.slug]);
 
   const advisorPhone = plot.advisorPhone || DEFAULT_WHATSAPP;
   const advisorName = plot.advisorName || 'GOACRES';
@@ -359,11 +364,16 @@ const PlotDetail = () => {
                 className="pd-cta-whatsapp"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('whatsapp_click', { plotTitle: plot.title, plotSlug: plot.slug, page: 'PlotDetail' })}
               >
                 <FaWhatsapp />
                 <span>{t('plotDetail.askPrice')}</span>
               </a>
-              <a href={`tel:+${advisorPhone}`} className="pd-cta-call">
+              <a
+                href={`tel:+${advisorPhone}`}
+                className="pd-cta-call"
+                onClick={() => trackEvent('call_click', { plotTitle: plot.title, plotSlug: plot.slug, page: 'PlotDetail' })}
+              >
                 <FiPhone />
                 <span>{t('plotDetail.callNow')}</span>
               </a>
