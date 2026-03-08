@@ -6,13 +6,7 @@
   NODE_VERSION = "22"
   VITE_API_URL = "https://goacres.onrender.com"
 
-# Service Worker — must NOT be redirected
-[[redirects]]
-  from = "/sw.js"
-  to = "/sw.js"
-  status = 200
-
-# SPA fallback
+# SPA fallback — only if no matching file exists
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -24,6 +18,14 @@
   to = "https://goacres.in/:splat"
   status = 301
   force = true
+
+# Service Worker — must not be cached
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Service-Worker-Allowed = "/"
 
 # Security & Cache Headers
 [[headers]]

@@ -19,30 +19,35 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export async function initPushNotifications() {
-  // Check support
-  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (!API_URL) return;
+  if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
 
-  // Don't ask again if already denied or granted
-  if (Notification.permission === 'denied') return;
-  if (Notification.permission === 'granted') {
-    // Already granted, just ensure subscription is active
-    await subscribe();
-    return;
-  }
-
-  // Ask permission
-  const permission = await Notification.requestPermission();
-  if (permission === 'granted') {
-    await subscribe();
-  }
-}
-
-async function subscribe() {
   try {
-    // Register service worker
+    // Step 1: Register service worker first
     const registration = await navigator.serviceWorker.register('/sw.js');
     await navigator.serviceWorker.ready;
 
+    // Step 2: If already denied, stop
+    if (Notification.permission === 'denied') return;
+
+    // Step 3: If already granted, just subscribe
+    if (Notification.permission === 'granted') {
+      await subscribe(registration);
+      return;
+    }
+
+    // Step 4: Ask permission
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      await subscribe(registration);
+    }
+  } catch (e) {
+    console.log('Push setup error:', e);
+  }
+}
+
+async function subscribe(registration) {
+  try {
     // Get VAPID public key from backend
     const res = await fetch(`${API_URL}/api/push/vapid-key`);
     if (!res.ok) return;
@@ -68,6 +73,6 @@ async function subscribe() {
       }),
     });
   } catch (e) {
-    // Silent fail — don't bother user
+    console.log('Push subscribe error:', e);
   }
 }
