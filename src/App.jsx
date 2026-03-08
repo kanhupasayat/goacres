@@ -130,8 +130,14 @@ const SectionSkeleton = () => (
   </div>
 )
 
+const COMING_SOON_DEFAULT = {
+  comingSoon: true,
+  launchDate: '2026-03-22',
+  launchMessage: '100+ Premium Plots Are Coming to Rourkela!',
+};
+
 const HomePage = () => {
-  const [comingSoon, setComingSoon] = useState(null);
+  const [comingSoon, setComingSoon] = useState(COMING_SOON_DEFAULT);
 
   useEffect(() => {
     prefetchPlots();
@@ -139,7 +145,7 @@ const HomePage = () => {
       fetch(`${API_URL}/api/settings`)
         .then(r => r.ok ? r.json() : null)
         .then(data => { if (data) setComingSoon(data); })
-        .catch(() => setComingSoon(null));
+        .catch(() => {});
     }
   }, []);
 
