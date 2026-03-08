@@ -54,7 +54,7 @@ const WhyChooseUs = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1 });
   const { ref: howRef, isVisible: howVisible } = useScrollAnimation({ threshold: 0.1 });
-  const { ref: testimonialsRef, isVisible: testimonialsVisible } = useScrollAnimation({ threshold: 0.1 });
+  // const { ref: testimonialsRef, isVisible: testimonialsVisible } = useScrollAnimation({ threshold: 0.1 });
   const { t, tArray } = useTranslation();
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('whyChooseUs.whatsappMessage'))}`;
@@ -62,7 +62,7 @@ const WhyChooseUs = () => {
   const stats = tArray('whyChooseUs.stats');
   const steps = tArray('whyChooseUs.howItWorks.steps');
   const benefits = tArray('whyChooseUs.whyChoose.benefits');
-  const testimonials = tArray('whyChooseUs.testimonials.items');
+  // const testimonials = tArray('whyChooseUs.testimonials.items');
   return (
     <section className="why-choose section" id="about">
       <div className="container">
@@ -151,35 +151,7 @@ const WhyChooseUs = () => {
             </a>
           </div>
 
-          {/* Testimonials */}
-          <div
-            ref={testimonialsRef}
-            className={`testimonials-container animate-fade-left ${testimonialsVisible ? 'is-visible' : ''}`}
-          >
-            <h3>{t('whyChooseUs.testimonials.title')}</h3>
-            <div className="testimonials-grid">
-              {testimonials.map((item, index) => (
-                <div
-                  className={`testimonial-card animate-fade-up stagger-${index + 1} ${testimonialsVisible ? 'is-visible' : ''}`}
-                  key={index}
-                >
-                  <div className="testimonial-rating">
-                    {[1, 2, 3, 4, 5].map(s => (
-                      <FiStar key={s} className="star-filled" />
-                    ))}
-                  </div>
-                  <p className="testimonial-text">"{item.text}"</p>
-                  <div className="testimonial-author">
-                    <div className="author-avatar">{item.name.charAt(0)}</div>
-                    <div className="author-info">
-                      <span className="author-name">{item.name}</span>
-                      <span className="author-location">{item.location}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Testimonials — hidden for now, uncomment when real reviews available */}
         </div>
       </div>
     </section>
