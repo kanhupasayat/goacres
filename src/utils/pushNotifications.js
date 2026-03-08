@@ -22,9 +22,6 @@ export async function initPushNotifications() {
   // Check support
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
 
-  // Don't ask immediately — wait 30 seconds
-  await new Promise((r) => setTimeout(r, 30000));
-
   // Don't ask again if already denied or granted
   if (Notification.permission === 'denied') return;
   if (Notification.permission === 'granted') {
