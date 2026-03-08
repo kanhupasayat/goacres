@@ -198,7 +198,7 @@ const hi = {
   },
 
   listProperty: {
-    badge: 'PROPERTY OWNERS & BROKERS KE LIYE',
+    badge: 'PROPERTY OWNERS & REAL ESTATE ADVISORS KE LIYE',
     heading: 'Apni Property GOACRES Pe List Karna Hai?',
     subtitle: 'Rourkela ke sabse tezi se badhte property platform pe apna plot list karo — genuine buyer leads seedha WhatsApp pe milenge. Bilkul FREE.',
     benefits: [
@@ -217,7 +217,7 @@ const hi = {
     ],
     button: 'Property List Karo — WhatsApp',
     note: 'Hum 30 minute me aapko contact karenge property details lene ke liye.',
-    whatsappMessage: 'Hi! Main Rourkela me property owner/broker hoon. Mujhe apni property GOACRES pe list karni hai. Process batao please.',
+    whatsappMessage: 'Hi! Main Rourkela me property owner/Real Estate Advisor hoon. Mujhe apni property GOACRES pe list karni hai. Process batao please.',
   },
 
   footer: {

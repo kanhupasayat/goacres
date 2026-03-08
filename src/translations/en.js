@@ -175,7 +175,7 @@ const en = {
   },
 
   listProperty: {
-    badge: 'FOR PROPERTY OWNERS & BROKERS',
+    badge: 'FOR PROPERTY OWNERS & REAL ESTATE ADVISORS',
     heading: 'Want to List Your Property on GOACRES?',
     subtitle: 'List your plot on Rourkela\'s fastest growing property platform — get genuine buyer leads directly on WhatsApp. Completely FREE.',
     benefits: [
@@ -194,7 +194,7 @@ const en = {
     ],
     button: 'List Property — WhatsApp',
     note: 'We will contact you within 30 minutes to collect property details.',
-    whatsappMessage: 'Hi! I am a property owner/broker in Rourkela. I want to list my property on GOACRES. Please share the process.',
+    whatsappMessage: 'Hi! I am a property owner/Real Estate Advisor in Rourkela. I want to list my property on GOACRES. Please share the process.',
   },
 
   footer: {
