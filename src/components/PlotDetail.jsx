@@ -12,7 +12,7 @@ import SEO from './SEO';
 import { awaitPlots, getCachedPlots, getCachedPlot, prefetchPlots } from '../utils/plotsCache';
 import './PlotDetail.css';
 
-const WHATSAPP_NUMBER = '919187428518';
+const DEFAULT_WHATSAPP = '919187428518';
 
 const PlotDetail = () => {
   const { slug } = useParams();
@@ -65,10 +65,12 @@ const PlotDetail = () => {
     );
   }
 
+  const advisorPhone = plot.advisorPhone || DEFAULT_WHATSAPP;
+  const advisorName = plot.advisorName || 'GOACRES';
   const whatsappMessage = t('plotDetail.whatsappMessage')
     .replace('{title}', plot.title)
     .replace('{location}', plot.location);
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/${advisorPhone}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const nextPhoto = () => {
     setActivePhoto(prev => (prev + 1) % plot.photos.length);
@@ -336,6 +338,15 @@ const PlotDetail = () => {
               </div>
             </div>
 
+            {/* Advisor Info */}
+            <div className="pd-advisor-info">
+              <div className="pd-advisor-avatar">{advisorName.charAt(0)}</div>
+              <div className="pd-advisor-text">
+                <span className="pd-advisor-name">{advisorName}</span>
+                <span className="pd-advisor-label">Real Estate Advisor</span>
+              </div>
+            </div>
+
             {/* CTA buttons */}
             <div className="pd-cta-buttons">
               <a
@@ -347,7 +358,7 @@ const PlotDetail = () => {
                 <FaWhatsapp />
                 <span>{t('plotDetail.askPrice')}</span>
               </a>
-              <a href="tel:+919187428518" className="pd-cta-call">
+              <a href={`tel:+${advisorPhone}`} className="pd-cta-call">
                 <FiPhone />
                 <span>{t('plotDetail.callNow')}</span>
               </a>

@@ -160,8 +160,9 @@ const AllPlots = () => {
   };
 
   const getWhatsAppUrl = (property) => {
+    const phone = property.advisorPhone || WHATSAPP_NUMBER;
     const message = `Hi! I need details about "${property.title}" — ${property.location}. Please share price and full details.`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   };
 
   const resetFilters = () => {
@@ -338,6 +339,13 @@ const AllPlots = () => {
                       </span>
                       <span className="ap-price-unit">{t('allPlots.perDecimal')}</span>
                     </div>
+
+                    {property.advisorName && (
+                      <div className="ap-card-advisor">
+                        <div className="ap-advisor-dot"></div>
+                        <span>{property.advisorName}</span>
+                      </div>
+                    )}
                   </div>
                 </Link>
 

@@ -45,6 +45,9 @@ class PlotModel(BaseModel):
     video: Optional[str] = None
     video_type: Optional[str] = None
 
+    advisor_name: str = "GOACRES"
+    advisor_phone: str = "919187428518"
+
     is_active: bool = True
     is_featured: bool = False
 
@@ -121,4 +124,6 @@ def plot_to_camelcase(plot: dict) -> dict:
         "video": plot.get("video"),
         "videoType": plot.get("video_type"),
         "isFeatured": plot.get("is_featured", False),
+        "advisorName": plot.get("advisor_name", "GOACRES"),
+        "advisorPhone": plot.get("advisor_phone", "919187428518"),
     }

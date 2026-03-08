@@ -47,6 +47,8 @@ const plots = [
     ],
     video: 'https://www.youtube.com/embed/afH0OsePrAU',
     videoType: 'shorts',
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
   {
     id: 2,
@@ -91,6 +93,8 @@ const plots = [
       'https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=900&q=80',
     ],
     video: null,
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
   {
     id: 3,
@@ -135,6 +139,8 @@ const plots = [
       'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=900&q=80',
     ],
     video: null,
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
   {
     id: 4,
@@ -177,6 +183,8 @@ const plots = [
       'https://images.unsplash.com/photo-1523413363574-c30aa1c2a516?auto=format&fit=crop&w=900&q=80',
     ],
     video: null,
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
   {
     id: 5,
@@ -220,6 +228,8 @@ const plots = [
       'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80',
     ],
     video: null,
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
   {
     id: 6,
@@ -264,6 +274,8 @@ const plots = [
       'https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=900&q=80',
     ],
     video: null,
+    advisorName: 'GOACRES',
+    advisorPhone: '919187428518',
   },
 ];
 
