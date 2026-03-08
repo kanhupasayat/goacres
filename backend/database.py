@@ -30,6 +30,8 @@ async def connect_db():
     await db.plots.create_index("is_active")
     await db.plots.create_index("is_featured")
     await db.users.create_index("email", unique=True)
+    await db.push_subscribers.create_index("endpoint", unique=True)
+    await db.push_subscribers.create_index("is_active")
 
 
 async def close_db():

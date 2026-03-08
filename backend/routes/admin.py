@@ -99,6 +99,11 @@ async def dashboard(request: Request):
     active = sum(1 for p in plots if p.get("is_active"))
     site_settings = await get_site_settings()
 
+    # Push notification stats
+    push_count = await db.push_subscribers.count_documents({"is_active": True})
+    recent_subs = await db.push_subscribers.find({"is_active": True}).sort("subscribed_at", -1).to_list(length=10)
+    recent_notifications = await db.push_logs.find().sort("sent_at", -1).to_list(length=5)
+
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
         "plots": plots,
@@ -106,6 +111,9 @@ async def dashboard(request: Request):
         "active": active,
         "admin": admin,
         "site_settings": site_settings,
+        "push_count": push_count,
+        "recent_subs": recent_subs,
+        "recent_notifications": recent_notifications,
     })
 
 

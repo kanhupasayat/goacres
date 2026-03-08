@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     CLOUDINARY_API_KEY: str = ""
     CLOUDINARY_API_SECRET: str = ""
 
+    # VAPID (Web Push)
+    VAPID_PUBLIC_KEY: str = ""
+    VAPID_PRIVATE_KEY: str = ""
+    VAPID_EMAIL: str = "goacres.in@gmail.com"
+
     # CORS
     CORS_ORIGINS: List[str] = [
         "http://localhost:5173",

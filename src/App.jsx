@@ -7,6 +7,7 @@ import BottomNav from './components/BottomNav'
 import LanguageSelector from './components/LanguageSelector'
 import SEO from './components/SEO'
 import { prefetchPlots } from './utils/plotsCache'
+import { initPushNotifications } from './utils/pushNotifications'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
@@ -141,6 +142,7 @@ const HomePage = () => {
 
   useEffect(() => {
     prefetchPlots();
+    initPushNotifications();
     if (API_URL) {
       fetch(`${API_URL}/api/settings`)
         .then(r => r.ok ? r.json() : null)
