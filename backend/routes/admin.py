@@ -73,6 +73,9 @@ def build_plot_doc(form_data) -> dict:
         photos=parse_photos(form_data.get("photos_json", "")),
         video=form_data.get("video", "").strip() or None,
         video_type=form_data.get("video_type", "").strip() or None,
+        advisor_name=form_data.get("advisor_name", "").strip() or "GOACRES",
+        advisor_phone=form_data.get("advisor_phone", "").strip() or "919187428518",
+        advisor_photo=form_data.get("advisor_photo", "").strip() or None,
         is_active=form_data.get("is_active") == "on",
         is_featured=form_data.get("is_featured") == "on",
     )

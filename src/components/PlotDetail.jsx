@@ -67,6 +67,7 @@ const PlotDetail = () => {
 
   const advisorPhone = plot.advisorPhone || DEFAULT_WHATSAPP;
   const advisorName = plot.advisorName || 'GOACRES';
+  const advisorPhoto = plot.advisorPhoto || null;
   const whatsappMessage = t('plotDetail.whatsappMessage')
     .replace('{title}', plot.title)
     .replace('{location}', plot.location);
@@ -340,7 +341,11 @@ const PlotDetail = () => {
 
             {/* Advisor Info */}
             <div className="pd-advisor-info">
-              <div className="pd-advisor-avatar">{advisorName.charAt(0)}</div>
+              {advisorPhoto ? (
+                <img className="pd-advisor-avatar pd-advisor-photo" src={advisorPhoto} alt={advisorName} />
+              ) : (
+                <div className="pd-advisor-avatar">{advisorName.charAt(0)}</div>
+              )}
               <div className="pd-advisor-text">
                 <span className="pd-advisor-name">{advisorName}</span>
                 <span className="pd-advisor-label">Real Estate Advisor</span>

@@ -342,7 +342,11 @@ const AllPlots = () => {
 
                     {property.advisorName && (
                       <div className="ap-card-advisor">
-                        <div className="ap-advisor-dot"></div>
+                        {property.advisorPhoto ? (
+                          <img className="ap-advisor-img" src={property.advisorPhoto} alt={property.advisorName} />
+                        ) : (
+                          <div className="ap-advisor-dot"></div>
+                        )}
                         <span>{property.advisorName}</span>
                       </div>
                     )}

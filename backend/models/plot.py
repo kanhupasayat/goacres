@@ -47,6 +47,7 @@ class PlotModel(BaseModel):
 
     advisor_name: str = "GOACRES"
     advisor_phone: str = "919187428518"
+    advisor_photo: Optional[str] = None
 
     is_active: bool = True
     is_featured: bool = False
@@ -126,4 +127,5 @@ def plot_to_camelcase(plot: dict) -> dict:
         "isFeatured": plot.get("is_featured", False),
         "advisorName": plot.get("advisor_name", "GOACRES"),
         "advisorPhone": plot.get("advisor_phone", "919187428518"),
+        "advisorPhoto": plot.get("advisor_photo"),
     }

@@ -49,6 +49,7 @@ const plots = [
     videoType: 'shorts',
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
   {
     id: 2,
@@ -95,6 +96,7 @@ const plots = [
     video: null,
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
   {
     id: 3,
@@ -141,6 +143,7 @@ const plots = [
     video: null,
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
   {
     id: 4,
@@ -185,6 +188,7 @@ const plots = [
     video: null,
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
   {
     id: 5,
@@ -230,6 +234,7 @@ const plots = [
     video: null,
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
   {
     id: 6,
@@ -276,6 +281,7 @@ const plots = [
     video: null,
     advisorName: 'GOACRES',
     advisorPhone: '919187428518',
+    advisorPhoto: null,
   },
 ];
 

@@ -202,6 +202,41 @@
             </div>
         </fieldset>
 
+        <!-- Advisor Info -->
+        <fieldset>
+            <legend>Advisor / Broker Info</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="advisor_name">Advisor Name</label>
+                    <input type="text" id="advisor_name" name="advisor_name" value="{{ plot.advisor_name if plot and plot.advisor_name else '' }}" placeholder="GOACRES">
+                    <small style="color:#888;">Leave empty for default (GOACRES)</small>
+                </div>
+                <div class="form-group">
+                    <label for="advisor_phone">Advisor Phone (with country code)</label>
+                    <input type="text" id="advisor_phone" name="advisor_phone" value="{{ plot.advisor_phone if plot and plot.advisor_phone else '' }}" placeholder="919187428518">
+                    <small style="color:#888;">Leave empty for default. Format: 91XXXXXXXXXX</small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Advisor Photo / Logo</label>
+                    <div class="advisor-photo-section">
+                        <div class="advisor-photo-preview" id="advisorPhotoPreview">
+                            {% if plot and plot.advisor_photo %}
+                            <img src="{{ plot.advisor_photo }}" alt="Advisor photo" id="advisorPreviewImg">
+                            <button type="button" class="photo-remove-btn" onclick="removeAdvisorPhoto()">&times;</button>
+                            {% else %}
+                            <div class="advisor-photo-placeholder" id="advisorPlaceholder">No photo</div>
+                            {% endif %}
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('advisorPhotoInput').click()">Upload Photo</button>
+                        <input type="file" id="advisorPhotoInput" accept="image/*" style="display:none">
+                        <input type="hidden" name="advisor_photo" id="advisorPhotoUrl" value="{{ plot.advisor_photo if plot and plot.advisor_photo else '' }}">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
         <!-- Display Settings -->
         <fieldset>
             <legend>Display Settings</legend>
@@ -322,6 +357,38 @@ function updateNearbyJson() {
         if (name) items.push({ type, name, distance });
     });
     document.getElementById('nearbyJson').value = JSON.stringify(items);
+}
+
+// Advisor photo upload
+const advisorPhotoInput = document.getElementById('advisorPhotoInput');
+advisorPhotoInput.addEventListener('change', async () => {
+    const file = advisorPhotoInput.files[0];
+    if (!file) return;
+
+    const preview = document.getElementById('advisorPhotoPreview');
+    preview.innerHTML = '<div class="upload-spinner"></div>';
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const res = await fetch('/admin/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.url) {
+            document.getElementById('advisorPhotoUrl').value = data.url;
+            preview.innerHTML = `<img src="${data.url}" alt="Advisor photo" id="advisorPreviewImg"><button type="button" class="photo-remove-btn" onclick="removeAdvisorPhoto()">&times;</button>`;
+        } else {
+            preview.innerHTML = '<div class="advisor-photo-placeholder">Upload failed</div>';
+        }
+    } catch (err) {
+        preview.innerHTML = '<div class="advisor-photo-placeholder">Error</div>';
+        alert('Upload error: ' + err.message);
+    }
+});
+
+function removeAdvisorPhoto() {
+    document.getElementById('advisorPhotoUrl').value = '';
+    document.getElementById('advisorPhotoPreview').innerHTML = '<div class="advisor-photo-placeholder" id="advisorPlaceholder">No photo</div>';
 }
 
 // Update JSON before submit

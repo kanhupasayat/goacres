@@ -472,6 +472,11 @@
   flex-shrink: 0;
 }
 
+.pd-advisor-photo {
+  object-fit: cover;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
 .pd-advisor-text {
   display: flex;
   flex-direction: column;
