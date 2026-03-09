@@ -1,4 +1,13 @@
-// GOACRES Push Notification Service Worker
+// GOACRES Push Notification Service Worker v2
+
+// Force new SW to activate immediately (replaces old cached SW)
+self.addEventListener('install', function (event) {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', function (event) {
+  event.waitUntil(self.clients.claim());
+});
 
 self.addEventListener('push', function (event) {
   if (!event.data) return;

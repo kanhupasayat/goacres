@@ -23,20 +23,27 @@ export async function initPushNotifications() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
 
   try {
-    // Step 1: Register service worker first
-    const registration = await navigator.serviceWorker.register('/sw.js');
+    // Step 1: Unregister any old/broken service workers first
+    const existingRegs = await navigator.serviceWorker.getRegistrations();
+    for (const reg of existingRegs) {
+      // Force update to get latest sw.js
+      await reg.update().catch(() => {});
+    }
+
+    // Step 2: Register service worker
+    const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
     await navigator.serviceWorker.ready;
 
-    // Step 2: If already denied, stop
+    // Step 3: If already denied, stop
     if (Notification.permission === 'denied') return;
 
-    // Step 3: If already granted, just subscribe
+    // Step 4: If already granted, just subscribe
     if (Notification.permission === 'granted') {
       await subscribe(registration);
       return;
     }
 
-    // Step 4: Ask permission
+    // Step 5: Ask permission
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       await subscribe(registration);
