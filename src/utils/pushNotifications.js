@@ -24,7 +24,6 @@ export async function initPushNotifications() {
 
   try {
     console.log('PUSH: Registering SW...');
-    // Register SW but use .ready for guaranteed active registration
     await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
     const reg = await navigator.serviceWorker.ready;
     console.log('PUSH: SW ready, active:', !!reg.active);
@@ -37,15 +36,102 @@ export async function initPushNotifications() {
       return;
     }
 
-    console.log('PUSH: Asking permission...');
+    // Permission not yet asked — show custom prompt banner (user gesture required)
+    console.log('PUSH: Showing notification banner...');
+    showNotificationBanner(reg);
+  } catch (e) {
+    console.log('PUSH: Error:', e.message || e);
+  }
+}
+
+function showNotificationBanner(reg) {
+  // Don't show if already dismissed recently
+  const dismissed = localStorage.getItem('push_banner_dismissed');
+  if (dismissed && Date.now() - Number(dismissed) < 3 * 24 * 60 * 60 * 1000) return; // 3 days
+
+  const banner = document.createElement('div');
+  banner.id = 'push-banner';
+  banner.innerHTML = `
+    <div class="push-banner-content">
+      <span class="push-banner-icon">🔔</span>
+      <p>Naye plots ki notification paana chahte ho?</p>
+      <div class="push-banner-buttons">
+        <button id="push-banner-yes">Haan, Allow Karo</button>
+        <button id="push-banner-no">Baad Me</button>
+      </div>
+    </div>
+  `;
+
+  // Styles
+  const style = document.createElement('style');
+  style.textContent = `
+    #push-banner {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99997;
+      width: calc(100% - 32px);
+      max-width: 420px;
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      animation: pushBannerSlide 0.4s ease-out;
+    }
+    @keyframes pushBannerSlide {
+      from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    .push-banner-content { text-align: center; }
+    .push-banner-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+    .push-banner-content p {
+      color: #fff;
+      font-size: 15px;
+      margin: 0 0 16px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .push-banner-buttons { display: flex; gap: 10px; justify-content: center; }
+    #push-banner-yes {
+      background: var(--primary-red, #FF0000);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+    #push-banner-no {
+      background: transparent;
+      color: #999;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+  `;
+
+  document.head.appendChild(style);
+  document.body.appendChild(banner);
+
+  document.getElementById('push-banner-yes').addEventListener('click', async () => {
+    banner.remove();
+    console.log('PUSH: User clicked allow...');
     const permission = await Notification.requestPermission();
     console.log('PUSH: Permission result:', permission);
     if (permission === 'granted') {
       await subscribe(reg);
     }
-  } catch (e) {
-    console.log('PUSH: Error:', e.message || e);
-  }
+  });
+
+  document.getElementById('push-banner-no').addEventListener('click', () => {
+    banner.remove();
+    localStorage.setItem('push_banner_dismissed', String(Date.now()));
+  });
 }
 
 async function subscribe(reg) {
