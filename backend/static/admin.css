@@ -737,6 +737,40 @@ body {
     margin-bottom: 12px;
 }
 
+.push-form select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.push-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+}
+
+.push-preview img {
+    width: 80px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.push-preview-link {
+    color: var(--gold);
+    font-size: 12px;
+    word-break: break-all;
+}
+
 .push-log-list {
     display: flex;
     flex-direction: column;

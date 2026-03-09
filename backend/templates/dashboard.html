@@ -133,6 +133,23 @@
             <p class="push-info">Send to <strong>{{ push_count }}</strong> subscribers</p>
             <form method="POST" action="/admin/push/send" class="push-form">
                 <div class="form-group">
+                    <label for="push_plot">Select Plot</label>
+                    <select id="push_plot" class="cs-input" onchange="fillPlotNotification(this)">
+                        <option value="">-- Custom Message --</option>
+                        {% for plot in plots %}
+                        {% if plot.is_active %}
+                        <option
+                            value="{{ plot.slug }}"
+                            data-title="{{ plot.title }}"
+                            data-location="{{ plot.location }}"
+                            data-type="{{ plot.type }}"
+                            data-photo="{{ plot.photos[0] if plot.photos and plot.photos|length > 0 else '' }}"
+                        >{{ plot.title }} — {{ plot.location }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="push_title">Title</label>
                     <input type="text" id="push_title" name="push_title" required placeholder="Naya Plot Aaya!">
                 </div>
@@ -140,19 +157,58 @@
                     <label for="push_message">Message</label>
                     <input type="text" id="push_message" name="push_message" required placeholder="Premium Corner Plot Civil Township me — Check Now!">
                 </div>
-                <div class="form-group">
-                    <label for="push_url">Link (optional)</label>
-                    <input type="url" id="push_url" name="push_url" placeholder="https://goacres.in/plot/premium-corner-plot" value="https://goacres.in">
-                </div>
-                <div class="form-group">
-                    <label for="push_image">Plot Photo URL (optional — notification me badi photo dikhegi)</label>
-                    <input type="url" id="push_image" name="push_image" placeholder="https://res.cloudinary.com/.../plot-photo.jpg">
+                <input type="hidden" id="push_url" name="push_url" value="https://goacres.in">
+                <input type="hidden" id="push_image" name="push_image" value="">
+                <div id="push_preview" class="push-preview" style="display:none;">
+                    <img id="push_preview_img" src="" alt="Plot photo">
+                    <div id="push_preview_link" class="push-preview-link"></div>
                 </div>
                 <button type="submit" class="btn btn-primary" {% if push_count == 0 %}disabled{% endif %}>
                     Send to {{ push_count }} Subscribers
                 </button>
             </form>
         </div>
+
+        <script>
+        function fillPlotNotification(select) {
+            const opt = select.selectedOptions[0];
+            const titleEl = document.getElementById('push_title');
+            const msgEl = document.getElementById('push_message');
+            const urlEl = document.getElementById('push_url');
+            const imgEl = document.getElementById('push_image');
+            const preview = document.getElementById('push_preview');
+            const previewImg = document.getElementById('push_preview_img');
+            const previewLink = document.getElementById('push_preview_link');
+
+            if (!opt.value) {
+                titleEl.value = '';
+                msgEl.value = '';
+                urlEl.value = 'https://goacres.in';
+                imgEl.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            const title = opt.dataset.title;
+            const location = opt.dataset.location;
+            const type = opt.dataset.type;
+            const photo = opt.dataset.photo;
+            const slug = opt.value;
+
+            titleEl.value = 'Naya ' + type + ' Plot Aaya!';
+            msgEl.value = title + ' — ' + location + ' me available hai. Abhi dekho!';
+            urlEl.value = 'https://goacres.in/plot/' + slug;
+            imgEl.value = photo || '';
+
+            if (photo) {
+                previewImg.src = photo;
+                previewLink.textContent = 'goacres.in/plot/' + slug;
+                preview.style.display = 'flex';
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+        </script>
 
         <div class="push-history-card">
             <div class="push-history-header">
