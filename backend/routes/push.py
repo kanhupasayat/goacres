@@ -144,3 +144,27 @@ async def send_push_notification(request: Request):
     })
 
     return RedirectResponse("/admin/", status_code=302)
+
+
+@router.post("/admin/push/clear-logs")
+async def clear_push_logs(request: Request):
+    """Clear all push notification logs."""
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    await db.push_logs.delete_many({})
+    return RedirectResponse("/admin/", status_code=302)
+
+
+@router.post("/admin/push/clear-subscribers")
+async def clear_push_subscribers(request: Request):
+    """Clear all push subscribers."""
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    await db.push_subscribers.delete_many({})
+    return RedirectResponse("/admin/", status_code=302)

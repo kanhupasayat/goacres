@@ -151,7 +151,14 @@
         </div>
 
         <div class="push-history-card">
-            <h3>Recent Notifications</h3>
+            <div class="push-history-header">
+                <h3>Recent Notifications</h3>
+                {% if recent_notifications %}
+                <form method="POST" action="/admin/push/clear-logs" style="display:inline" onsubmit="return confirm('Delete all notification logs?')">
+                    <button type="submit" class="btn btn-sm btn-delete">Clear All</button>
+                </form>
+                {% endif %}
+            </div>
             {% if recent_notifications %}
             <div class="push-log-list">
                 {% for log in recent_notifications %}
@@ -167,7 +174,14 @@
             <p class="push-empty">No notifications sent yet</p>
             {% endif %}
 
-            <h3 style="margin-top: 20px;">Recent Subscribers</h3>
+            <div class="push-history-header" style="margin-top: 20px;">
+                <h3>Recent Subscribers</h3>
+                {% if recent_subs %}
+                <form method="POST" action="/admin/push/clear-subscribers" style="display:inline" onsubmit="return confirm('Delete all subscribers? They will need to re-subscribe.')">
+                    <button type="submit" class="btn btn-sm btn-delete">Clear All</button>
+                </form>
+                {% endif %}
+            </div>
             {% if recent_subs %}
             <div class="push-log-list">
                 {% for sub in recent_subs %}

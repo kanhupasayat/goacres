@@ -716,6 +716,12 @@ body {
     margin-bottom: 12px;
 }
 
+.push-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .push-info {
     color: var(--text-muted);
     font-size: 13px;
