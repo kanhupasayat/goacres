@@ -50,19 +50,5 @@ self.addEventListener('push', function (event) {
 self.addEventListener('notificationclick', function (event) {
   event.notification.close();
   const url = event.notification.data?.url || 'https://goacres.in';
-
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (clientList) {
-      // If site is already open, navigate and focus it
-      for (const client of clientList) {
-        if (client.url.includes('goacres.in') && 'focus' in client) {
-          return client.navigate(url).then(function () {
-            return client.focus();
-          });
-        }
-      }
-      // Otherwise open new tab
-      return clients.openWindow(url);
-    })
-  );
+  event.waitUntil(clients.openWindow(url));
 });
