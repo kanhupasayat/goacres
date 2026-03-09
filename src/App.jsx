@@ -132,9 +132,9 @@ const SectionSkeleton = () => (
 )
 
 const COMING_SOON_DEFAULT = {
-  comingSoon: true,
-  launchDate: '2026-03-22',
-  launchMessage: '100+ Premium Plots Are Coming to Rourkela!',
+  comingSoon: false,
+  launchDate: '',
+  launchMessage: '',
 };
 
 const HomePage = () => {
