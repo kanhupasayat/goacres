@@ -104,6 +104,7 @@ export default function BrokerSubmit() {
 
   const canNext = () => {
     if (step === 0) return form.title.trim() && form.location.trim() && form.type
+    if (step === 2) return form.photos.length >= 5
     return true
   }
 
@@ -277,13 +278,16 @@ export default function BrokerSubmit() {
         {step === 2 && (
           <>
             <h2 className="bs-card-title">Photos & Video</h2>
+            <p className="bs-photo-count" style={{ fontSize: 12, color: form.photos.length >= 5 ? '#22c55e' : '#e67e22', marginBottom: 8 }}>
+              {form.photos.length}/5 photos {form.photos.length >= 5 ? '✓' : '(minimum 5 zaroori hai)'}
+            </p>
             <div className="bs-upload-area" onClick={() => fileRef.current?.click()}>
               {uploadingPhoto ? (
                 <div className="bs-uploading"><div className="bs-spinner" /> Uploading...</div>
               ) : (
                 <>
                   <span className="bs-upload-icon">📷</span>
-                  <span>Photos add karo (tap karo)</span>
+                  <span>Photos select karo (tap karo)</span>
                 </>
               )}
               <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={handleFiles} />
