@@ -6,11 +6,6 @@
   NODE_VERSION = "22"
   VITE_API_URL = "https://goacres.onrender.com"
 
-# SPA fallback — only if no matching file exists
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 # www to non-www redirect
 [[redirects]]
