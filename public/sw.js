@@ -1,6 +1,6 @@
-// GOACRES Push Notification Service Worker v2
+// GOACRES Push Notification Service Worker v3
 
-// Force new SW to activate immediately (replaces old cached SW)
+// Force new SW to activate immediately
 self.addEventListener('install', function (event) {
   self.skipWaiting();
 });
@@ -10,27 +10,57 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('push', function (event) {
-  if (!event.data) return;
-
-  try {
-    const data = event.data.json();
-    const options = {
-      body: data.body || '',
-      icon: data.icon || '/logo.png',
-      badge: '/logo.png',
-      data: { url: data.url || '/' },
-      vibrate: [200, 100, 200],
-      requireInteraction: true,
+  const showNotif = async () => {
+    let title = 'GOACRES';
+    let options = {
+      body: 'Naya plot available hai!',
+      icon: 'https://goacres.in/notification-icon.png',
+      badge: 'https://goacres.in/notification-badge.png',
+      tag: 'goacres-' + Date.now(),
     };
-    event.waitUntil(self.registration.showNotification(data.title || 'GOACRES', options));
-  } catch (e) {
-    // fallback for plain text
-    event.waitUntil(self.registration.showNotification('GOACRES', { body: event.data.text() }));
-  }
+
+    if (event.data) {
+      try {
+        const data = event.data.json();
+        title = data.title || 'GOACRES';
+        options = {
+          body: data.body || '',
+          icon: 'https://goacres.in/notification-icon.png',
+          badge: 'https://goacres.in/notification-badge.png',
+          image: data.image || undefined,
+          data: { url: data.url || 'https://goacres.in' },
+          tag: 'goacres-' + Date.now(),
+          actions: [
+            { action: 'open', title: 'Abhi Dekho' },
+          ],
+          requireInteraction: true,
+          vibrate: [200, 100, 200],
+        };
+      } catch (e) {
+        options.body = event.data.text();
+      }
+    }
+
+    await self.registration.showNotification(title, options);
+  };
+
+  event.waitUntil(showNotif());
 });
 
 self.addEventListener('notificationclick', function (event) {
   event.notification.close();
-  const url = event.notification.data?.url || '/';
-  event.waitUntil(clients.openWindow(url));
+  const url = event.notification.data?.url || 'https://goacres.in';
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(function (clientList) {
+      // If site is already open, focus it
+      for (const client of clientList) {
+        if (client.url.includes('goacres.in') && 'focus' in client) {
+          client.navigate(url);
+          return client.focus();
+        }
+      }
+      // Otherwise open new tab
+      return clients.openWindow(url);
+    })
+  );
 });

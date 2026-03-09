@@ -144,6 +144,10 @@
                     <label for="push_url">Link (optional)</label>
                     <input type="url" id="push_url" name="push_url" placeholder="https://goacres.in/plot/premium-corner-plot" value="https://goacres.in">
                 </div>
+                <div class="form-group">
+                    <label for="push_image">Plot Photo URL (optional — notification me badi photo dikhegi)</label>
+                    <input type="url" id="push_image" name="push_image" placeholder="https://res.cloudinary.com/.../plot-photo.jpg">
+                </div>
                 <button type="submit" class="btn btn-primary" {% if push_count == 0 %}disabled{% endif %}>
                     Send to {{ push_count }} Subscribers
                 </button>

@@ -86,6 +86,7 @@ async def send_push_notification(request: Request):
     title = form.get("push_title", "").strip()
     message = form.get("push_message", "").strip()
     url = form.get("push_url", "").strip() or "https://goacres.in"
+    image = form.get("push_image", "").strip() or None
 
     if not title or not message:
         return RedirectResponse("/admin/", status_code=302)
@@ -99,12 +100,15 @@ async def send_push_notification(request: Request):
     # Send notifications
     from pywebpush import webpush, WebPushException
 
-    payload = json.dumps({
+    payload_data = {
         "title": title,
         "body": message,
         "url": url,
-        "icon": "https://goacres.in/logo.png",
-    })
+        "icon": "https://goacres.in/notification-icon.png",
+    }
+    if image:
+        payload_data["image"] = image
+    payload = json.dumps(payload_data)
 
     sent = 0
     failed = 0
@@ -132,7 +136,7 @@ async def send_push_notification(request: Request):
             failed += 1
 
     # Log the notification
-    await db.push_logs.insert_one({
+    log_doc = {
         "title": title,
         "message": message,
         "url": url,
@@ -141,7 +145,10 @@ async def send_push_notification(request: Request):
         "total_subscribers": len(subscribers),
         "sent_at": datetime.now(timezone.utc),
         "sent_by": admin.get("email", "admin"),
-    })
+    }
+    if image:
+        log_doc["image"] = image
+    await db.push_logs.insert_one(log_doc)
 
     return RedirectResponse("/admin/", status_code=302)
 
