@@ -146,6 +146,71 @@ async def send_push_notification(request: Request):
     return RedirectResponse("/admin/", status_code=302)
 
 
+@router.post("/admin/push/test")
+async def test_push(request: Request):
+    """Test push - returns JSON with details instead of redirect."""
+    admin = await get_current_admin(request)
+    if not admin:
+        return JSONResponse({"error": "Not authenticated"}, status_code=401)
+
+    db = get_db()
+    subscribers = await db.push_subscribers.find({"is_active": True}).to_list(length=100)
+
+    if not subscribers:
+        return JSONResponse({"error": "No subscribers", "count": 0})
+
+    from pywebpush import webpush, WebPushException
+
+    payload = json.dumps({
+        "title": "Test Notification",
+        "body": "Ye test hai - agar dikhe toh kaam kar raha hai!",
+        "url": "https://goacres.in",
+        "icon": "https://goacres.in/logo.png",
+    })
+
+    results = []
+    for sub in subscribers:
+        try:
+            resp = webpush(
+                subscription_info={
+                    "endpoint": sub["endpoint"],
+                    "keys": sub["keys"],
+                },
+                data=payload,
+                vapid_private_key=settings.VAPID_PRIVATE_KEY,
+                vapid_claims={"sub": f"mailto:{settings.VAPID_EMAIL}"},
+            )
+            results.append({
+                "endpoint_short": sub["endpoint"][-30:],
+                "device": sub.get("device", "?"),
+                "status": resp.status_code,
+                "response": resp.text[:200] if resp.text else "",
+            })
+        except WebPushException as e:
+            status = e.response.status_code if e.response else 0
+            body = e.response.text[:200] if e.response and e.response.text else str(e)[:200]
+            results.append({
+                "endpoint_short": sub["endpoint"][-30:],
+                "device": sub.get("device", "?"),
+                "status": status,
+                "error": body,
+            })
+            if e.response and e.response.status_code in (404, 410):
+                await db.push_subscribers.update_one(
+                    {"_id": sub["_id"]}, {"$set": {"is_active": False}}
+                )
+        except Exception as e:
+            results.append({
+                "endpoint_short": sub["endpoint"][-30:],
+                "error": str(e)[:200],
+            })
+
+    return JSONResponse({
+        "total_subscribers": len(subscribers),
+        "results": results,
+    })
+
+
 @router.post("/admin/push/clear-logs")
 async def clear_push_logs(request: Request):
     """Clear all push notification logs."""
