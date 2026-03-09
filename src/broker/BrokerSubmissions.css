@@ -24,9 +24,10 @@
 }
 
 .bsub-logo-img {
-  width: 32px;
-  height: 32px;
+  width: auto;
+  height: 28px;
   object-fit: contain;
+  display: block;
 }
 
 .bsub-brand {
