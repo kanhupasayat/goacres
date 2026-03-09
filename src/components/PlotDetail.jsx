@@ -53,6 +53,11 @@ const PlotDetail = () => {
     }
   }, [slug]);
 
+  // Track plot view — must be before any early returns (Rules of Hooks)
+  useEffect(() => {
+    if (plot) trackEvent('plot_view', { plotTitle: plot.title, plotSlug: plot.slug });
+  }, [plot?.slug]);
+
   if (!plot && !apiDone) {
     return (
       <div className="plot-detail-page">
@@ -74,10 +79,6 @@ const PlotDetail = () => {
       </div>
     );
   }
-
-  useEffect(() => {
-    if (plot) trackEvent('plot_view', { plotTitle: plot.title, plotSlug: plot.slug });
-  }, [plot?.slug]);
 
   const advisorPhone = plot.advisorPhone || DEFAULT_WHATSAPP;
   const advisorName = plot.advisorName || 'GOACRES';
