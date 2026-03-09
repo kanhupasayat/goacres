@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBrokerAuth } from '../contexts/BrokerAuthContext'
 import './BrokerSubmit.css'
@@ -21,13 +21,25 @@ export default function BrokerSubmit() {
   const navigate = useNavigate()
   const fileRef = useRef(null)
 
-  const [step, setStep] = useState(0)
+  const DRAFT_KEY = 'broker_plot_draft'
+
+  const loadDraft = () => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY)
+      if (saved) return JSON.parse(saved)
+    } catch { /* ignore */ }
+    return null
+  }
+
+  const draft = loadDraft()
+
+  const [step, setStep] = useState(draft?.step || 0)
   const [submitting, setSubmitting] = useState(false)
   const [uploadingPhoto, setUploadingPhoto] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState(draft?.form || {
     title: '',
     location: '',
     type: 'Residential',
@@ -50,6 +62,13 @@ export default function BrokerSubmit() {
     video: '',
     photos: [],
   })
+
+  // Auto-save draft on every change
+  useEffect(() => {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ form, step }))
+  }, [form, step])
+
+  const clearDraft = () => localStorage.removeItem(DRAFT_KEY)
 
   const set = (key, val) => setForm(prev => ({ ...prev, [key]: val }))
 
@@ -103,6 +122,7 @@ export default function BrokerSubmit() {
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setSuccess(true)
+      clearDraft()
     } catch (err) {
       setError(err.message || 'Submit fail')
     } finally {
@@ -118,7 +138,7 @@ export default function BrokerSubmit() {
           <h2>Plot Submit Ho Gaya!</h2>
           <p>Admin review karega, approve hone pe site pe dikhega.</p>
           <div className="bs-success-btns">
-            <button className="bs-btn" onClick={() => { setSuccess(false); setForm({ ...form, title: '', location: '', highlight: '', sqft: '', decimal: '', dimensions: '', price_min: '', price_max: '', road_width: '', road_type: '', facing: '', corner_plot: false, boundary_wall: false, landmark: '', distance_main_road: '', extra_notes: '', video: '', photos: [] }); setStep(0) }}>
+            <button className="bs-btn" onClick={() => { clearDraft(); setSuccess(false); setForm({ ...form, title: '', location: '', highlight: '', sqft: '', decimal: '', dimensions: '', price_min: '', price_max: '', road_width: '', road_type: '', facing: '', corner_plot: false, boundary_wall: false, landmark: '', distance_main_road: '', extra_notes: '', video: '', photos: [] }); setStep(0) }}>
               Aur Plot Add Karo
             </button>
             <button className="bs-btn bs-btn-outline" onClick={() => navigate('/broker/submissions')}>
