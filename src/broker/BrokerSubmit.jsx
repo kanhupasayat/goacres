@@ -155,7 +155,7 @@ export default function BrokerSubmit() {
     <div className="bs-page">
       <div className="bs-header">
         <div className="bs-header-left">
-          <span className="bs-logo">G</span>
+          <img src="/logo.png" alt="GOACRES" className="bs-logo-img" />
           <span className="bs-brand">GOACRES</span>
         </div>
         <div className="bs-header-right">

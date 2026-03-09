@@ -44,7 +44,7 @@ export default function BrokerLogin() {
   return (
     <div className="bl-page">
       <div className="bl-card">
-        <div className="bl-logo">G</div>
+        <img src="/logo.png" alt="GOACRES" className="bl-logo-img" />
         <h1 className="bl-title">GOACRES Broker</h1>
         <p className="bl-sub">Apna phone number aur password daalo</p>
 

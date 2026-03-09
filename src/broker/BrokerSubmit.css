@@ -24,17 +24,10 @@
   gap: 8px;
 }
 
-.bs-logo {
-  width: 30px;
-  height: 30px;
-  background: #8B0000;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
+.bs-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .bs-brand {

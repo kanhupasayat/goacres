@@ -31,7 +31,7 @@ export default function BrokerSubmissions() {
     <div className="bsub-page">
       <div className="bsub-header">
         <div className="bsub-header-left">
-          <span className="bsub-logo">G</span>
+          <img src="/logo.png" alt="GOACRES" className="bsub-logo-img" />
           <span className="bsub-brand">My Submissions</span>
         </div>
         <div className="bsub-header-right">
