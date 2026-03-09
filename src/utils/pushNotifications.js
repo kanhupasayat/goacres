@@ -23,9 +23,9 @@ export async function initPushNotifications() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
 
   try {
-    // Register service worker (skipWaiting in sw.js handles replacing old ones)
-    const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
-    await navigator.serviceWorker.ready;
+    await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+    // Use ready — this gives us the ACTIVE registration (not installing)
+    const registration = await navigator.serviceWorker.ready;
 
     if (Notification.permission === 'denied') return;
 
