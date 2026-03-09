@@ -177,7 +177,7 @@ async def broker_upload(request: Request, file: UploadFile = File(...)):
 
     from services.cloudinary_service import upload_image
     try:
-        url = upload_image(contents, folder="broker_uploads")
+        url = await upload_image(contents, file.filename or "broker_photo.jpg")
         return {"url": url}
     except Exception as e:
         return JSONResponse({"error": f"Upload fail: {str(e)}"}, status_code=500)
