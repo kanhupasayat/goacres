@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Brokers - GOACRES Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Brokers</h1>
+</div>
+
+<div class="card">
+    <h3>Add New Broker</h3>
+    <form method="POST" action="/admin/brokers/add">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Broker ka naam" required>
+            </div>
+            <div class="form-group">
+                <label>Phone (with country code)</label>
+                <input type="text" name="phone" placeholder="919876543210" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" name="password" placeholder="Login password" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">+ Add Broker</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Brokers ({{ brokers|length }})</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Password</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if brokers %}
+                {% for b in brokers %}
+                <tr>
+                    <td>{{ b.name }}</td>
+                    <td>{{ b.phone }}</td>
+                    <td><code>{{ b.password or '***' }}</code></td>
+                    <td>
+                        {% if b.is_active %}
+                        <span class="badge badge-active">Active</span>
+                        {% else %}
+                        <span class="badge badge-inactive">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ b.created_at.strftime('%d %b %Y') if b.created_at else '-' }}</td>
+                    <td class="actions-cell">
+                        <form method="POST" action="/admin/brokers/{{ b._id }}/toggle" style="display:inline">
+                            <button class="btn btn-sm">{{ 'Disable' if b.is_active else 'Enable' }}</button>
+                        </form>
+                        <form method="POST" action="/admin/brokers/{{ b._id }}/delete" style="display:inline"
+                              onsubmit="return confirm('Delete this broker?')">
+                            <button class="btn btn-sm btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr><td colspan="6" class="empty-state">No brokers yet. Add one above.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

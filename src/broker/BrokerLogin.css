@@ -1,0 +1,106 @@
+.bl-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.bl-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 36px 28px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.bl-logo {
+  width: 48px;
+  height: 48px;
+  background: #8B0000;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.bl-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 4px;
+}
+
+.bl-sub {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 20px;
+}
+
+.bl-error {
+  background: #fff5f5;
+  color: #dc3545;
+  border: 1px solid #ffcdd2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.bl-form {
+  text-align: left;
+}
+
+.bl-field {
+  margin-bottom: 14px;
+}
+
+.bl-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.bl-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.bl-field input:focus {
+  border-color: #8B0000;
+}
+
+.bl-btn {
+  width: 100%;
+  padding: 11px;
+  background: #8B0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s;
+}
+
+.bl-btn:hover { background: #6B0000; }
+.bl-btn:disabled { opacity: 0.6; cursor: not-allowed; }

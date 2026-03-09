@@ -1,0 +1,382 @@
+.bs-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+  padding: 0 0 80px;
+}
+
+/* Header */
+.bs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.bs-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bs-logo {
+  width: 30px;
+  height: 30px;
+  background: #8B0000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.bs-brand {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.bs-header-right {
+  display: flex;
+  gap: 8px;
+}
+
+.bs-link {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: #555;
+  cursor: pointer;
+}
+
+.bs-link:hover { background: #f5f5f5; }
+.bs-link-red { color: #dc3545; border-color: #ffcdd2; }
+
+/* Steps */
+.bs-steps {
+  display: flex;
+  padding: 16px;
+  gap: 4px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.bs-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bs-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.bs-step.active .bs-step-num {
+  background: #8B0000;
+  color: #fff;
+}
+
+.bs-step.done .bs-step-num {
+  background: #22c55e;
+  color: #fff;
+}
+
+.bs-step-label {
+  font-size: 10px;
+  color: #aaa;
+  text-align: center;
+}
+
+.bs-step.active .bs-step-label { color: #8B0000; font-weight: 500; }
+.bs-step.done .bs-step-label { color: #22c55e; }
+
+/* Card */
+.bs-card {
+  background: #fff;
+  margin: 0 16px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bs-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+/* Fields */
+.bs-field {
+  margin-bottom: 12px;
+}
+
+.bs-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.bs-field input,
+.bs-field select,
+.bs-field textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #333;
+  background: #fff;
+  outline: none;
+}
+
+.bs-field input:focus,
+.bs-field select:focus,
+.bs-field textarea:focus {
+  border-color: #8B0000;
+}
+
+.bs-field textarea { resize: vertical; }
+
+.bs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.bs-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 8px 0;
+}
+
+.bs-checks label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #444;
+  cursor: pointer;
+}
+
+.bs-checks input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #8B0000;
+}
+
+/* Photo Upload */
+.bs-upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: #888;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.2s;
+}
+
+.bs-upload-area:hover { border-color: #8B0000; color: #8B0000; }
+
+.bs-upload-icon { font-size: 28px; }
+
+.bs-uploading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8B0000;
+}
+
+.bs-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-top-color: #8B0000;
+  border-radius: 50%;
+  animation: bsSpin 0.7s linear infinite;
+}
+
+@keyframes bsSpin { to { transform: rotate(360deg); } }
+
+.bs-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.bs-photo-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.bs-photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bs-photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Review */
+.bs-review {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bs-review-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.bs-review-row span { color: #888; }
+.bs-review-row strong { color: #333; font-weight: 500; text-align: right; max-width: 60%; }
+
+/* Nav */
+.bs-nav {
+  display: flex;
+  padding: 16px;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.bs-btn {
+  padding: 10px 20px;
+  background: #8B0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bs-btn:hover { background: #6B0000; }
+.bs-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.bs-btn-outline {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.bs-btn-outline:hover { background: #f5f5f5; }
+
+/* Success */
+.bs-success {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.bs-check {
+  width: 56px;
+  height: 56px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.bs-success h2 {
+  font-size: 20px;
+  color: #333;
+  margin: 0 0 6px;
+}
+
+.bs-success p {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 24px;
+}
+
+.bs-success-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+/* Error */
+.bs-error {
+  background: #fff5f5;
+  color: #dc3545;
+  border: 1px solid #ffcdd2;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin: 0 16px 12px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .bs-row { grid-template-columns: 1fr; }
+  .bs-photo-grid { grid-template-columns: repeat(2, 1fr); }
+}

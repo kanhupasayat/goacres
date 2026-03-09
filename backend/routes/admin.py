@@ -1,4 +1,6 @@
 import json
+import bcrypt
+import re
 from datetime import datetime, timezone
 from bson import ObjectId
 from fastapi import APIRouter, Request, HTTPException
@@ -108,6 +110,8 @@ async def dashboard(request: Request):
     call_total = await db.analytics.count_documents({"type": "call_click"})
     views_total = await db.analytics.count_documents({"type": "plot_view"})
     push_count = await db.push_subscribers.count_documents({"is_active": True})
+    pending_count = await db.pending_plots.count_documents({"status": "pending"})
+    broker_count = await db.brokers.count_documents({"is_active": True})
 
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
@@ -116,6 +120,8 @@ async def dashboard(request: Request):
         "total": total,
         "active": active,
         "push_count": push_count,
+        "pending_count": pending_count,
+        "broker_count": broker_count,
         "wa_today": wa_today,
         "call_today": call_today,
         "views_today": views_today,
@@ -317,3 +323,186 @@ async def delete_plot(request: Request, plot_id: str):
     db = get_db()
     await db.plots.delete_one({"_id": ObjectId(plot_id)})
     return RedirectResponse("/admin/plots", status_code=302)
+
+
+# ─── Broker Management ───
+
+@router.get("/admin/brokers", response_class=HTMLResponse)
+async def brokers_list(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    brokers = await db.brokers.find().sort("created_at", -1).to_list(length=100)
+
+    return templates.TemplateResponse("brokers.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "brokers",
+        "brokers": brokers,
+    })
+
+
+@router.post("/admin/brokers/add")
+async def add_broker(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    form = await request.form()
+    name = form.get("name", "").strip()
+    phone = form.get("phone", "").strip().replace("+", "").replace(" ", "").replace("-", "")
+    password = form.get("password", "").strip()
+
+    if not name or not phone or not password:
+        return RedirectResponse("/admin/brokers", status_code=302)
+
+    db = get_db()
+
+    # Check if phone already exists
+    existing = await db.brokers.find_one({"phone": phone})
+    if existing:
+        return RedirectResponse("/admin/brokers", status_code=302)
+
+    password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+    await db.brokers.insert_one({
+        "name": name,
+        "phone": phone,
+        "password": password,  # Store plain for admin to see/share
+        "password_hash": password_hash,
+        "is_active": True,
+        "created_at": datetime.now(timezone.utc),
+    })
+    return RedirectResponse("/admin/brokers", status_code=302)
+
+
+@router.post("/admin/brokers/{broker_id}/delete")
+async def delete_broker(request: Request, broker_id: str):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    await db.brokers.delete_one({"_id": ObjectId(broker_id)})
+    return RedirectResponse("/admin/brokers", status_code=302)
+
+
+@router.post("/admin/brokers/{broker_id}/toggle")
+async def toggle_broker(request: Request, broker_id: str):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    broker = await db.brokers.find_one({"_id": ObjectId(broker_id)})
+    if broker:
+        await db.brokers.update_one(
+            {"_id": ObjectId(broker_id)},
+            {"$set": {"is_active": not broker.get("is_active", True)}}
+        )
+    return RedirectResponse("/admin/brokers", status_code=302)
+
+
+# ─── Pending Plots ───
+
+@router.get("/admin/pending", response_class=HTMLResponse)
+async def pending_plots(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    plots = await db.pending_plots.find({"status": "pending"}).sort("submitted_at", -1).to_list(length=100)
+
+    return templates.TemplateResponse("pending_plots.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "pending",
+        "plots": plots,
+    })
+
+
+@router.post("/admin/pending/{plot_id}/approve")
+async def approve_plot(request: Request, plot_id: str):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    pending = await db.pending_plots.find_one({"_id": ObjectId(plot_id)})
+    if not pending:
+        return RedirectResponse("/admin/pending", status_code=302)
+
+    # Build plot document from pending data
+    title = pending.get("title", "")
+    location = pending.get("location", "")
+    text = f"{title} {location.split(',')[0]}"
+    slug = re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
+
+    # Ensure unique slug
+    existing = await db.plots.find_one({"slug": slug})
+    if existing:
+        slug = slug + "-" + str(int(datetime.now(timezone.utc).timestamp()))
+
+    water_val = pending.get("water", "true")
+    if water_val == "true":
+        water_val = True
+    elif water_val == "false":
+        water_val = False
+
+    plot_doc = {
+        "slug": slug,
+        "title": title,
+        "location": location,
+        "type": pending.get("type", "Residential"),
+        "highlight": pending.get("highlight", ""),
+        "size_range": "",
+        "price_per_decimal": pending.get("price_per_decimal", {"min": 0, "max": 0}),
+        "sqft": pending.get("sqft", 0),
+        "decimal": pending.get("decimal", 0),
+        "dimensions": pending.get("dimensions", ""),
+        "road_width": pending.get("road_width", ""),
+        "road_type": pending.get("road_type", ""),
+        "facing": pending.get("facing", ""),
+        "corner_plot": pending.get("corner_plot", False),
+        "boundary_wall": pending.get("boundary_wall", False),
+        "water": water_val,
+        "electricity": pending.get("electricity", True),
+        "landmark": pending.get("landmark", ""),
+        "distance_main_road": pending.get("distance_main_road", ""),
+        "status": "Ready for Construction",
+        "nearby": [],
+        "photos": pending.get("photos", []),
+        "video": pending.get("video"),
+        "video_type": None,
+        "advisor_name": pending.get("broker_name", "GOACRES"),
+        "advisor_phone": pending.get("broker_phone", "919187428518"),
+        "advisor_photo": None,
+        "is_active": True,
+        "is_featured": False,
+        "created_at": datetime.now(timezone.utc),
+        "updated_at": datetime.now(timezone.utc),
+    }
+
+    await db.plots.insert_one(plot_doc)
+    await db.pending_plots.update_one(
+        {"_id": ObjectId(plot_id)},
+        {"$set": {"status": "approved"}}
+    )
+    return RedirectResponse("/admin/pending", status_code=302)
+
+
+@router.post("/admin/pending/{plot_id}/reject")
+async def reject_plot(request: Request, plot_id: str):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    await db.pending_plots.update_one(
+        {"_id": ObjectId(plot_id)},
+        {"$set": {"status": "rejected"}}
+    )
+    return RedirectResponse("/admin/pending", status_code=302)

@@ -5,3 +5,4 @@ from routes.upload import router as upload_router
 from routes.settings import router as settings_router
 from routes.push import router as push_router
 from routes.analytics import router as analytics_router
+from routes.broker import router as broker_router

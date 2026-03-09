@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { BrokerAuthProvider, useBrokerAuth } from './contexts/BrokerAuthContext'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import BottomNav from './components/BottomNav'
@@ -24,6 +25,10 @@ const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
 const PlotDetail = lazy(() => import('./components/PlotDetail'))
 const AllPlots = lazy(() => import('./components/AllPlots'))
 const ComingSoon = lazy(() => import('./components/ComingSoon'))
+
+const BrokerLogin = lazy(() => import('./broker/BrokerLogin'))
+const BrokerSubmit = lazy(() => import('./broker/BrokerSubmit'))
+const BrokerSubmissions = lazy(() => import('./broker/BrokerSubmissions'))
 
 /* ─── Skeleton Fallbacks (available before lazy chunks load) ─── */
 
@@ -199,29 +204,66 @@ const HomePage = () => {
   );
 }
 
+function BrokerProtected({ children }) {
+  const { token, loading } = useBrokerAuth()
+  if (loading) return null
+  if (!token) return (
+    <Suspense fallback={null}><BrokerLogin /></Suspense>
+  )
+  return children
+}
+
+function AppRoutes() {
+  const location = useLocation()
+  const isBroker = location.pathname.startsWith('/broker')
+
+  return (
+    <>
+      {!isBroker && <LanguageSelector />}
+      {!isBroker && <Header />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/plots" element={
+          <Suspense fallback={<AllPlotsSkeleton />}>
+            <AllPlots />
+          </Suspense>
+        } />
+        <Route path="/plot/:slug" element={
+          <Suspense fallback={<PlotDetailSkeleton />}>
+            <PlotDetail />
+          </Suspense>
+        } />
+        <Route path="/broker" element={
+          <Suspense fallback={null}><BrokerLogin /></Suspense>
+        } />
+        <Route path="/broker/submit" element={
+          <BrokerProtected>
+            <Suspense fallback={null}><BrokerSubmit /></Suspense>
+          </BrokerProtected>
+        } />
+        <Route path="/broker/submissions" element={
+          <BrokerProtected>
+            <Suspense fallback={null}><BrokerSubmissions /></Suspense>
+          </BrokerProtected>
+        } />
+      </Routes>
+      {!isBroker && (
+        <Suspense fallback={null}>
+          <WhatsAppWidget />
+        </Suspense>
+      )}
+      {!isBroker && <BottomNav />}
+    </>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
       <LanguageProvider>
-        <LanguageSelector />
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/plots" element={
-            <Suspense fallback={<AllPlotsSkeleton />}>
-              <AllPlots />
-            </Suspense>
-          } />
-          <Route path="/plot/:slug" element={
-            <Suspense fallback={<PlotDetailSkeleton />}>
-              <PlotDetail />
-            </Suspense>
-          } />
-        </Routes>
-        <Suspense fallback={null}>
-          <WhatsAppWidget />
-        </Suspense>
-        <BottomNav />
+        <BrokerAuthProvider>
+          <AppRoutes />
+        </BrokerAuthProvider>
       </LanguageProvider>
     </BrowserRouter>
   )
