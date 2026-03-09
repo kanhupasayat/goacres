@@ -54,7 +54,16 @@ const PlotDetail = () => {
   }, [slug]);
 
   if (!plot && !apiDone) {
-    return null; // Suspense skeleton will show while loading
+    return (
+      <div className="plot-detail-page">
+        <div className="container">
+          <div className="pd-loading">
+            <div className="pd-loading-spinner" />
+            <p>Loading plot details...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!plot) {
