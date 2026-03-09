@@ -23,16 +23,25 @@ export async function initPushNotifications() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
 
   try {
-    // Step 1: Unregister any old/broken service workers first
+    // Step 1: Unregister ALL old service workers and start fresh
     const existingRegs = await navigator.serviceWorker.getRegistrations();
     for (const reg of existingRegs) {
-      // Force update to get latest sw.js
-      await reg.update().catch(() => {});
+      await reg.unregister();
     }
 
-    // Step 2: Register service worker
+    // Step 2: Register fresh service worker
     const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
-    await navigator.serviceWorker.ready;
+
+    // Wait for the new SW to be active
+    if (registration.installing) {
+      await new Promise((resolve) => {
+        registration.installing.addEventListener('statechange', (e) => {
+          if (e.target.state === 'activated') resolve();
+        });
+      });
+    } else {
+      await navigator.serviceWorker.ready;
+    }
 
     // Step 3: If already denied, stop
     if (Notification.permission === 'denied') return;
@@ -61,16 +70,18 @@ async function subscribe(registration) {
     const { publicKey } = await res.json();
     if (!publicKey) return;
 
-    // Check existing subscription
-    let subscription = await registration.pushManager.getSubscription();
-    if (!subscription) {
-      subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey),
-      });
+    // Always unsubscribe old and create fresh subscription
+    const oldSub = await registration.pushManager.getSubscription();
+    if (oldSub) {
+      await oldSub.unsubscribe();
     }
 
-    // Send subscription to backend
+    const subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(publicKey),
+    });
+
+    // Send fresh subscription to backend
     await fetch(`${API_URL}/api/push/subscribe`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

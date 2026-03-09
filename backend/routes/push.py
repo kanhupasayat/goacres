@@ -103,7 +103,7 @@ async def send_push_notification(request: Request):
         "title": title,
         "body": message,
         "url": url,
-        "icon": "/logo.png",
+        "icon": "https://goacres.in/logo.png",
     })
 
     sent = 0
