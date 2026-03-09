@@ -272,40 +272,48 @@ const PlotDetail = () => {
                 alt={`${plot.title} - Photo ${activePhoto + 1}`}
                 loading="eager"
               />
-              <button className="pd-arrow pd-arrow-left" onClick={prevPhoto}>
-                <FiChevronLeft />
-              </button>
-              <button className="pd-arrow pd-arrow-right" onClick={nextPhoto}>
-                <FiChevronRight />
-              </button>
-              <span className="pd-photo-counter">
-                {activePhoto + 1} / {plot.photos.length}
-              </span>
+              {plot.photos.length > 1 && (
+                <>
+                  <button className="pd-arrow pd-arrow-left" onClick={prevPhoto}>
+                    <FiChevronLeft />
+                  </button>
+                  <button className="pd-arrow pd-arrow-right" onClick={nextPhoto}>
+                    <FiChevronRight />
+                  </button>
+                  <span className="pd-photo-counter">
+                    {activePhoto + 1} / {plot.photos.length}
+                  </span>
+                </>
+              )}
             </div>
 
-            {/* Thumbnails — desktop */}
-            <div className="pd-thumbnails">
-              {plot.photos.map((photo, index) => (
-                <button
-                  key={index}
-                  className={`pd-thumb ${index === activePhoto ? 'pd-thumb-active' : ''}`}
-                  onClick={() => setActivePhoto(index)}
-                >
-                  <img src={photo} alt={`Thumbnail ${index + 1}`} loading="lazy" />
-                </button>
-              ))}
-            </div>
+            {/* Thumbnails — desktop (hide if single photo) */}
+            {plot.photos.length > 1 && (
+              <div className="pd-thumbnails">
+                {plot.photos.map((photo, index) => (
+                  <button
+                    key={index}
+                    className={`pd-thumb ${index === activePhoto ? 'pd-thumb-active' : ''}`}
+                    onClick={() => setActivePhoto(index)}
+                  >
+                    <img src={photo} alt={`Thumbnail ${index + 1}`} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
 
-            {/* Dots — mobile */}
-            <div className="pd-dots">
-              {plot.photos.map((_, index) => (
-                <button
-                  key={index}
-                  className={`pd-dot ${index === activePhoto ? 'pd-dot-active' : ''}`}
-                  onClick={() => setActivePhoto(index)}
-                />
-              ))}
-            </div>
+            {/* Dots — mobile (hide if single photo) */}
+            {plot.photos.length > 1 && (
+              <div className="pd-dots">
+                {plot.photos.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`pd-dot ${index === activePhoto ? 'pd-dot-active' : ''}`}
+                    onClick={() => setActivePhoto(index)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Info Panel */}
