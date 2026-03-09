@@ -23,36 +23,17 @@ export async function initPushNotifications() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
 
   try {
-    // Step 1: Unregister ALL old service workers and start fresh
-    const existingRegs = await navigator.serviceWorker.getRegistrations();
-    for (const reg of existingRegs) {
-      await reg.unregister();
-    }
-
-    // Step 2: Register fresh service worker
+    // Register service worker (skipWaiting in sw.js handles replacing old ones)
     const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+    await navigator.serviceWorker.ready;
 
-    // Wait for the new SW to be active
-    if (registration.installing) {
-      await new Promise((resolve) => {
-        registration.installing.addEventListener('statechange', (e) => {
-          if (e.target.state === 'activated') resolve();
-        });
-      });
-    } else {
-      await navigator.serviceWorker.ready;
-    }
-
-    // Step 3: If already denied, stop
     if (Notification.permission === 'denied') return;
 
-    // Step 4: If already granted, just subscribe
     if (Notification.permission === 'granted') {
       await subscribe(registration);
       return;
     }
 
-    // Step 5: Ask permission
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       await subscribe(registration);
@@ -64,24 +45,19 @@ export async function initPushNotifications() {
 
 async function subscribe(registration) {
   try {
-    // Get VAPID public key from backend
     const res = await fetch(`${API_URL}/api/push/vapid-key`);
     if (!res.ok) return;
     const { publicKey } = await res.json();
     if (!publicKey) return;
 
-    // Always unsubscribe old and create fresh subscription
-    const oldSub = await registration.pushManager.getSubscription();
-    if (oldSub) {
-      await oldSub.unsubscribe();
+    let subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
+      });
     }
 
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey),
-    });
-
-    // Send fresh subscription to backend
     await fetch(`${API_URL}/api/push/subscribe`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
