@@ -5,7 +5,7 @@
 <div class="plot-form-page">
     <div class="form-header">
         <h1>{{ "Edit" if edit_mode else "Add New" }} Plot</h1>
-        <a href="/admin/" class="btn btn-secondary">&larr; Back</a>
+        <a href="/admin/plots" class="btn btn-secondary">&larr; Back</a>
     </div>
 
     <form method="POST" action="{{ '/admin/plots/' ~ plot._id ~ '/edit' if edit_mode else '/admin/plots/add' }}" class="plot-form" id="plotForm">
@@ -244,7 +244,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-lg">{{ "Update Plot" if edit_mode else "Add Plot" }}</button>
-            <a href="/admin/" class="btn btn-secondary btn-lg">Cancel</a>
+            <a href="/admin/plots" class="btn btn-secondary btn-lg">Cancel</a>
         </div>
     </form>
 </div>

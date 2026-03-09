@@ -89,13 +89,13 @@ async def send_push_notification(request: Request):
     image = form.get("push_image", "").strip() or None
 
     if not title or not message:
-        return RedirectResponse("/admin/", status_code=302)
+        return RedirectResponse("/admin/notifications", status_code=302)
 
     db = get_db()
     subscribers = await db.push_subscribers.find({"is_active": True}).to_list(length=10000)
 
     if not subscribers:
-        return RedirectResponse("/admin/", status_code=302)
+        return RedirectResponse("/admin/notifications", status_code=302)
 
     # Send notifications
     from pywebpush import webpush, WebPushException
@@ -150,7 +150,7 @@ async def send_push_notification(request: Request):
         log_doc["image"] = image
     await db.push_logs.insert_one(log_doc)
 
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/notifications", status_code=302)
 
 
 @router.post("/admin/push/test")
@@ -227,7 +227,7 @@ async def clear_push_logs(request: Request):
 
     db = get_db()
     await db.push_logs.delete_many({})
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/notifications", status_code=302)
 
 
 @router.post("/admin/push/clear-subscribers")
@@ -239,4 +239,4 @@ async def clear_push_subscribers(request: Request):
 
     db = get_db()
     await db.push_subscribers.delete_many({})
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/notifications", status_code=302)

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Plots - GOACRES Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>All Plots ({{ plots|length }})</h1>
+    <a href="/admin/plots/add" class="btn btn-primary">+ Add Plot</a>
+</div>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Price/Decimal</th>
+                <th>Status</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plot in plots %}
+            <tr>
+                <td>
+                    {% if plot.photos and plot.photos|length > 0 %}
+                    <img src="{{ plot.photos[0] }}" alt="{{ plot.title }}" class="table-thumb">
+                    {% else %}
+                    <div class="table-thumb table-thumb-empty">No img</div>
+                    {% endif %}
+                </td>
+                <td><strong>{{ plot.title }}</strong></td>
+                <td>{{ plot.location }}</td>
+                <td><span class="type-badge type-{{ plot.type|lower|replace(' ', '') }}">{{ plot.type }}</span></td>
+                <td>
+                    {% if plot.price_per_decimal %}
+                    &#8377;{{ (plot.price_per_decimal.min / 100000)|round(1) }}L - &#8377;{{ (plot.price_per_decimal.max / 100000)|round(1) }}L
+                    {% endif %}
+                </td>
+                <td>{{ plot.status }}</td>
+                <td>
+                    {% if plot.is_active %}
+                    <span class="badge badge-active">Active</span>
+                    {% else %}
+                    <span class="badge badge-inactive">Inactive</span>
+                    {% endif %}
+                </td>
+                <td class="actions-cell">
+                    <a href="/admin/plots/{{ plot._id }}/edit" class="btn btn-sm btn-edit">Edit</a>
+                    <form method="POST" action="/admin/plots/{{ plot._id }}/delete" style="display:inline" onsubmit="return confirm('Delete this plot?')">
+                        <button type="submit" class="btn btn-sm btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not plots %}
+            <tr>
+                <td colspan="8" class="empty-state">No plots yet. <a href="/admin/plots/add">Add your first plot</a></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

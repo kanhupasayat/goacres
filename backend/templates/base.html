@@ -17,8 +17,11 @@
         </div>
         {% if admin %}
         <div class="nav-links">
-            <a href="/admin/">Dashboard</a>
-            <a href="/admin/plots/add">+ Add Plot</a>
+            <a href="/admin/" {% if active_page == 'dashboard' %}class="active"{% endif %}>Dashboard</a>
+            <a href="/admin/plots" {% if active_page == 'plots' %}class="active"{% endif %}>Plots</a>
+            <a href="/admin/notifications" {% if active_page == 'notifications' %}class="active"{% endif %}>Notifications</a>
+            <a href="/admin/analytics" {% if active_page == 'analytics' %}class="active"{% endif %}>Analytics</a>
+            <a href="/admin/settings-page" {% if active_page == 'settings' %}class="active"{% endif %}>Settings</a>
             <a href="/admin/logout" class="nav-logout">Logout</a>
         </div>
         {% endif %}

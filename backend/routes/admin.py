@@ -87,6 +87,8 @@ def build_plot_doc(form_data) -> dict:
     return doc
 
 
+# ─── Dashboard (overview stats) ───
+
 @router.get("/admin/", response_class=HTMLResponse)
 async def dashboard(request: Request):
     admin = await get_current_admin(request)
@@ -94,12 +96,10 @@ async def dashboard(request: Request):
         return RedirectResponse("/admin/login", status_code=302)
 
     db = get_db()
-    plots = await db.plots.find().sort("created_at", -1).to_list(length=200)
+    plots = await db.plots.find().to_list(length=200)
     total = len(plots)
     active = sum(1 for p in plots if p.get("is_active"))
-    site_settings = await get_site_settings()
 
-    # Analytics stats
     today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     wa_today = await db.analytics.count_documents({"type": "whatsapp_click", "timestamp": {"$gte": today_start}})
     call_today = await db.analytics.count_documents({"type": "call_click", "timestamp": {"$gte": today_start}})
@@ -107,9 +107,87 @@ async def dashboard(request: Request):
     wa_total = await db.analytics.count_documents({"type": "whatsapp_click"})
     call_total = await db.analytics.count_documents({"type": "call_click"})
     views_total = await db.analytics.count_documents({"type": "plot_view"})
-    recent_activity = await db.analytics.find().sort("timestamp", -1).to_list(length=20)
+    push_count = await db.push_subscribers.count_documents({"is_active": True})
 
-    # Most viewed plots
+    return templates.TemplateResponse("dashboard.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "dashboard",
+        "total": total,
+        "active": active,
+        "push_count": push_count,
+        "wa_today": wa_today,
+        "call_today": call_today,
+        "views_today": views_today,
+        "wa_total": wa_total,
+        "call_total": call_total,
+        "views_total": views_total,
+    })
+
+
+# ─── Plots List ───
+
+@router.get("/admin/plots", response_class=HTMLResponse)
+async def plots_list(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    plots = await db.plots.find().sort("created_at", -1).to_list(length=200)
+
+    return templates.TemplateResponse("plots_list.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "plots",
+        "plots": plots,
+    })
+
+
+# ─── Notifications ───
+
+@router.get("/admin/notifications", response_class=HTMLResponse)
+async def notifications_page(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    plots = await db.plots.find({"is_active": True}).sort("created_at", -1).to_list(length=200)
+    push_count = await db.push_subscribers.count_documents({"is_active": True})
+    recent_subs = await db.push_subscribers.find({"is_active": True}).sort("subscribed_at", -1).to_list(length=10)
+    recent_notifications = await db.push_logs.find().sort("sent_at", -1).to_list(length=10)
+
+    return templates.TemplateResponse("notifications.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "notifications",
+        "plots": plots,
+        "push_count": push_count,
+        "recent_subs": recent_subs,
+        "recent_notifications": recent_notifications,
+    })
+
+
+# ─── Analytics ───
+
+@router.get("/admin/analytics", response_class=HTMLResponse)
+async def analytics_page(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    db = get_db()
+    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    wa_today = await db.analytics.count_documents({"type": "whatsapp_click", "timestamp": {"$gte": today_start}})
+    call_today = await db.analytics.count_documents({"type": "call_click", "timestamp": {"$gte": today_start}})
+    views_today = await db.analytics.count_documents({"type": "plot_view", "timestamp": {"$gte": today_start}})
+    wa_total = await db.analytics.count_documents({"type": "whatsapp_click"})
+    call_total = await db.analytics.count_documents({"type": "call_click"})
+    views_total = await db.analytics.count_documents({"type": "plot_view"})
+    push_count = await db.push_subscribers.count_documents({"is_active": True})
+    recent_activity = await db.analytics.find().sort("timestamp", -1).to_list(length=30)
+
     pipeline = [
         {"$match": {"type": "plot_view", "plot_title": {"$ne": ""}}},
         {"$group": {"_id": "$plot_title", "views": {"$sum": 1}}},
@@ -118,31 +196,41 @@ async def dashboard(request: Request):
     ]
     popular_plots = await db.analytics.aggregate(pipeline).to_list(length=5)
 
-    # Push notification stats
-    push_count = await db.push_subscribers.count_documents({"is_active": True})
-    recent_subs = await db.push_subscribers.find({"is_active": True}).sort("subscribed_at", -1).to_list(length=10)
-    recent_notifications = await db.push_logs.find().sort("sent_at", -1).to_list(length=5)
-
-    return templates.TemplateResponse("dashboard.html", {
+    return templates.TemplateResponse("analytics_page.html", {
         "request": request,
-        "plots": plots,
-        "total": total,
-        "active": active,
         "admin": admin,
-        "site_settings": site_settings,
-        "push_count": push_count,
-        "recent_subs": recent_subs,
-        "recent_notifications": recent_notifications,
+        "active_page": "analytics",
         "wa_today": wa_today,
         "call_today": call_today,
         "views_today": views_today,
         "wa_total": wa_total,
         "call_total": call_total,
         "views_total": views_total,
+        "push_count": push_count,
         "recent_activity": recent_activity,
         "popular_plots": popular_plots,
     })
 
+
+# ─── Settings ───
+
+@router.get("/admin/settings-page", response_class=HTMLResponse)
+async def settings_page(request: Request):
+    admin = await get_current_admin(request)
+    if not admin:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    site_settings = await get_site_settings()
+
+    return templates.TemplateResponse("settings_page.html", {
+        "request": request,
+        "admin": admin,
+        "active_page": "settings",
+        "site_settings": site_settings,
+    })
+
+
+# ─── Plot CRUD ───
 
 @router.get("/admin/plots/add", response_class=HTMLResponse)
 async def add_plot_form(request: Request):
@@ -155,6 +243,7 @@ async def add_plot_form(request: Request):
         "plot": None,
         "edit_mode": False,
         "admin": admin,
+        "active_page": "plots",
     })
 
 
@@ -166,9 +255,7 @@ async def add_plot(request: Request):
 
     form = await request.form()
     form_data = {key: form.get(key) for key in form}
-    print("FORM DATA:", {k: v for k, v in form_data.items() if 'price' in k or 'title' in k})
     doc = build_plot_doc(form_data)
-    print("DOC PRICE:", doc.get("price_per_decimal"))
     doc["created_at"] = datetime.now(timezone.utc)
     doc["updated_at"] = datetime.now(timezone.utc)
 
@@ -180,7 +267,7 @@ async def add_plot(request: Request):
         doc["slug"] = doc["slug"] + "-" + str(int(datetime.now(timezone.utc).timestamp()))
 
     await db.plots.insert_one(doc)
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/plots", status_code=302)
 
 
 @router.get("/admin/plots/{plot_id}/edit", response_class=HTMLResponse)
@@ -199,6 +286,7 @@ async def edit_plot_form(request: Request, plot_id: str):
         "plot": plot,
         "edit_mode": True,
         "admin": admin,
+        "active_page": "plots",
     })
 
 
@@ -217,7 +305,7 @@ async def edit_plot(request: Request, plot_id: str):
 
     db = get_db()
     await db.plots.update_one({"_id": ObjectId(plot_id)}, {"$set": doc})
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/plots", status_code=302)
 
 
 @router.post("/admin/plots/{plot_id}/delete")
@@ -228,4 +316,4 @@ async def delete_plot(request: Request, plot_id: str):
 
     db = get_db()
     await db.plots.delete_one({"_id": ObjectId(plot_id)})
-    return RedirectResponse("/admin/", status_code=302)
+    return RedirectResponse("/admin/plots", status_code=302)

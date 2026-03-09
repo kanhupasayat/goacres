@@ -2,316 +2,49 @@
 {% block title %}Dashboard - GOACRES Admin{% endblock %}
 
 {% block content %}
-<div class="dashboard">
-    <div class="dash-header">
-        <h1>Dashboard</h1>
-        <a href="/admin/plots/add" class="btn btn-primary">+ Add New Plot</a>
+<div class="page-header">
+    <h1>Dashboard</h1>
+    <a href="/admin/plots/add" class="btn btn-primary">+ Add Plot</a>
+</div>
+
+<div class="stats-row">
+    <div class="stat-card">
+        <span class="stat-number">{{ total }}</span>
+        <span class="stat-label">Total Plots</span>
     </div>
-
-    <!-- Coming Soon Toggle -->
-    <div class="coming-soon-card">
-        <form method="POST" action="/admin/settings" class="cs-form">
-            <div class="cs-header">
-                <h3>🚀 Coming Soon Mode</h3>
-                <label class="toggle-switch">
-                    <input type="checkbox" name="coming_soon" {% if site_settings.coming_soon %}checked{% endif %} onchange="this.form.submit()">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            <div class="cs-fields">
-                <div class="cs-field">
-                    <label>Launch Date</label>
-                    <input type="date" name="launch_date" value="{{ site_settings.launch_date }}" class="cs-input">
-                </div>
-                <div class="cs-field">
-                    <label>Launch Message</label>
-                    <input type="text" name="launch_message" value="{{ site_settings.launch_message }}" class="cs-input" placeholder="200+ Premium Plots Launching Soon!">
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Save Settings</button>
-            </div>
-            <p class="cs-status">
-                {% if site_settings.coming_soon %}
-                <span class="badge badge-active">ON — Users see countdown page</span>
-                {% else %}
-                <span class="badge badge-inactive">OFF — Users see all plots</span>
-                {% endif %}
-            </p>
-        </form>
+    <div class="stat-card">
+        <span class="stat-number">{{ active }}</span>
+        <span class="stat-label">Active</span>
     </div>
-
-    <div class="stats-row">
-        <div class="stat-card">
-            <span class="stat-number">{{ total }}</span>
-            <span class="stat-label">Total Plots</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number">{{ active }}</span>
-            <span class="stat-label">Active</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number">{{ total - active }}</span>
-            <span class="stat-label">Inactive</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number">{{ push_count }}</span>
-            <span class="stat-label">Push Subscribers</span>
-        </div>
+    <div class="stat-card">
+        <span class="stat-number">{{ total - active }}</span>
+        <span class="stat-label">Inactive</span>
     </div>
-
-    <!-- Analytics Section -->
-    <div class="analytics-section">
-        <h2 class="section-heading">Analytics</h2>
-        <div class="stats-row">
-            <div class="stat-card">
-                <span class="stat-number stat-green">{{ wa_today }}</span>
-                <span class="stat-label">WhatsApp Today</span>
-                <span class="stat-total">Total: {{ wa_total }}</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number stat-blue">{{ call_today }}</span>
-                <span class="stat-label">Calls Today</span>
-                <span class="stat-total">Total: {{ call_total }}</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number stat-purple">{{ views_today }}</span>
-                <span class="stat-label">Plot Views Today</span>
-                <span class="stat-total">Total: {{ views_total }}</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">{{ push_count }}</span>
-                <span class="stat-label">Push Subscribers</span>
-            </div>
-        </div>
-
-        <div class="analytics-grid">
-            <!-- Popular Plots -->
-            <div class="analytics-card">
-                <h3>Most Viewed Plots</h3>
-                {% if popular_plots %}
-                <div class="popular-list">
-                    {% for p in popular_plots %}
-                    <div class="popular-item">
-                        <span class="popular-rank">#{{ loop.index }}</span>
-                        <span class="popular-name">{{ p._id }}</span>
-                        <span class="popular-views">{{ p.views }} views</span>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <p class="push-empty">No data yet</p>
-                {% endif %}
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="analytics-card">
-                <h3>Recent Activity</h3>
-                {% if recent_activity %}
-                <div class="activity-list">
-                    {% for a in recent_activity %}
-                    <div class="activity-item">
-                        <span class="activity-icon {% if a.type == 'whatsapp_click' %}icon-wa{% elif a.type == 'call_click' %}icon-call{% else %}icon-view{% endif %}">
-                            {% if a.type == 'whatsapp_click' %}WA{% elif a.type == 'call_click' %}Call{% else %}View{% endif %}
-                        </span>
-                        <div class="activity-info">
-                            <span class="activity-plot">{{ a.plot_title or 'General' }}</span>
-                            <span class="activity-meta">{{ a.device }} &bull; {{ a.page }} &bull; {{ a.timestamp.strftime('%d %b, %I:%M %p') }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <p class="push-empty">No activity yet</p>
-                {% endif %}
-            </div>
-        </div>
+    <div class="stat-card">
+        <span class="stat-number">{{ push_count }}</span>
+        <span class="stat-label">Subscribers</span>
     </div>
+</div>
 
-    <!-- Push Notification Section -->
-    <div class="push-section">
-        <div class="push-send-card">
-            <h3>Send Push Notification</h3>
-            <p class="push-info">Send to <strong>{{ push_count }}</strong> subscribers</p>
-            <form method="POST" action="/admin/push/send" class="push-form">
-                <div class="form-group">
-                    <label for="push_plot">Select Plot</label>
-                    <select id="push_plot" class="cs-input" onchange="fillPlotNotification(this)">
-                        <option value="">-- Custom Message --</option>
-                        {% for plot in plots %}
-                        {% if plot.is_active %}
-                        <option
-                            value="{{ plot.slug }}"
-                            data-title="{{ plot.title }}"
-                            data-location="{{ plot.location }}"
-                            data-type="{{ plot.type }}"
-                            data-photo="{{ plot.photos[0] if plot.photos and plot.photos|length > 0 else '' }}"
-                        >{{ plot.title }} — {{ plot.location }}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="push_title">Title</label>
-                    <input type="text" id="push_title" name="push_title" required placeholder="Naya Plot Aaya!">
-                </div>
-                <div class="form-group">
-                    <label for="push_message">Message</label>
-                    <input type="text" id="push_message" name="push_message" required placeholder="Premium Corner Plot Civil Township me — Check Now!">
-                </div>
-                <input type="hidden" id="push_url" name="push_url" value="https://goacres.in">
-                <input type="hidden" id="push_image" name="push_image" value="">
-                <div id="push_preview" class="push-preview" style="display:none;">
-                    <img id="push_preview_img" src="" alt="Plot photo">
-                    <div id="push_preview_link" class="push-preview-link"></div>
-                </div>
-                <button type="submit" class="btn btn-primary" {% if push_count == 0 %}disabled{% endif %}>
-                    Send to {{ push_count }} Subscribers
-                </button>
-            </form>
-        </div>
-
-        <script>
-        function fillPlotNotification(select) {
-            const opt = select.selectedOptions[0];
-            const titleEl = document.getElementById('push_title');
-            const msgEl = document.getElementById('push_message');
-            const urlEl = document.getElementById('push_url');
-            const imgEl = document.getElementById('push_image');
-            const preview = document.getElementById('push_preview');
-            const previewImg = document.getElementById('push_preview_img');
-            const previewLink = document.getElementById('push_preview_link');
-
-            if (!opt.value) {
-                titleEl.value = '';
-                msgEl.value = '';
-                urlEl.value = 'https://goacres.in';
-                imgEl.value = '';
-                preview.style.display = 'none';
-                return;
-            }
-
-            const title = opt.dataset.title;
-            const location = opt.dataset.location;
-            const type = opt.dataset.type;
-            const photo = opt.dataset.photo;
-            const slug = opt.value;
-
-            titleEl.value = 'Naya ' + type + ' Plot Aaya!';
-            msgEl.value = title + ' — ' + location + ' me available hai. Abhi dekho!';
-            urlEl.value = 'https://goacres.in/plot/' + slug;
-            imgEl.value = photo || '';
-
-            if (photo) {
-                previewImg.src = photo;
-                previewLink.textContent = 'goacres.in/plot/' + slug;
-                preview.style.display = 'flex';
-            } else {
-                preview.style.display = 'none';
-            }
-        }
-        </script>
-
-        <div class="push-history-card">
-            <div class="push-history-header">
-                <h3>Recent Notifications</h3>
-                {% if recent_notifications %}
-                <form method="POST" action="/admin/push/clear-logs" style="display:inline" onsubmit="return confirm('Delete all notification logs?')">
-                    <button type="submit" class="btn btn-sm btn-delete">Clear All</button>
-                </form>
-                {% endif %}
-            </div>
-            {% if recent_notifications %}
-            <div class="push-log-list">
-                {% for log in recent_notifications %}
-                <div class="push-log-item">
-                    <div class="push-log-title">{{ log.title }}</div>
-                    <div class="push-log-meta">
-                        {{ log.sent }} sent / {{ log.failed }} failed — {{ log.sent_at.strftime('%d %b, %I:%M %p') }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <p class="push-empty">No notifications sent yet</p>
-            {% endif %}
-
-            <div class="push-history-header" style="margin-top: 20px;">
-                <h3>Recent Subscribers</h3>
-                {% if recent_subs %}
-                <form method="POST" action="/admin/push/clear-subscribers" style="display:inline" onsubmit="return confirm('Delete all subscribers? They will need to re-subscribe.')">
-                    <button type="submit" class="btn btn-sm btn-delete">Clear All</button>
-                </form>
-                {% endif %}
-            </div>
-            {% if recent_subs %}
-            <div class="push-log-list">
-                {% for sub in recent_subs %}
-                <div class="push-log-item">
-                    <div class="push-log-title">{{ sub.device }} Device</div>
-                    <div class="push-log-meta">{{ sub.subscribed_at.strftime('%d %b %Y, %I:%M %p') }}</div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <p class="push-empty">No subscribers yet</p>
-            {% endif %}
-        </div>
+<div class="stats-row">
+    <div class="stat-card">
+        <span class="stat-number stat-green">{{ wa_today }}</span>
+        <span class="stat-label">WhatsApp Today</span>
+        <span class="stat-total">Total: {{ wa_total }}</span>
     </div>
-
-    <div class="plots-table-wrap">
-        <table class="plots-table">
-            <thead>
-                <tr>
-                    <th>Photo</th>
-                    <th>Title</th>
-                    <th>Location</th>
-                    <th>Type</th>
-                    <th>Price/Decimal</th>
-                    <th>Status</th>
-                    <th>Active</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for plot in plots %}
-                <tr>
-                    <td>
-                        {% if plot.photos and plot.photos|length > 0 %}
-                        <img src="{{ plot.photos[0] }}" alt="{{ plot.title }}" class="table-thumb">
-                        {% else %}
-                        <div class="table-thumb table-thumb-empty">No img</div>
-                        {% endif %}
-                    </td>
-                    <td><strong>{{ plot.title }}</strong></td>
-                    <td>{{ plot.location }}</td>
-                    <td><span class="type-badge type-{{ plot.type|lower|replace(' ', '') }}">{{ plot.type }}</span></td>
-                    <td>
-                        {% if plot.price_per_decimal %}
-                        &#8377;{{ (plot.price_per_decimal.min / 100000)|round(1) }}L - &#8377;{{ (plot.price_per_decimal.max / 100000)|round(1) }}L
-                        {% endif %}
-                    </td>
-                    <td>{{ plot.status }}</td>
-                    <td>
-                        {% if plot.is_active %}
-                        <span class="badge badge-active">Active</span>
-                        {% else %}
-                        <span class="badge badge-inactive">Inactive</span>
-                        {% endif %}
-                    </td>
-                    <td class="actions-cell">
-                        <a href="/admin/plots/{{ plot._id }}/edit" class="btn btn-sm btn-edit">Edit</a>
-                        <form method="POST" action="/admin/plots/{{ plot._id }}/delete" style="display:inline" onsubmit="return confirm('Delete this plot?')">
-                            <button type="submit" class="btn btn-sm btn-delete">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% if not plots %}
-                <tr>
-                    <td colspan="8" class="empty-state">No plots yet. <a href="/admin/plots/add">Add your first plot</a></td>
-                </tr>
-                {% endif %}
-            </tbody>
-        </table>
+    <div class="stat-card">
+        <span class="stat-number stat-blue">{{ call_today }}</span>
+        <span class="stat-label">Calls Today</span>
+        <span class="stat-total">Total: {{ call_total }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-number stat-purple">{{ views_today }}</span>
+        <span class="stat-label">Views Today</span>
+        <span class="stat-total">Total: {{ views_total }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-number">{{ push_count }}</span>
+        <span class="stat-label">Push Subs</span>
     </div>
 </div>
 {% endblock %}
