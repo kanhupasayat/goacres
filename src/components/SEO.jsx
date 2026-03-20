@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_URL = 'https://goacres.in';
-const DEFAULT_IMAGE = 'https://goacres.in/logo.png';
+const DEFAULT_IMAGE = 'https://goacres.in/og-banner.png';
 
 const SEO = ({ title, description, path = '/', image, type = 'website', jsonLd }) => {
   const fullTitle = title

@@ -107,9 +107,56 @@
     }
     </script>
 
-    <!-- Fonts Preconnect -->
+    <!-- Structured Data: FAQ (helps get rich results in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to buy plots in Rourkela?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Visit GOACRES to browse verified residential, commercial and farm house plots in Rourkela. Connect with our Real Estate Advisors on WhatsApp for site visits and documentation help."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the price of plots in Rourkela?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Plot prices in Rourkela range from ₹3 Lac to ₹50+ Lac depending on location and type. Popular areas include Civil Township, Koel Nagar, Chhend Colony, Sector 19, and Vedvyas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which are the best areas to buy land in Rourkela?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Top areas for buying land in Rourkela include Civil Township (premium residential), Koel Nagar (well-connected), Chhend Colony (affordable), Sector 19 (commercial hub), Vedvyas (farm house), and Lathikata (emerging area)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is GOACRES a trusted platform for buying plots?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, GOACRES is Rourkela's trusted land listing platform. We provide verified listings, connect you with experienced Real Estate Advisors, and offer complete support from site visit to documentation."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Fonts Preconnect + Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+
+    <!-- Preload hero video poster for fast LCP -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dx9tverbw/video/upload/so_0,w_1280,q_70,f_jpg/v1770928268/fyqxsvjhegjl7t20zfx9.jpg" />
 
     <!-- DNS Prefetch for faster image loading -->
     <link rel="dns-prefetch" href="https://images.unsplash.com" />

@@ -5,6 +5,8 @@ Allow: /
 # Sitemap
 Sitemap: https://goacres.in/sitemap.xml
 
-# Disallow admin routes
+# Disallow private routes
 Disallow: /admin
 Disallow: /admin/
+Disallow: /broker
+Disallow: /broker/

@@ -43,9 +43,10 @@ const Hero = () => {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster="https://res.cloudinary.com/dx9tverbw/video/upload/so_0,w_1280,q_70,f_jpg/v1770928268/fyqxsvjhegjl7t20zfx9.jpg"
       >
-        <source src="https://res.cloudinary.com/dx9tverbw/video/upload/v1770928268/fyqxsvjhegjl7t20zfx9.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dx9tverbw/video/upload/q_auto,f_auto/v1770928268/fyqxsvjhegjl7t20zfx9.mp4" type="video/mp4" />
       </video>
       <div className="hero-overlay"></div>
       <div className="container hero-content">
