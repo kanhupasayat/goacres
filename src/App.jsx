@@ -2,17 +2,14 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import { BrokerAuthProvider } from './contexts/BrokerAuthContext'
-
-// Below-fold: lazy loaded for faster initial paint
-const Features = lazy(() => import('./components/Features'))
-const PriceIndex = lazy(() => import('./components/PriceIndex'))
-const Listings = lazy(() => import('./components/Listings'))
-const EMICalculator = lazy(() => import('./components/EMICalculator'))
-const AreaGuide = lazy(() => import('./components/AreaGuide'))
-const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'))
-const Footer = lazy(() => import('./components/Footer'))
-const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
+import Features from './components/Features'
+import PriceIndex from './components/PriceIndex'
+import Listings from './components/Listings'
+import EMICalculator from './components/EMICalculator'
+import AreaGuide from './components/AreaGuide'
+import WhyChooseUs from './components/WhyChooseUs'
+import Footer from './components/Footer'
+import WhatsAppWidget from './components/WhatsAppWidget'
 
 // Route-level lazy loading
 const TermsAndConditions = lazy(() => import('./components/TermsAndConditions'))
@@ -32,19 +29,15 @@ const HomePage = () => {
       <Header />
       <main>
         <Hero />
-        <Suspense fallback={null}>
-          <Features />
-          <PriceIndex />
-          <Listings />
-          <EMICalculator />
-          <AreaGuide />
-          <WhyChooseUs />
-        </Suspense>
+        <Features />
+        <PriceIndex />
+        <Listings />
+        <EMICalculator />
+        <AreaGuide />
+        <WhyChooseUs />
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-        <WhatsAppWidget />
-      </Suspense>
+      <Footer />
+      <WhatsAppWidget />
     </>
   )
 }
@@ -52,21 +45,19 @@ const HomePage = () => {
 function App() {
   return (
     <Router>
-      <BrokerAuthProvider>
-        <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/plots" element={<AllPlots />} />
-            <Route path="/plot/:slug" element={<PlotDetail />} />
-            <Route path="/property/:id" element={<PropertyDetail />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/broker/login" element={<BrokerLogin />} />
-            <Route path="/broker/submit" element={<BrokerSubmit />} />
-            <Route path="/broker/submissions" element={<BrokerSubmissions />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-          </Routes>
-        </Suspense>
-      </BrokerAuthProvider>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/plots" element={<AllPlots />} />
+          <Route path="/plot/:slug" element={<PlotDetail />} />
+          <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/broker/login" element={<BrokerLogin />} />
+          <Route path="/broker/submit" element={<BrokerSubmit />} />
+          <Route path="/broker/submissions" element={<BrokerSubmissions />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        </Routes>
+      </Suspense>
     </Router>
   )
 }
