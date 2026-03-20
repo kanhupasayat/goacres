@@ -6,13 +6,18 @@
   NODE_VERSION = "22"
   VITE_API_URL = "https://goacres.onrender.com"
 
-
 # www to non-www redirect
 [[redirects]]
   from = "https://www.goacres.in/*"
   to = "https://goacres.in/:splat"
   status = 301
   force = true
+
+# SPA fallback — all routes serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Service Worker — must not be cached
 [[headers]]
@@ -22,25 +27,50 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Service-Worker-Allowed = "/"
 
-# Security & Cache Headers
+# Security & Performance Headers
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
+# Static assets — long cache (Vite hashed filenames)
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Images — medium cache
 [[headers]]
-  for = "/logo.png"
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+# Sitemap & robots — short cache so updates reflect fast
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    Content-Type = "application/xml"
+
+[[headers]]
+  for = "/robots.txt"
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
 
-# Prerendering for search engine bots
 [build.processing]
   skip_processing = false
 [build.processing.html]
