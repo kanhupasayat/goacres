@@ -69,20 +69,21 @@
 }
 
 .hero-h1-part1 {
-  color: #fff;
-  -webkit-text-fill-color: #fff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   display: block;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
 }
 
 .hero-h1-part2 {
-  color: #fff;
-  -webkit-text-fill-color: #fff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   display: block;
   height: 1.25em;
   overflow: hidden;
   white-space: nowrap;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+}
+
+.hero-shiny {
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
 /* Rotating Words Animation */

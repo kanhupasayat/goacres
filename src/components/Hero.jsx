@@ -3,6 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import { useTranslation } from '../hooks/useTranslation';
 import { trackEvent } from '../utils/analytics';
+import ShinyText from './ShinyText';
 import './Hero.css';
 
 const WHATSAPP_NUMBER = '919187428518';
@@ -53,9 +54,26 @@ const Hero = () => {
         <div className={`hero-text animate-fade-up ${heroLoaded ? 'is-visible' : ''}`}>
           <p className="hero-tag">{t('hero.tag')}</p>
           <h1>
-            <span className="hero-h1-part1">{t('hero.h1Part1')}</span>{' '}
+            <span className="hero-h1-part1">
+              <ShinyText
+                text={t('hero.h1Part1')}
+                speed={3}
+                color="rgba(255,255,255,0.85)"
+                shineColor="#ffffff"
+                spread={120}
+                className="hero-shiny"
+              />
+            </span>{' '}
             <span className={`hero-h1-part2 rotate-word rotate-${animState}`}>
-              {rotatingWords?.[wordIndex] || t('hero.h1Part2')}
+              <ShinyText
+                text={rotatingWords?.[wordIndex] || t('hero.h1Part2')}
+                speed={3}
+                delay={0.5}
+                color="rgba(212,175,55,0.8)"
+                shineColor="#FFD700"
+                spread={120}
+                className="hero-shiny"
+              />
             </span>
           </h1>
           <p className="hero-subtitle">{t('hero.subtitle')}</p>
