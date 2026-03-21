@@ -1,16 +1,31 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiHome, FiAward, FiShoppingBag, FiSun } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from '../hooks/useTranslation';
 import staticPlots from '../data/plots';
+import { getCachedPlots, awaitPlots, prefetchPlots } from '../utils/plotsCache';
 import './Listings.css';
 
 const WHATSAPP_NUMBER = '919187428518';
 
 const Listings = () => {
-  const plots = staticPlots;
+  const [plots, setPlots] = useState(() => getCachedPlots() || staticPlots);
+
+  useEffect(() => {
+    const cached = getCachedPlots();
+    if (cached && cached.length > 0) {
+      setPlots(cached);
+    } else {
+      prefetchPlots();
+      awaitPlots().then(apiPlots => {
+        if (apiPlots && apiPlots.length > 0) {
+          setPlots(apiPlots);
+        }
+      });
+    }
+  }, []);
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
   const { t } = useTranslation();
