@@ -14,21 +14,21 @@ const fallbackSold = [
     title: 'Residential Plot',
     location: 'Koel Nagar, Rourkela',
     sqft: 1600,
-    photos: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
+    photos: ['/plots/sold/1.webp']
   },
   {
     id: 2,
-    title: 'Commercial Plot',
-    location: 'Sector 19, Rourkela',
+    title: 'Farm House Land',
+    location: 'Vedvyas, Rourkela',
     sqft: 3200,
-    photos: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
+    photos: ['/plots/sold/2.jpg']
   },
   {
     id: 3,
-    title: 'Corner Plot - Premium',
-    location: 'Civil Township, Rourkela',
+    title: 'Premium Corner Plot',
+    location: 'Fertilizer, Rourkela',
     sqft: 2400,
-    photos: ['https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80']
+    photos: ['/plots/sold/3.jpg']
   }
 ];
 
