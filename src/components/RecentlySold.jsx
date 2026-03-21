@@ -14,14 +14,14 @@ const fallbackSold = [
     title: 'Residential Plot',
     location: 'Koel Nagar, Rourkela',
     sqft: 1600,
-    photos: ['/plots/sold/1.webp']
+    photos: ['/plots/sold/1.jpg']
   },
   {
     id: 2,
     title: 'Farm House Land',
     location: 'Vedvyas, Rourkela',
     sqft: 3200,
-    photos: ['/plots/sold/2.jpg']
+    photos: ['/plots/sold/2.webp']
   },
   {
     id: 3,
