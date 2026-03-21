@@ -75,7 +75,6 @@ const RecentlySold = () => {
                 <img src={property.photos?.[0] || property.image} alt={property.title} loading="lazy" decoding="async" />
                 <div className="sold-overlay"></div>
                 <div className="sold-stamp">{t('recentlySold.soldStamp')}</div>
-                <div className="sold-time">{soldTimes[index]}</div>
               </div>
               <div className="sold-card-content">
                 <h4>{property.title}</h4>
