@@ -318,11 +318,11 @@ const plots = [
     ],
 
     photos: [
-      '/plots/jhirpani/1.png',
-      '/plots/jhirpani/2.png',
-      '/plots/jhirpani/3.png',
-      '/plots/jhirpani/4.png',
-      '/plots/jhirpani/5.png',
+      'https://goacres.in/plots/jhirpani/1.png',
+      'https://goacres.in/plots/jhirpani/2.png',
+      'https://goacres.in/plots/jhirpani/3.png',
+      'https://goacres.in/plots/jhirpani/4.png',
+      'https://goacres.in/plots/jhirpani/5.png',
     ],
     video: null,
     advisorName: 'Vivek Modak (Shree Modak Developers)',
