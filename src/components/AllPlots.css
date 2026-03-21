@@ -403,6 +403,9 @@
 /* Card Content */
 .ap-card-content {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .ap-card-highlight {
@@ -413,23 +416,31 @@
   font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin-bottom: 8px;
   background: rgba(139, 0, 0, 0.06);
   padding: 4px 10px;
   border-radius: 6px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: flex-start;
 }
 
 .ap-card-highlight svg {
   width: 11px;
   height: 11px;
+  flex-shrink: 0;
 }
 
 .ap-card-title {
   font-size: 1.15rem;
   font-weight: 700;
   color: #1a1a2e;
-  margin-bottom: 8px;
   line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .ap-card-location {
@@ -438,7 +449,6 @@
   gap: 6px;
   color: #888;
   font-size: 0.85rem;
-  margin-bottom: 12px;
 }
 
 .ap-card-location svg {
@@ -448,12 +458,18 @@
   flex-shrink: 0;
 }
 
+.ap-card-location span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .ap-card-stats {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   padding: 10px 0;
   border-top: 1px solid #f0f0f0;
-  margin-bottom: 12px;
 }
 
 .ap-card-stats span {
@@ -462,18 +478,21 @@
   gap: 4px;
   color: #666;
   font-size: 0.8rem;
+  white-space: nowrap;
 }
 
 .ap-card-stats svg {
   width: 13px;
   height: 13px;
   color: var(--primary-red);
+  flex-shrink: 0;
 }
 
 .ap-card-price {
   display: flex;
   align-items: baseline;
   gap: 6px;
+  padding-top: 4px;
 }
 
 .ap-price-amount {
@@ -492,10 +511,17 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 0.78rem;
   color: #6c757d;
   font-weight: 500;
+  overflow: hidden;
+}
+
+.ap-card-advisor span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ap-advisor-dot {
@@ -756,6 +782,25 @@
 
   .ap-card-content {
     padding: 16px;
+    gap: 4px;
+  }
+
+  .ap-card-highlight {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+
+  .ap-card-stats {
+    gap: 6px 10px;
+    padding: 8px 0;
+  }
+
+  .ap-card-stats span {
+    font-size: 0.75rem;
+  }
+
+  .ap-price-amount {
+    font-size: 1rem;
   }
 
   .ap-card-footer {
