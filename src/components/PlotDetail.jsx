@@ -159,9 +159,13 @@ const PlotDetail = () => {
   const recommended = scored;
 
   const formatLakh = (amount) => {
+    if (!amount || amount === 0) return null;
     const lakh = amount / 100000;
     return lakh % 1 === 0 ? `₹${lakh}L` : `₹${lakh.toFixed(1)}L`;
   };
+
+  const hasPrice = plot.pricePerDecimal && (plot.pricePerDecimal.min > 0 || plot.pricePerDecimal.max > 0);
+  const hasSize = plot.sqft > 0 || plot.decimal > 0;
 
   const nearbyIcons = {
     hospital: <FiActivity />,
@@ -200,8 +204,8 @@ const PlotDetail = () => {
   };
 
   const detailItems = [
-    { icon: <FiMaximize2 />, label: t('plotDetail.size'), value: `${plot.sqft.toLocaleString()} Sq.Ft` },
-    { icon: <FiGrid />, label: t('plotDetail.decimal'), value: `${plot.decimal} Decimal` },
+    plot.sqft > 0 && { icon: <FiMaximize2 />, label: t('plotDetail.size'), value: `${plot.sqft.toLocaleString()} Sq.Ft` },
+    plot.decimal > 0 && { icon: <FiGrid />, label: t('plotDetail.decimal'), value: `${plot.decimal} Decimal` },
     { icon: <FiMap />, label: t('plotDetail.dimensions'), value: plot.dimensions },
     { icon: <FiTruck />, label: t('plotDetail.roadWidth'), value: `${plot.roadWidth} ${plot.roadType}` },
     { icon: <FiCompass />, label: t('plotDetail.facing'), value: `${plot.facing} Facing` },
@@ -216,7 +220,7 @@ const PlotDetail = () => {
     <div className="plot-detail-page">
       <SEO
         title={`${plot.title} - ${plot.location} | ${plot.type} Plot`}
-        description={`${plot.title} in ${plot.location}. ${plot.sqft.toLocaleString()} Sq.Ft, ${plot.decimal} Decimal, ${plot.facing} facing. Price: ${formatLakh(plot.pricePerDecimal.min)}-${formatLakh(plot.pricePerDecimal.max)}/Decimal. ${plot.highlight}. Contact GOACRES for details.`}
+        description={`${plot.title} in ${plot.location}. ${plot.sqft > 0 ? plot.sqft.toLocaleString() + ' Sq.Ft, ' : ''}${plot.decimal > 0 ? plot.decimal + ' Decimal, ' : ''}${plot.facing} facing. ${hasPrice ? 'Price: ' + formatLakh(plot.pricePerDecimal.min) + '-' + formatLakh(plot.pricePerDecimal.max) + '/Decimal. ' : ''}${plot.highlight}. Contact GOACRES for details.`}
         path={`/plot/${plot.slug}`}
         image={plot.photos[0]}
         jsonLd={{
@@ -338,20 +342,30 @@ const PlotDetail = () => {
 
             {/* Price per decimal */}
             <div className="pd-price-block">
-              <span className="pd-price-range">{formatLakh(plot.pricePerDecimal.min)} - {formatLakh(plot.pricePerDecimal.max)}</span>
-              <span className="pd-price-unit">/ Decimal</span>
+              {hasPrice ? (
+                <>
+                  <span className="pd-price-range">{formatLakh(plot.pricePerDecimal.min)} - {formatLakh(plot.pricePerDecimal.max)}</span>
+                  <span className="pd-price-unit">/ Decimal</span>
+                </>
+              ) : (
+                <span className="pd-price-range">Contact for Price</span>
+              )}
             </div>
 
             {/* Quick stats */}
             <div className="pd-quick-stats">
+              {plot.sqft > 0 && (
               <div className="pd-qstat">
                 <span className="pd-qstat-value">{plot.sqft.toLocaleString()}</span>
                 <span className="pd-qstat-label">Sq.Ft</span>
               </div>
+              )}
+              {plot.decimal > 0 && (
               <div className="pd-qstat">
                 <span className="pd-qstat-value">{plot.decimal}</span>
                 <span className="pd-qstat-label">Decimal</span>
               </div>
+              )}
               <div className="pd-qstat">
                 <span className="pd-qstat-value">{plot.facing}</span>
                 <span className="pd-qstat-label">Facing</span>
@@ -403,7 +417,7 @@ const PlotDetail = () => {
         <div className="pd-details-section">
           <h2 className="pd-section-title">{t('plotDetail.plotDetails')}</h2>
           <div className="pd-details-grid">
-            {detailItems.map((item, index) => (
+            {detailItems.filter(Boolean).map((item, index) => (
               <div className="pd-detail-item" key={index}>
                 <span className="pd-detail-icon">{item.icon}</span>
                 <div className="pd-detail-text">
@@ -506,11 +520,14 @@ const PlotDetail = () => {
                       <span>{rec.location}</span>
                     </div>
                     <div className="pd-rec-price">
-                      {formatLakh(rec.pricePerDecimal.min)} - {formatLakh(rec.pricePerDecimal.max)} <span>/ Decimal</span>
+                      {rec.pricePerDecimal && (rec.pricePerDecimal.min > 0 || rec.pricePerDecimal.max > 0)
+                        ? <>{formatLakh(rec.pricePerDecimal.min)} - {formatLakh(rec.pricePerDecimal.max)} <span>/ Decimal</span></>
+                        : <span>Contact for Price</span>
+                      }
                     </div>
                     <div className="pd-rec-stats">
-                      <span>{rec.sqft.toLocaleString()} Sq.Ft</span>
-                      <span>{rec.decimal} Decimal</span>
+                      {rec.sqft > 0 && <span>{rec.sqft.toLocaleString()} Sq.Ft</span>}
+                      {rec.decimal > 0 && <span>{rec.decimal} Decimal</span>}
                     </div>
                   </div>
                 </Link>

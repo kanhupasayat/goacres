@@ -156,6 +156,7 @@ const AllPlots = () => {
   ];
 
   const formatLakh = (amount) => {
+    if (!amount || amount === 0) return null;
     const lakh = amount / 100000;
     return lakh % 1 === 0 ? `₹${lakh}L` : `₹${lakh.toFixed(1)}L`;
   };
@@ -327,18 +328,24 @@ const AllPlots = () => {
                     </div>
 
                     <div className="ap-card-stats">
-                      <span><FiMaximize2 /> {property.sizeRange} Sq.Ft</span>
-                      <span>{property.decimal} Decimal</span>
+                      {property.sizeRange && <span><FiMaximize2 /> {property.sizeRange} Sq.Ft</span>}
+                      {property.decimal > 0 && <span>{property.decimal} Decimal</span>}
                       {property.distanceMainRoad && (
                         <span><FiNavigation /> {property.distanceMainRoad}</span>
                       )}
                     </div>
 
                     <div className="ap-card-price">
-                      <span className="ap-price-amount">
-                        {formatLakh(property.pricePerDecimal.min)} - {formatLakh(property.pricePerDecimal.max)}
-                      </span>
-                      <span className="ap-price-unit">{t('allPlots.perDecimal')}</span>
+                      {property.pricePerDecimal && (property.pricePerDecimal.min > 0 || property.pricePerDecimal.max > 0) ? (
+                        <>
+                          <span className="ap-price-amount">
+                            {formatLakh(property.pricePerDecimal.min)} - {formatLakh(property.pricePerDecimal.max)}
+                          </span>
+                          <span className="ap-price-unit">{t('allPlots.perDecimal')}</span>
+                        </>
+                      ) : (
+                        <span className="ap-price-amount">Contact for Price</span>
+                      )}
                     </div>
 
                     {property.advisorName && (
