@@ -332,8 +332,8 @@ const hi = {
   founder: {
     label: "MEET THE FOUNDER",
     name: "Kanhu Pasayat",
-    title: "Founder & CEO, GOACRES",
-    quote: "Mera sapna hai ki Rourkela ka har parivaar sahi aur vishwasniya Real Estate Advisor ke through apni zameen le sake — bina kisi darr ke. GOACRES isi kaam me aapki madad karta hai.",
+    title: "Founder & Real Estate Adviser, GOACRES",
+    quote: "Main Kanhu Pasayat. Mera sapna hai ki Rourkela ka har parivaar bina kisi darr ke, sahi adviser ke saath apni zameen le sake. Main khud aapko har plot dikhata hu, jagah le jaata hu, aur registry tak aapke saath rehta hu — kyunki ye sirf ek deal nahi, aapke parivaar ka bharosa hai.",
     stats: [
       { value: "99+", label: "Plots Listed" },
       { value: "6+", label: "Areas Covered" },

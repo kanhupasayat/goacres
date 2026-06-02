@@ -10,6 +10,7 @@ const FounderSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const { t, tArray } = useTranslation();
   const cardRef = useRef(null);
+  const [photoOk, setPhotoOk] = useState(true);
 
   const rotateX = useSpring(useMotionValue(0), springConfig);
   const rotateY = useSpring(useMotionValue(0), springConfig);
@@ -67,9 +68,19 @@ const FounderSection = () => {
               }}
             />
 
-            {/* Avatar Initial */}
+            {/* Real photo if /founder.jpg exists, else fall back to initial */}
             <div className="founder-avatar">
-              <span>{t('founder.name').charAt(0)}</span>
+              {photoOk ? (
+                <img
+                  className="founder-photo"
+                  src="/founder.jpg"
+                  alt={t('founder.name')}
+                  loading="lazy"
+                  onError={() => setPhotoOk(false)}
+                />
+              ) : (
+                <span>{t('founder.name').charAt(0)}</span>
+              )}
             </div>
 
             <span className="founder-label">{t('founder.label')}</span>

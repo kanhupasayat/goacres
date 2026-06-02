@@ -304,8 +304,8 @@ const en = {
   founder: {
     label: 'MEET THE FOUNDER',
     name: 'Kanhu Pasayat',
-    title: 'Founder & CEO, GOACRES',
-    quote: 'My vision is to help every family in Rourkela find the right land through trusted Real Estate Advisors — without fear, without confusion. GOACRES is here to make that connection.',
+    title: 'Founder & Real Estate Adviser, GOACRES',
+    quote: "I'm Kanhu Pasayat. My dream is that every family in Rourkela can buy their land with the right adviser by their side — without any fear. I personally show you every plot, take you to the site, and stay with you all the way to registration — because this isn't just a deal, it's your family's trust.",
     stats: [
       { value: '99+', label: 'Plots Listed' },
       { value: '6+', label: 'Areas Covered' },
