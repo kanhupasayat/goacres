@@ -9,24 +9,24 @@ const en = {
   },
 
   hero: {
-    tag: "Rourkela's #1 Property Platform",
+    tag: "Rourkela's Own Real Estate Adviser",
     h1Part1: "Don't Dream It,",
     h1Part2: "Buy It.",
     h1RotatingWords: ["Buy It.", "Own It.", "Live It.", "Build It."],
-    subtitle: "Rourkela's best residential, commercial & farm house plots in one place — connect directly with trusted Real Estate Advisors.",
+    subtitle: "Genuine residential, commercial & farm house plots in Rourkela — I personally show you each plot, arrange site visits, and stay with you all the way to registration. Talk to me directly.",
     cta: 'Chat on WhatsApp',
     callButton: 'Call Now',
-    trustLine: 'Genuine Listings \u2022 Trusted Real Estate Advisors \u2022 Instant WhatsApp Response \u2022 Rourkela, Odisha',
+    trustLine: 'Genuine Plots \u2022 Personally Verified \u2022 Personal Site Visits \u2022 Instant WhatsApp Reply \u2022 Rourkela, Odisha',
     whatsappMessage: 'Hi! I am interested in buying a plot in Rourkela. Please share available options.',
   },
 
   features: {
     sectionTitle: 'Why GOACRES?',
-    sectionSubtitle: 'Finding a plot in Rourkela is now easy — everything on one platform',
+    sectionSubtitle: 'Finding a plot in Rourkela is now easy — I personally help you through it all',
     cards: [
       {
         title: 'All Plots in One Place',
-        description: "Browse and compare plots from different areas of Rourkela on a single platform — choose the best from the comfort of your home.",
+        description: "Browse and compare plots from different areas of Rourkela in one place — choose the best from the comfort of your home.",
       },
       {
         title: 'Prime Rourkela Locations',
@@ -34,7 +34,7 @@ const en = {
       },
       {
         title: 'Connect with Trusted Real Estate Advisors',
-        description: "We connect you directly with Rourkela's trusted property owners and Real Estate Advisors — no middleman confusion.",
+        description: "I connect you directly with Rourkela's trusted landowners — no middleman confusion, no inflated prices.",
       },
       {
         title: 'Instant WhatsApp Response',
@@ -42,7 +42,7 @@ const en = {
       },
       {
         title: 'FREE for Buyers',
-        description: 'Searching for plots and making enquiries on our platform is completely free — no charges for buyers.',
+        description: 'Searching for plots and making enquiries is completely free — no charges for buyers.',
       },
       {
         title: 'No Pressure',
@@ -124,12 +124,12 @@ const en = {
           description: 'Browse plots on the website — check location, size, price, type and choose the one you like.',
         },
         {
-          title: 'Consult Us',
-          description: 'WhatsApp us about the plot — we\'ll ask your basic details, share the Real Estate Advisor\'s details with you, and forward your number to the Advisor.',
+          title: 'Consult Me',
+          description: 'WhatsApp me about the plot — I\'ll personally talk to you, answer all your questions, and plan a site visit together.',
         },
         {
           title: 'Visit the Site',
-          description: 'Visit the plot with the Real Estate Advisor — see the place with your own eyes, check the surroundings, and decide if it\'s right for you.',
+          description: 'Visit the plot with me — see the place with your own eyes, check the surroundings, and decide if it\'s right for you.',
         },
         {
           title: 'Verify & Buy',
@@ -139,15 +139,15 @@ const en = {
       cta: 'Start from Step 1 — WhatsApp Us',
     },
     whyChoose: {
-      title: 'Why GOACRES?',
-      subtitle: 'All plots in one place — direct connection with the right Real Estate Advisor',
-      missionStatement: "GOACRES is Rourkela's property listing platform. We display plots from multiple Real Estate Advisors in one place so you can easily compare — and when you find a plot you like, we connect you directly with the Real Estate Advisor.",
+      title: 'Why Work With Me?',
+      subtitle: 'Genuine plots, personal guidance — directly with me, no middlemen',
+      missionStatement: "I'm Kanhu Pasayat, a real estate adviser in Rourkela. I personally show you verified plots, take you for site visits, and stay with you all the way to registration — so you can buy your land with complete confidence.",
       benefits: [
-        'Plots from multiple Rourkela Real Estate Advisors in one place — easy comparison',
-        'Direct connection with trusted property owners and Real Estate Advisors',
+        'Genuine plots from prime Rourkela areas — I personally select and show them',
+        'Deal directly with me — no middlemen, no extra commission',
         'Instant response on WhatsApp — reply within 30 minutes',
-        'Platform is completely FREE — no charges for buyers',
-        'No pressure — browse and talk only when you like something',
+        'My service is completely FREE for buyers',
+        'No pressure — move ahead only when you like something',
       ],
       cta: 'View Available Plots — WhatsApp Us',
     },
@@ -175,26 +175,26 @@ const en = {
   },
 
   listProperty: {
-    badge: 'FOR PROPERTY OWNERS & REAL ESTATE ADVISORS',
-    heading: 'Want to List Your Property on GOACRES?',
-    subtitle: 'List your plot on Rourkela\'s fastest growing property platform — get genuine buyer leads directly on WhatsApp. Completely FREE.',
+    badge: 'FOR LANDOWNERS',
+    heading: 'Want to Sell Your Land?',
+    subtitle: 'Have a plot in Rourkela to sell? I connect you with genuine buyers and help you through the entire deal — simple and stress-free.',
     benefits: [
       {
-        title: 'Genuine Buyer Leads',
-        desc: 'Get direct enquiries from serious buyers looking for plots in Rourkela.',
+        title: 'Genuine Buyers',
+        desc: 'Serious buyers looking for plots in Rourkela come to me — I bring your land to them.',
       },
       {
         title: 'Wider Reach',
-        desc: 'Your property will be visible to thousands of monthly visitors on our platform.',
+        desc: 'Your land reaches thousands of people through my website and network.',
       },
       {
-        title: 'FREE Listing',
-        desc: 'No charges for listing your property. Zero cost, maximum exposure.',
+        title: 'No Advance Charge',
+        desc: 'No upfront fee to list your land — we talk terms only when a deal happens.',
       },
     ],
-    button: 'List Property — WhatsApp',
-    note: 'We will contact you within 30 minutes to collect property details.',
-    whatsappMessage: 'Hi! I am a property owner/Real Estate Advisor in Rourkela. I want to list my property on GOACRES. Please share the process.',
+    button: 'WhatsApp Me to Sell Your Land',
+    note: 'I will contact you within 30 minutes to collect your land details.',
+    whatsappMessage: 'Hi Kanhu! I want to sell my land in Rourkela. Please share the process.',
   },
 
   footer: {
@@ -204,8 +204,8 @@ const en = {
       callButton: 'Call Now',
       whatsappButton: 'WhatsApp',
     },
-    tagline: "Rourkela's Property Listing Platform",
-    description: 'Need a plot in Rourkela? Browse plots from multiple Real Estate Advisors in one place and connect directly with property owners.',
+    tagline: "Rourkela's Trusted Real Estate Adviser",
+    description: "Need a plot in Rourkela? I'm Kanhu Pasayat — I show you genuine plots, arrange site visits, and support you right up to registration. Just WhatsApp me.",
     quickLinks: {
       title: 'Quick Links',
       items: ['Home', 'Our Properties', 'Why GOACRES', 'Contact Us'],
@@ -217,7 +217,7 @@ const en = {
     contactUs: {
       title: 'Contact Us',
     },
-    disclaimer: 'Disclaimer: GOACRES is a marketing and listing platform only — we connect buyers with property owners and Real Estate Advisors. We are NOT the owner, seller, or developer of any listed property. We do NOT verify property documents, legal status, or prices. Buyers must independently verify all details through their own lawyer before making any purchase.',
+    disclaimer: 'Disclaimer: GOACRES (Kanhu Pasayat) is a real estate adviser/consultant who helps buyers find and purchase plots in Rourkela. I am NOT the owner or developer of the listed land. Before buying, buyers should independently verify the registry, title and all documents through their own lawyer. The final decision and transaction is between the buyer and the landowner.',
     showLess: 'Show less',
     readMore: 'Read more',
     termsLink: 'Terms',
@@ -353,7 +353,7 @@ const en = {
     threeToFiveL: '3L - 5L/decimal',
     aboveFiveL: 'Above 5L/decimal',
     disclaimerTitle: 'Verification is Necessary Before Buying!',
-    disclaimerText: 'GOACRES is a property listing platform only. We do NOT verify property documents, title, or legal status. Always get documents checked by your own lawyer before making any payment or purchase decision. Visit the plot in person and verify everything independently.',
+    disclaimerText: 'GOACRES (Kanhu Pasayat) is a real estate adviser. I do NOT issue or guarantee property documents, title, or legal status. Always get documents checked by your own lawyer before making any payment or purchase decision. Visit the plot in person and verify everything independently.',
   },
 
   plotDetail: {

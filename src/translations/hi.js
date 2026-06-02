@@ -9,16 +9,16 @@ const hi = {
   },
 
   hero: {
-    tag: "Rourkela's #1 Property Platform",
+    tag: "Rourkela Ka Apna Real Estate Adviser",
     h1Part1: "Sapne Dekho Nahi,",
     h1Part2: "Kharido.",
     h1RotatingWords: ["Kharido.", "Apna Banao.", "Jiyo.", "Banao."],
     subtitle:
-      "Rourkela ke best residential, commercial & farm house plots ek jagah — trusted Real Estate Advisors se seedha connect karo.",
+      "Rourkela ke genuine residential, commercial & farm house plots — main khud aapko dikhata hu, site visit karata hu aur registry tak poori process me saath rehta hu. Seedha mujhse baat karo.",
     cta: "WhatsApp Pe Baat Karo",
     callButton: "Call Now",
     trustLine:
-      "Genuine Listings • Trusted Real Estate Advisors • WhatsApp Pe Instant Response • Rourkela, Odisha",
+      "Genuine Plots • Khud Verified • Personal Site Visit • WhatsApp Pe Turant Jawab • Rourkela, Odisha",
     whatsappMessage:
       "Hi! I am interested in buying a plot in Rourkela. Please share available options.",
   },
@@ -26,12 +26,12 @@ const hi = {
   features: {
     sectionTitle: "GOACRES Kyun?",
     sectionSubtitle:
-      "Rourkela me plot dhundhna ab easy hai — sab kuch ek platform pe",
+      "Rourkela me plot dhundhna ab easy — main khud aapki poori madad karta hu",
     cards: [
       {
         title: "Sab Plots Ek Jagah",
         description:
-          "Rourkela ke alag alag areas ke plots ek platform pe — ghar baithe browse karo, compare karo, best choose karo.",
+          "Rourkela ke alag alag areas ke plots ek jagah — ghar baithe browse karo, compare karo, best choose karo.",
       },
       {
         title: "Prime Rourkela Locations",
@@ -51,7 +51,7 @@ const hi = {
       {
         title: "Buyers Ke Liye FREE",
         description:
-          "Hamare platform pe plot dhundhna aur enquiry karna bilkul free hai — buyers se koi charge nahi.",
+          "Plot dhundhna aur enquiry karna bilkul free hai — buyers se koi charge nahi.",
       },
       {
         title: "Koi Pressure Nahi",
@@ -142,14 +142,14 @@ const hi = {
             "Website pe available plots dekho — location, size, price, type sab check karo aur pasand ka plot choose karo.",
         },
         {
-          title: "Humse Baat Karo",
+          title: "Mujhse Baat Karo",
           description:
-            "Plot pasand aaya? WhatsApp karo — hum aapki basic details puchenge, aapko Real Estate Advisor ki details denge aur aapka number bhi Advisor ko forward karenge.",
+            "Plot pasand aaya? WhatsApp karo — main khud aapse baat karunga, aapke saare sawaalon ka jawab dunga aur site visit plan karenge.",
         },
         {
           title: "Site Dekho",
           description:
-            "Real Estate Advisor ke saath jaake plot dekho — jagah apni aankhon se dekho, aas-paas ka mahaul dekho, aur decide karo ki ye aapke liye sahi hai ya nahi.",
+            "Mere saath jaake plot dekho — jagah apni aankhon se dekho, aas-paas ka mahaul dekho, aur decide karo ki ye aapke liye sahi hai ya nahi.",
         },
         {
           title: "Jaanch Karo & Kharido",
@@ -160,16 +160,16 @@ const hi = {
       cta: "Step 1 Se Shuru Karo — WhatsApp Karo",
     },
     whyChoose: {
-      title: "GOACRES Kyun?",
-      subtitle: "Sab plots ek jagah — sahi Real Estate Advisor se seedha connection",
+      title: "Mere Saath Kyun?",
+      subtitle: "Genuine plots, personal guidance — seedha mujhse, bina kisi bichौliye ke",
       missionStatement:
-        "GOACRES Rourkela ka property listing platform hai. Hum multiple Real Estate Advisors ke plots ek jagah dikhate hain taaki aap easily compare kar sako — aur jo plot pasand aaye, hum aapko seedha Real Estate Advisor se connect kara dete hain.",
+        "Main Kanhu Pasayat, Rourkela ka real estate adviser. Main khud aapko verified plots dikhata hu, jagah le jaake site visit karata hu, aur registry tak poori process me aapke saath rehta hu — taaki aap bina kisi darr ke apni zameen le sako.",
       benefits: [
-        "Rourkela ke multiple Real Estate Advisors ke plots ek jagah — easy comparison",
-        "Trusted property owners aur Real Estate Advisors se direct connection",
-        "WhatsApp pe instant response — 30 minute me jawab",
-        "Platform bilkul FREE hai — buyers se koi charge nahi",
-        "Koi pressure nahi — browse karo, pasand aaye toh baat karo",
+        "Rourkela ke prime areas ke genuine plots — main khud chunke dikhata hu",
+        "Seedha mujhse baat — koi bichौliya, koi extra commission nahi",
+        "WhatsApp pe turant jawab — 30 minute ke andar",
+        "Buyers ke liye meri service bilkul FREE",
+        "Koi pressure nahi — pasand aaye tabhi aage badho",
       ],
       cta: "Available Plots Dekho — WhatsApp Karo",
     },
@@ -198,26 +198,26 @@ const hi = {
   },
 
   listProperty: {
-    badge: 'PROPERTY OWNERS & REAL ESTATE ADVISORS KE LIYE',
-    heading: 'Apni Property GOACRES Pe List Karna Hai?',
-    subtitle: 'Rourkela ke sabse tezi se badhte property platform pe apna plot list karo — genuine buyer leads seedha WhatsApp pe milenge. Bilkul FREE.',
+    badge: 'ZAMEEN MAALIKO KE LIYE',
+    heading: 'Apni Zameen Bechni Hai?',
+    subtitle: 'Aapke paas Rourkela me plot hai bechne ke liye? Main genuine buyers se milata hu aur poori deal me aapki madad karta hu — bilkul aasaan.',
     benefits: [
       {
-        title: 'Genuine Buyer Leads',
-        desc: 'Rourkela me plot dhundhne wale serious buyers se direct enquiry milegi.',
+        title: 'Genuine Buyers',
+        desc: 'Mere paas Rourkela me plot dhundhne wale serious buyers aate hain — aapki zameen un tak pahunchaunga.',
       },
       {
         title: 'Zyada Logo Tak Pahunch',
-        desc: 'Aapki property hamare platform pe hazaron monthly visitors ko dikhegi.',
+        desc: 'Aapki zameen meri website aur network pe hazaron logo tak pahunchegi.',
       },
       {
-        title: 'FREE Listing',
-        desc: 'Property list karne ka koi charge nahi. Zero cost, maximum exposure.',
+        title: 'Koi Advance Charge Nahi',
+        desc: 'Zameen list karne ka koi advance paisa nahi — deal hone par hi baat.',
       },
     ],
-    button: 'Property List Karo — WhatsApp',
-    note: 'Hum 30 minute me aapko contact karenge property details lene ke liye.',
-    whatsappMessage: 'Hi! Main Rourkela me property owner/Real Estate Advisor hoon. Mujhe apni property GOACRES pe list karni hai. Process batao please.',
+    button: 'Zameen Bechne Ke Liye WhatsApp Karo',
+    note: 'Main 30 minute me aapko contact karunga zameen ki details lene ke liye.',
+    whatsappMessage: 'Hi Kanhu! Main Rourkela me apni zameen bechna chahta hu. Process batao please.',
   },
 
   footer: {
@@ -227,9 +227,9 @@ const hi = {
       callButton: "Call Now",
       whatsappButton: "WhatsApp",
     },
-    tagline: "Rourkela's Property Listing Platform",
+    tagline: "Rourkela Ka Bharosemand Real Estate Adviser",
     description:
-      "Rourkela me plot chahiye? Multiple Real Estate Advisors ke plots ek jagah browse karo aur seedha property owner se connect ho jao.",
+      "Rourkela me plot chahiye? Main Kanhu Pasayat — genuine plots dikhata hu, site visit karata hu aur registry tak saath deta hu. Seedha WhatsApp karo.",
     quickLinks: {
       title: "Quick Links",
       items: ["Home", "Our Properties", "Why GOACRES", "Contact Us"],
@@ -242,7 +242,7 @@ const hi = {
       title: "Contact Us",
     },
     disclaimer:
-      "Disclaimer: GOACRES sirf ek marketing aur listing platform hai — hum buyers ko property owners aur Real Estate Advisors se connect karte hain. Hum kisi bhi listed property ke owner, seller, ya developer NAHI hain. Hum property documents, legal status, ya prices verify NAHI karte. Buyers ko khareedne se pehle apne vakeel se sab details independently verify karni chahiye.",
+      "Disclaimer: GOACRES (Kanhu Pasayat) ek real estate adviser/consultant hai jo buyers ko Rourkela me plot dhundhne aur khareedne me madad karta hai. Main listed zameen ka maalik ya developer NAHI hu. Khareedne se pehle buyer ko registry, title aur saare documents apne vakeel se khud verify karne chahiye. Final decision aur transaction buyer aur zameen maalik ke beech hai.",
     showLess: "Show less",
     readMore: "Read more",
     termsLink: "Terms",
@@ -381,7 +381,7 @@ const hi = {
     threeToFiveL: '3L - 5L/decimal',
     aboveFiveL: '5L se upar/decimal',
     disclaimerTitle: 'Kharidne Se Pehle Jaanch Zaroori Hai!',
-    disclaimerText: 'GOACRES sirf ek property listing platform hai. Hum property ke documents, title, ya legal status verify NAHI karte. Koi bhi payment ya purchase se pehle apne vakeel se documents zaroor check karwayein. Plot ko khud jaake dekhein aur sab kuch independently verify karein.',
+    disclaimerText: 'GOACRES (Kanhu Pasayat) ek real estate adviser hai. Main property ke documents, title, ya legal status ki guarantee NAHI deta. Koi bhi payment ya purchase se pehle apne vakeel se documents zaroor check karwayein. Plot ko khud jaake dekhein aur sab kuch independently verify karein.',
   },
 
   plotDetail: {

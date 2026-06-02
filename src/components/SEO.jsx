@@ -10,7 +10,7 @@ const SEO = ({ title, description, path = '/', image, type = 'website', jsonLd }
   const fullUrl = `${SITE_URL}${path}`;
   const ogImage = image || DEFAULT_IMAGE;
 
-  const defaultDescription = 'GOACRES - Rourkela ka sabse trusted land listing platform. Residential, commercial aur farm house plots. Real Estate Advisor se connect karo.';
+  const defaultDescription = 'GOACRES - Main Kanhu Pasayat, Rourkela ka bharosemand Real Estate Adviser. Genuine residential, commercial aur farm house plots. Seedha WhatsApp karo.';
   const desc = description || defaultDescription;
 
   return (

@@ -13,7 +13,7 @@ const TermsContent = () => (
 
     <h3>1. About GOACRES</h3>
     <p>
-      GOACRES ("we", "us", "our", "platform") is an <strong>online property listing and referral platform</strong> based in Rourkela, Odisha, India. We act solely as an intermediary that connects potential property buyers with third-party property owners, brokers, and dealers. <strong>GOACRES is NOT the owner, seller, developer, or promoter of any property listed on this website.</strong>
+      GOACRES ("we", "us", "our") is a <strong>real estate advisory and consultancy service</strong> run by <strong>Kanhu Pasayat</strong>, based in Rourkela, Odisha, India. We help property buyers find, evaluate, and purchase plots by sourcing listings, arranging site visits, and guiding them through the buying process. <strong>GOACRES (Kanhu Pasayat) is NOT the owner, developer, or promoter of the land listed on this website — the land is owned by the respective landowners, and we act as an adviser and facilitator between the buyer and the landowner.</strong>
     </p>
 
     <h3>2. Nature of Services</h3>
@@ -21,17 +21,17 @@ const TermsContent = () => (
       GOACRES provides the following services:
     </p>
     <ul>
-      <li>Listing properties on behalf of third-party property owners and brokers on our website</li>
-      <li>Connecting interested buyers with property owners/brokers via WhatsApp or phone</li>
-      <li>Forwarding buyer inquiries (leads) to the relevant property owners/brokers</li>
+      <li>Sourcing and presenting plots available for sale in and around Rourkela</li>
+      <li>Personally guiding buyers and arranging site visits</li>
+      <li>Facilitating communication between the buyer and the landowner via WhatsApp or phone</li>
     </ul>
     <p>
-      <strong>GOACRES does NOT provide legal services, property valuation, title verification, documentation assistance, site visit services, or any form of legal certification.</strong> All property-related services including site visits, documentation, title verification, and registration are handled directly by the respective property owners/brokers. GOACRES merely connects buyers with these third parties.
+      <strong>GOACRES does NOT provide legal services, property valuation, title verification, or any form of legal certification.</strong> Documentation, title verification, and registration must be completed by the buyer with their own lawyer. We assist and guide, but the final legal due diligence remains the buyer's responsibility.
     </p>
 
     <h3>3. No Guarantee or Warranty</h3>
     <p>
-      All property information displayed on this platform — including but not limited to location, size, price, availability, images, descriptions, and legal status — is provided by third-party property owners and brokers. <strong>GOACRES does NOT independently verify, validate, or guarantee the accuracy, completeness, or authenticity of any property information.</strong>
+      All property information displayed on this website — including but not limited to location, size, price, availability, images, descriptions, and legal status — is based on details provided by the respective landowners. <strong>While we make genuine efforts to share accurate information, GOACRES does NOT independently guarantee the accuracy, completeness, or authenticity of every detail, and buyers must verify everything before purchase.</strong>
     </p>
     <p>
       We make <strong>NO warranty or guarantee</strong> regarding:
@@ -42,29 +42,29 @@ const TermsContent = () => (
       <li>The accuracy of prices or availability of any listing</li>
       <li>The condition, quality, or suitability of any property</li>
       <li>The authenticity or validity of any property documents</li>
-      <li>The identity, credibility, or reliability of property owners/brokers</li>
+      <li>The identity, credibility, or reliability of any landowner</li>
       <li>The completion or outcome of any property transaction</li>
     </ul>
 
     <h3>4. Buyer's Responsibility</h3>
     <p>
-      Any person using this platform to find or purchase property is <strong>solely responsible</strong> for:
+      Any person using this website or our services to find or purchase property is <strong>solely responsible</strong> for:
     </p>
     <ul>
       <li>Independently verifying all property information, documents, title, and legal status</li>
       <li>Engaging a qualified and independent legal professional (advocate/lawyer) before making any purchase decision</li>
       <li>Conducting physical verification and due diligence of the property</li>
-      <li>Verifying the identity and authority of the seller/owner</li>
+      <li>Verifying the identity and authority of the landowner/seller</li>
       <li>Understanding and complying with all applicable laws including RERA, Transfer of Property Act, Registration Act, and local land laws</li>
-      <li>All financial decisions and transactions made with property owners/brokers</li>
+      <li>All financial decisions and transactions made with the landowner</li>
     </ul>
     <p>
-      <strong>GOACRES strongly advises all buyers to engage their own legal counsel before entering into any property transaction. Do NOT rely solely on information provided on this website or by our team.</strong>
+      <strong>GOACRES strongly advises all buyers to engage their own legal counsel before entering into any property transaction. Do NOT rely solely on information provided on this website or by us.</strong>
     </p>
 
     <h3>5. No Party to Transactions</h3>
     <p>
-      GOACRES is <strong>NOT a party to any transaction</strong> between buyers and property owners/brokers. Any agreement, payment, or transaction is solely between the buyer and the property owner/broker. GOACRES shall not be responsible for any disputes, losses, damages, fraud, or claims arising from such transactions.
+      GOACRES (Kanhu Pasayat) acts as an adviser and facilitator and is <strong>NOT a party to the final transaction</strong> between the buyer and the landowner. Any agreement, payment, or transaction is solely between the buyer and the landowner. GOACRES shall not be responsible for any disputes, losses, damages, fraud, or claims arising from such transactions.
     </p>
 
     <h3>6. Limitation of Liability</h3>
@@ -73,9 +73,9 @@ const TermsContent = () => (
     </p>
     <ul>
       <li>Any loss, damage, or claim arising from the use of this website or reliance on any information provided herein</li>
-      <li>Any fraud, misrepresentation, or default by property owners, brokers, or any third party</li>
+      <li>Any fraud, misrepresentation, or default by any landowner or third party</li>
       <li>Any defect in title, legal dispute, encumbrance, or litigation related to any property</li>
-      <li>Any financial loss arising from property transactions facilitated through this platform</li>
+      <li>Any financial loss arising from property transactions facilitated through this service</li>
       <li>Any indirect, consequential, or incidental damages of any kind</li>
     </ul>
 
@@ -86,12 +86,12 @@ const TermsContent = () => (
 
     <h3>8. Prices and Availability</h3>
     <p>
-      All prices, sizes, and availability information are <strong>subject to change without prior notice</strong> and are determined by the respective property owners/brokers. GOACRES does not control or guarantee any pricing. The final terms of any transaction are solely between the buyer and the seller.
+      All prices, sizes, and availability information are <strong>subject to change without prior notice</strong> and are determined by the respective landowners. GOACRES does not control or guarantee any pricing. The final terms of any transaction are solely between the buyer and the landowner.
     </p>
 
     <h3>9. RERA Compliance</h3>
     <p>
-      GOACRES is a property listing/referral platform and not a real estate agent or developer as defined under the Real Estate (Regulation and Development) Act, 2016 (RERA). Buyers are advised to verify the RERA registration status of any project or agent independently. GOACRES does not guarantee RERA compliance of any listed property.
+      GOACRES (Kanhu Pasayat) acts as a real estate adviser and is not the developer of any listed project under the Real Estate (Regulation and Development) Act, 2016 (RERA). Buyers are advised to independently verify the RERA registration status of any project, agent, or landowner. GOACRES does not guarantee RERA compliance of any listed land.
     </p>
 
     <h3>10. Intellectual Property</h3>
@@ -136,7 +136,7 @@ const PrivacyContent = () => (
     <h3>2. How We Use Your Information</h3>
     <p>We use the collected information to:</p>
     <ul>
-      <li>Connect you with relevant property owners and brokers</li>
+      <li>Connect you with relevant landowners</li>
       <li>Share property options matching your requirements</li>
       <li>Arrange site visits</li>
       <li>Send follow-up messages regarding your property inquiry</li>
@@ -145,7 +145,7 @@ const PrivacyContent = () => (
 
     <h3>3. Sharing of Information</h3>
     <p>
-      We may share your contact information and property preferences with <strong>third-party property owners and brokers</strong> for the purpose of connecting you with relevant property listings. By using this platform and contacting us, you consent to such sharing.
+      We may share your contact information and property preferences with the <strong>respective landowners</strong> for the purpose of connecting you with relevant property listings. By using this website and contacting us, you consent to such sharing.
     </p>
     <p>
       We do NOT sell your personal information to any third party for marketing purposes unrelated to property services.

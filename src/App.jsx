@@ -155,7 +155,7 @@ const HomePage = () => {
   <>
     <SEO
       path="/"
-      description="GOACRES - Rourkela ka sabse trusted land listing platform. Premium residential, commercial aur farm house plots browse karo. Real Estate Advisor se connect karo. WhatsApp karo abhi!"
+      description="GOACRES - Main Kanhu Pasayat, Rourkela ka bharosemand Real Estate Adviser. Genuine residential, commercial aur farm house plots — khud dikhata hu, site visit karata hu, registry tak saath. WhatsApp karo abhi!"
     />
     <main>
       <Hero />
