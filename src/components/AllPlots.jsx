@@ -5,6 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from '../hooks/useTranslation';
 import SEO from './SEO';
 import ComingSoon from './ComingSoon';
+import Tilt from './effects/Tilt';
 import { awaitPlots, getCachedPlots, prefetchPlots } from '../utils/plotsCache';
 import { trackEvent } from '../utils/analytics';
 import './AllPlots.css';
@@ -299,7 +300,8 @@ const AllPlots = () => {
         {!loading && plots.length > 0 && (
           <div className="ap-grid">
             {plots.map((property) => (
-              <div className="ap-card" key={property.id || property.slug}>
+              <Tilt className="ap-card-tilt" key={property.id || property.slug} max={5}>
+                <div className="ap-card">
                 <Link to={`/plot/${property.slug}`} className="ap-card-link">
                   <div className="ap-card-image">
                     <img src={property.photos[0]} alt={property.title} loading="lazy" />
@@ -379,7 +381,8 @@ const AllPlots = () => {
                     <FaWhatsapp />
                   </a>
                 </div>
-              </div>
+                </div>
+              </Tilt>
             ))}
           </div>
         )}

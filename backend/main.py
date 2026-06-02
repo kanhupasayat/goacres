@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from config import settings
 from database import connect_db, close_db, get_db
-from routes import auth_router, plots_router, admin_router, upload_router, settings_router, push_router, analytics_router, broker_router
+from routes import auth_router, plots_router, admin_router, upload_router, settings_router, push_router, analytics_router
 
 
 async def ensure_admin():
@@ -61,7 +61,6 @@ app.include_router(upload_router)
 app.include_router(settings_router)
 app.include_router(push_router)
 app.include_router(analytics_router)
-app.include_router(broker_router)
 
 
 @app.get("/")

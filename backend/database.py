@@ -34,9 +34,6 @@ async def connect_db():
     await db.push_subscribers.create_index("is_active")
     await db.analytics.create_index("type")
     await db.analytics.create_index("timestamp")
-    await db.brokers.create_index("phone", unique=True)
-    await db.pending_plots.create_index("status")
-    await db.pending_plots.create_index("broker_phone")
 
 
 async def close_db():

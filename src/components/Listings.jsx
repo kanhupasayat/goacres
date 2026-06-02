@@ -6,6 +6,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from '../hooks/useTranslation';
 import staticPlots from '../data/plots';
 import { getCachedPlots, awaitPlots, prefetchPlots } from '../utils/plotsCache';
+import Tilt from './effects/Tilt';
 import './Listings.css';
 
 const WHATSAPP_NUMBER = '919187428518';
@@ -71,27 +72,28 @@ const Listings = () => {
         {/* Category Cards */}
         <div ref={gridRef} className="category-grid">
           {categories.map((cat, index) => (
-            <Link
-              to={`/plots?type=${encodeURIComponent(cat.id)}`}
-              className={`category-card ${gridVisible ? 'is-visible' : ''}`}
-              key={cat.id}
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              <div className="category-card-image">
-                <img src={cat.image} alt={t(cat.titleKey)} loading="lazy" />
-                <div className="category-card-overlay"></div>
-                <span className="category-card-icon">{cat.icon}</span>
-              </div>
-
-              <div className="category-card-content">
-                <h3 className="category-card-title">{t(cat.titleKey)}</h3>
-                <p className="category-card-desc">{t(cat.descKey)}</p>
-                <div className="category-card-footer">
-                  <span className="category-card-count">{cat.count} {t('listings.plotsAvailable')}</span>
-                  <span className="category-card-cta">{t('listings.exploreCta')}</span>
+            <Tilt className="category-card-tilt" key={cat.id}>
+              <Link
+                to={`/plots?type=${encodeURIComponent(cat.id)}`}
+                className={`category-card ${gridVisible ? 'is-visible' : ''}`}
+                style={{ animationDelay: `${index * 0.15}s` }}
+              >
+                <div className="category-card-image">
+                  <img src={cat.image} alt={t(cat.titleKey)} loading="lazy" />
+                  <div className="category-card-overlay"></div>
+                  <span className="category-card-icon">{cat.icon}</span>
                 </div>
-              </div>
-            </Link>
+
+                <div className="category-card-content">
+                  <h3 className="category-card-title">{t(cat.titleKey)}</h3>
+                  <p className="category-card-desc">{t(cat.descKey)}</p>
+                  <div className="category-card-footer">
+                    <span className="category-card-count">{cat.count} {t('listings.plotsAvailable')}</span>
+                    <span className="category-card-cta">{t('listings.exploreCta')}</span>
+                  </div>
+                </div>
+              </Link>
+            </Tilt>
           ))}
         </div>
 

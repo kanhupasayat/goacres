@@ -193,6 +193,23 @@ async function subscribe(reg) {
     });
     const data = await resp.json();
     console.log('PUSH: Done!', data.message || data);
+
+    // Instant confirmation so the user knows it actually worked — only the
+    // first time (not on every auto-subscribe / page reload).
+    // Also serves as an end-to-end test of the service worker + display.
+    if (!localStorage.getItem('push_welcomed')) {
+      try {
+        await reg.showNotification('GOACRES 🔔', {
+          body: 'Notifications on ho gaye! Naye plots aate hi aapko sabse pehle update milega.',
+          icon: 'https://goacres.in/notification-icon.png',
+          badge: 'https://goacres.in/notification-badge.png',
+          tag: 'goacres-welcome',
+        });
+        localStorage.setItem('push_welcomed', '1');
+      } catch (notifErr) {
+        console.log('PUSH: Welcome notification failed:', notifErr.message || notifErr);
+      }
+    }
   } catch (e) {
     console.log('PUSH: Subscribe error:', e.message || e);
   }

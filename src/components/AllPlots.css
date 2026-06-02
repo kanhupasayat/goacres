@@ -314,6 +314,15 @@
   margin-bottom: 40px;
 }
 
+/* Tilt wrapper (premium 3D hover) — fills the grid cell */
+.ap-card-tilt {
+  display: flex;
+}
+
+.ap-card-tilt > .ap-card {
+  width: 100%;
+}
+
 /* Card */
 .ap-card {
   background: #fff;

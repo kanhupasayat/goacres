@@ -1,12 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import { useTranslation } from '../hooks/useTranslation';
 import { trackEvent } from '../utils/analytics';
 import ShinyText from './ShinyText';
+import Magnetic from './effects/Magnetic';
 import './Hero.css';
 
 const WHATSAPP_NUMBER = '919187428518';
+
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const Hero = () => {
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -15,6 +22,16 @@ const Hero = () => {
   const { t, tArray } = useTranslation();
 
   const rotatingWords = tArray('hero.h1RotatingWords');
+
+  // ─── Scroll parallax: video gently zooms, content drifts + fades ───
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
     const timer = setTimeout(() => setHeroLoaded(true), 200);
@@ -36,9 +53,9 @@ const Hero = () => {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('hero.whatsappMessage'))}`;
 
   return (
-    <section className="hero" id="home">
+    <section className="hero" id="home" ref={heroRef}>
       {/* Background Video */}
-      <video
+      <motion.video
         className="hero-video"
         autoPlay
         muted
@@ -46,11 +63,15 @@ const Hero = () => {
         playsInline
         preload="metadata"
         poster="https://res.cloudinary.com/dx9tverbw/video/upload/so_0,w_1280,q_70,f_jpg/v1770928268/fyqxsvjhegjl7t20zfx9.jpg"
+        style={prefersReducedMotion ? undefined : { scale: videoScale }}
       >
         <source src="https://res.cloudinary.com/dx9tverbw/video/upload/q_auto,f_auto/v1770928268/fyqxsvjhegjl7t20zfx9.mp4" type="video/mp4" />
-      </video>
+      </motion.video>
       <div className="hero-overlay"></div>
-      <div className="container hero-content">
+      <motion.div
+        className="container hero-content"
+        style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+      >
         <div className={`hero-text animate-fade-up ${heroLoaded ? 'is-visible' : ''}`}>
           <p className="hero-tag">{t('hero.tag')}</p>
           <h1>
@@ -80,30 +101,34 @@ const Hero = () => {
         </div>
 
         <div className={`hero-cta-group animate-fade-up stagger-2 ${heroLoaded ? 'is-visible' : ''}`}>
-          <a
-            href={whatsappUrl}
-            className="btn btn-whatsapp-hero"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent('whatsapp_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
-          >
-            <FaWhatsapp />
-            <span>{t('hero.cta')}</span>
-          </a>
-          <a
-            href="tel:+919187428518"
-            className="btn btn-call-hero"
-            onClick={() => trackEvent('call_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
-          >
-            <FiPhone />
-            <span>{t('hero.callButton')}</span>
-          </a>
+          <Magnetic>
+            <a
+              href={whatsappUrl}
+              className="btn btn-whatsapp-hero"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
+            >
+              <FaWhatsapp />
+              <span>{t('hero.cta')}</span>
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="tel:+919187428518"
+              className="btn btn-call-hero"
+              onClick={() => trackEvent('call_click', { plotTitle: 'General Enquiry', page: 'Hero' })}
+            >
+              <FiPhone />
+              <span>{t('hero.callButton')}</span>
+            </a>
+          </Magnetic>
         </div>
 
         <p className={`hero-trust-line animate-fade-up stagger-3 ${heroLoaded ? 'is-visible' : ''}`}>
           {t('hero.trustLine')}
         </p>
-      </div>
+      </motion.div>
 
       <div className="scroll-indicator scroll-indicator-animated">
         <div className="mouse">

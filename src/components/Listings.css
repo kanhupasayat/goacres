@@ -121,6 +121,15 @@
   gap: 28px;
 }
 
+/* ─── Tilt wrapper (premium 3D hover) — fills the grid cell ─── */
+.category-card-tilt {
+  display: flex;
+}
+
+.category-card-tilt > .category-card {
+  width: 100%;
+}
+
 /* ─── Category Card ─── */
 .category-card {
   position: relative;
