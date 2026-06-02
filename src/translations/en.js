@@ -33,12 +33,12 @@ const en = {
         description: 'Civil Township, Koel Nagar, Sector 19, Chhend Colony — plots available in the most high-demand areas.',
       },
       {
-        title: 'Connect with Trusted Real Estate Advisors',
+        title: 'Talk Directly with Me',
         description: "I connect you directly with Rourkela's trusted landowners — no middleman confusion, no inflated prices.",
       },
       {
         title: 'Instant WhatsApp Response',
-        description: 'Liked a plot? Send a WhatsApp message — get details, price and Real Estate Advisor contact within 30 minutes.',
+        description: 'Liked a plot? Send a WhatsApp message — get details, price and a direct reply from me within 30 minutes.',
       },
       {
         title: 'FREE for Buyers',
@@ -82,9 +82,9 @@ const en = {
   siteVisit: {
     badge: '100% FREE',
     heading: "Want to See a Plot? Let's Talk!",
-    subtitle: 'Photos and reality can be very different. WhatsApp us — we will arrange a site visit with the Real Estate Advisor, completely free.',
+    subtitle: 'Photos and reality can be very different. WhatsApp me — I\'ll personally arrange a site visit with you, completely free.',
     benefits: [
-      'Meet the Real Estate Advisor directly and see the plot in person',
+      'Meet me directly and see the plot in person',
       'No pressure after visiting — take your time',
     ],
     button: 'Want to See a Plot — WhatsApp Us',
@@ -271,34 +271,34 @@ const en = {
       ],
     },
     verifiedCard: {
-      title: 'With an Experienced Real Estate Advisor',
+      title: 'With Me (GOACRES)',
       badge: 'RECOMMENDED',
       items: [
         {
           title: 'Help with Paper Verification',
-          description: 'An experienced Real Estate Advisor helps check chain history, Trace Map, and ROR — so you can make an informed decision',
+          description: 'I help you check chain history, Trace Map, and ROR — so you can make an informed decision',
         },
         {
           title: 'Understanding of Market Rates',
-          description: 'A local Real Estate Advisor knows current area rates and can help you get a good deal',
+          description: 'I know the current area rates and help you get a fair deal at the right price',
         },
         {
           title: 'Process Guidance',
-          description: 'From registration to documentation, an experienced Real Estate Advisor can guide you through the entire process',
+          description: 'From registration to documentation, I guide you through the entire process',
         },
         {
           title: 'Better Property Options',
-          description: 'A good Real Estate Advisor tries to show clean title and verified plots',
+          description: 'I try to show you plots with clean, verified titles',
         },
         {
           title: 'Multiple Options',
-          description: 'Shows multiple plots based on your budget — making comparison easy',
+          description: 'I show multiple plots based on your budget — making comparison easy',
         },
       ],
     },
-    mission: "GOACRES connects you with experienced Real Estate Advisors in Rourkela — so you can find the right plot at the right price. Always get your own verification done as well.",
-    cta: 'Talk to a Good Real Estate Advisor — WhatsApp Us',
-    whatsappMessage: 'Hi! I need a plot in Rourkela. I want to talk to a good Real Estate Advisor.',
+    mission: "I'm Kanhu Pasayat — I help you find the right plot at the right price in Rourkela. Even so, always get your own verification done through your lawyer.",
+    cta: 'Talk to Me — WhatsApp Us',
+    whatsappMessage: 'Hi Kanhu! I need a plot in Rourkela. I want to talk to you.',
   },
 
   founder: {

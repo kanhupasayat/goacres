@@ -39,14 +39,14 @@ const hi = {
           "Civil Township, Koel Nagar, Sector 19, Chhend Colony — sabse high-demand areas me plots available.",
       },
       {
-        title: "Trusted Real Estate Advisors Se Connect",
+        title: "Seedha Mujhse Baat",
         description:
-          "Hum aapko Rourkela ke trusted property owners aur Real Estate Advisors se seedha connect karte hain — beech me koi confusion nahi.",
+          "Main khud aapko Rourkela ke verified plots dikhata hu — beech me koi bichौliya, koi confusion nahi.",
       },
       {
         title: "WhatsApp Pe Instant Response",
         description:
-          "Plot pasand aaya? WhatsApp karo — 30 minute me details, price aur Real Estate Advisor se baat ho jayegi.",
+          "Plot pasand aaya? WhatsApp karo — 30 minute me details, price aur mujhse seedhi baat ho jayegi.",
       },
       {
         title: "Buyers Ke Liye FREE",
@@ -96,9 +96,9 @@ const hi = {
     badge: "100% FREE",
     heading: "Plot Dekhna Hai? Baat Karo!",
     subtitle:
-      "Photo me aur asli me bahut fark hota hai. WhatsApp karo — hum Real Estate Advisor se site visit arrange karwa denge, bilkul free.",
+      "Photo me aur asli me bahut fark hota hai. WhatsApp karo — main khud aapke saath site visit arrange karunga, bilkul free.",
     benefits: [
-      "Real Estate Advisor se direct milke plot dekh sakte ho",
+      "Mere saath direct milke plot dekh sakte ho",
       "Dekhne ke baad koi pressure nahi — apna time lo",
     ],
     button: "Plot Dekhna Hai — WhatsApp Karo",
@@ -299,34 +299,34 @@ const hi = {
       ],
     },
     verifiedCard: {
-      title: "Experienced Real Estate Advisor Ke Saath",
+      title: "Mere Saath (GOACRES)",
       badge: "RECOMMENDED",
       items: [
         {
           title: "Paper Verification me Madad",
-          description: "Experienced Real Estate Advisor chain history, Trace Map, aur ROR dekhne me madad karta hai — aap informed decision le sakte ho",
+          description: "Main chain history, Trace Map, aur ROR dekhne me madad karta hu — taaki aap informed decision le sako",
         },
         {
           title: "Market Rate ki Samajh",
-          description: "Local Real Estate Advisor ko area ke current rates pata hote hain, accha deal dilwane me madad kar sakta hai",
+          description: "Mujhe area ke current rates pata hote hain — sahi rate me deal dilwane me madad karta hu",
         },
         {
           title: "Process me Guidance",
-          description: "Registry se documentation tak, experienced Real Estate Advisor poore process me guide kar sakta hai",
+          description: "Registry se documentation tak, main poore process me aapko guide karta hu",
         },
         {
           title: "Better Property Options",
-          description: "Accha Real Estate Advisor clean title wale plots dikhane ki koshish karta hai",
+          description: "Main clean title wale plots dikhane ki koshish karta hu",
         },
         {
           title: "Multiple Options",
-          description: "Budget ke hisaab se kayi plots dikhata hai — comparison easy ho jata hai",
+          description: "Budget ke hisaab se kayi plots dikhata hu — comparison easy ho jata hai",
         },
       ],
     },
-    mission: "GOACRES aapko Rourkela ke experienced Real Estate Advisors se connect karta hai — taaki aap sahi plot, sahi rate me le sako. Final verification hamesha apni taraf se bhi karwa lein.",
-    cta: "Acche Real Estate Advisor Se Baat Karo — WhatsApp Karo",
-    whatsappMessage: "Hi! Mujhe Rourkela me plot chahiye. Acche Real Estate Advisor se baat karni hai.",
+    mission: "Main Kanhu Pasayat — Rourkela me aapko sahi plot, sahi rate me dilane me madad karta hu. Phir bhi, final verification hamesha apni taraf se apne vakeel se zaroor karwa lein.",
+    cta: "Mujhse Baat Karo — WhatsApp Karo",
+    whatsappMessage: "Hi Kanhu! Mujhe Rourkela me plot chahiye. Aapse baat karni hai.",
   },
 
   founder: {
