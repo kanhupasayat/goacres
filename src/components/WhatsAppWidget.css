@@ -134,7 +134,7 @@
 .popup-avatar {
   width: 42px;
   height: 42px;
-  background: linear-gradient(145deg, #2EE077 0%, #25D366 100%);
+  background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -143,6 +143,15 @@
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.popup-avatar-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
+  border-radius: 50%;
 }
 
 .popup-info {

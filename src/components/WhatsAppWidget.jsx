@@ -65,7 +65,7 @@ const WhatsAppWidget = () => {
           {/* Header */}
           <div className="popup-header">
             <div className="popup-avatar">
-              <FaWhatsapp />
+              <img className="popup-avatar-logo" src="/logo.png" alt="GOACRES" />
             </div>
             <div className="popup-info">
               <span className="popup-name">{t('whatsappWidget.popupName')}</span>
